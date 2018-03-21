@@ -220,6 +220,6 @@
 	        </plugin>
 	        -->
 		</plugins>
-		<finalName>mrbird</finalName>
+		<finalName>febs</finalName>
 	</build>
 </project>
