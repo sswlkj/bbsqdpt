@@ -76,7 +76,7 @@
 
 - 依赖管理：Maven
 
-- 数据库：Oracle 11g
+- 数据库：MySQL 5.7
 
 - 版本管理：SVN，git
 
