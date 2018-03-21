@@ -15,6 +15,7 @@ function updateUser() {
             var $form = $('#user-add');
             $form.modal();
             var user = r.msg;
+            $form.find(".user_password").hide();
             $("#user-add-modal-title").html('修改用户');
             $form.find("input[name='username']").val(user.username).attr("readonly",true);
             $form.find("input[name='oldusername']").val(user.username);

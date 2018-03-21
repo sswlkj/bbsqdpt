@@ -56,6 +56,7 @@
 	    $MB.resetJsTree("deptTree");
 	    $MB.closeAndRestModal("user-add");
 	    $userAddForm.find("input[name='username']").removeAttr("readonly");
+	    $userAddForm.find(".user_password").show();
 	}
 
 	function validateRule() {
