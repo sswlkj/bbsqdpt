@@ -7,7 +7,7 @@
 	    validateRule();
 	    initRole();
 	    createDeptTree();
-
+	    
 	    $("input[name='status']").change(function() {
 	        var checked = $(this).is(":checked");
 	        var $status_label = $("#status");
@@ -55,6 +55,7 @@
 	    $rolesSelect.multipleSelect("refresh");
 	    $MB.resetJsTree("deptTree");
 	    $MB.closeAndRestModal("user-add");
+	    $userAddForm.find("input[name='username']").removeAttr("readonly");
 	}
 
 	function validateRule() {
