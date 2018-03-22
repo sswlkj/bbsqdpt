@@ -121,6 +121,11 @@
 
 GitHub 地址： https://github.com/wuyouzhuguli/FEBS
 
-下载后以maven项目导入，建议打包成war包部署。账号mrbird，密码123456，访问地址[localhost](localhost)。
+</style>
+下载后以maven项目导入。
+
+开发时直接使用Spring Boot的入口类启动即可，访问地址[localhost](localhost)。部署时建议打包成war包，访问地址[localhost:(端口号)/febs](localhost:(端口号)/febs)。账号mrbird，密码123456。
+
+本软件使用 [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0) 协议，请严格遵照协议内容。
 
 本软件使用 [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0) 协议，请严格遵照协议内容
