@@ -16,6 +16,7 @@ import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.stereotype.Component;
 
 import cc.mrbird.common.annotation.Log;
+import cc.mrbird.common.util.AddressUtils;
 import cc.mrbird.common.util.HttpContextUtils;
 import cc.mrbird.common.util.IPUtils;
 import cc.mrbird.system.domain.SysLog;
@@ -74,6 +75,7 @@ public class LogAspect {
 		log.setUsername(user.getUsername());
 		log.setTime(time);
 		log.setCreateTime(new Date());
+		log.setLocation(AddressUtils.getRealAddressByIP(log.getIp()));
 		this.logService.save(log);
 	}
 }

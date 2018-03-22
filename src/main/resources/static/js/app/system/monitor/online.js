@@ -1,7 +1,7 @@
 $(function() {
     var settings = {
         url: ctx + "session/list",
-        pageSize: 10,
+        pageSize: 100,
         columns: [{
             field: 'username',
             title: '用户名'
@@ -20,6 +20,9 @@ $(function() {
         }, {
             field: 'host',
             title: 'IP地址'
+        }, {
+            field: 'location',
+            title: '登录地点'
         }, {
             field: 'status',
             title: '状态',

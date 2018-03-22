@@ -594,3 +594,5 @@ INSERT INTO `t_user_role` VALUES ('91', '24');
 INSERT INTO `t_user_role` VALUES ('41', '1');
 INSERT INTO `t_user_role` VALUES ('6', '2');
 INSERT INTO `t_user_role` VALUES ('92', '25');
+
+ALTER TABLE t_log ADD location VARCHAR (50);

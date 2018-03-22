@@ -48,6 +48,10 @@ public class SysLog implements Serializable {
 	@ExportConfig(value = "操作时间", convert = "c:cc.mrbird.common.util.poi.convert.TimeConvert")
 	private Date createTime;
 
+	@Column(name = "LOCATION")
+	@ExportConfig(value = "地点")
+	private String location;
+
 	/**
 	 * @return ID
 	 */
@@ -159,4 +163,13 @@ public class SysLog implements Serializable {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
 }

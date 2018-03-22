@@ -11,6 +11,7 @@ import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cc.mrbird.common.util.AddressUtils;
 import cc.mrbird.system.domain.User;
 import cc.mrbird.system.domain.UserOnline;
 import cc.mrbird.system.service.SessionService;
@@ -48,6 +49,8 @@ public class SessionServiceImpl implements SessionService {
 			} else {
 				userOnline.setStatus("1");
 			}
+			String address = AddressUtils.getRealAddressByIP(userOnline.getHost());
+			userOnline.setLocation(address);
 			userOnline.setTimeout(timeout);
 			list.add(userOnline);
 		}

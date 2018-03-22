@@ -32,6 +32,9 @@ $(function() {
                 field: 'ip',
                 title: 'IP地址'
             }, {
+                field: 'location',
+                title: '操作地点'
+            }, {
                 field: 'createTime',
                 title: '操作时间',
                 formatter: function(value, row, index) {

@@ -25,7 +25,17 @@ public class UserOnline implements Serializable{
     private Date lastAccessTime;
     // 超时时间
     private Long timeout;
+    // 所在地
+    private String location;
 
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
 
 	public String getId() {
 		return id;
