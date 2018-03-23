@@ -99,7 +99,7 @@
 	                    "disabled": true
 	                },
 	                "checkbox": {
-	                    "three_state": true
+	                    "three_state": false
 	                },
 	                "plugins": ["wholerow", "checkbox"]
 	            });
