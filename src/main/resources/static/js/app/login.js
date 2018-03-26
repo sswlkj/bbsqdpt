@@ -68,6 +68,7 @@ function login() {
             if (r.code == 0) {
                 location.href = ctx + 'index';
             } else {
+            	if (r.msg == '验证码错误！') reloadCode();
                 $MB.n_warning(r.msg);
             }
         }
