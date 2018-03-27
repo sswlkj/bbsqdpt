@@ -144,13 +144,13 @@ public class UserController extends BaseController {
 	@RequiresPermissions("user:update")
 	@RequestMapping("user/update")
 	@ResponseBody
-	public ResponseBo updateUser(User user, Long[] roles) {
+	public ResponseBo updateUser(User user, Long[] rolesSelect) {
 		try {
 			if ("on".equalsIgnoreCase(user.getStatus()))
 				user.setStatus("1");
 			else
 				user.setStatus("0");
-			this.userService.updateUser(user, roles);
+			this.userService.updateUser(user, rolesSelect);
 			return ResponseBo.ok("修改用户成功！");
 		} catch (Exception e) {
 			e.printStackTrace();
