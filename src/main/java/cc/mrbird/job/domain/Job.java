@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 import cc.mrbird.common.annotation.ExportConfig;
 
-@Table(name = "T_JOB")
+@Table(name = "t_job")
 public class Job implements Serializable {
 
 	private static final long serialVersionUID = 400066840871805700L;
