@@ -3,6 +3,7 @@ package cc.mrbird.system.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,6 @@ import cc.mrbird.common.domain.QueryRequest;
 import cc.mrbird.common.domain.ResponseBo;
 import cc.mrbird.common.util.FileUtils;
 import cc.mrbird.common.util.MD5Utils;
-import cc.mrbird.common.util.StringUtils;
 import cc.mrbird.system.domain.User;
 import cc.mrbird.system.service.UserService;
 
@@ -39,7 +39,7 @@ public class UserController extends BaseController {
 	@RequestMapping("user/checkUserName")
 	@ResponseBody
 	public boolean checkUserName(String username, String oldusername) {
-		if (StringUtils.hasValue(oldusername) && username.equalsIgnoreCase(oldusername)) {
+		if (StringUtils.isNotBlank(oldusername) && username.equalsIgnoreCase(oldusername)) {
 			return true;
 		}
 		User result = this.userService.findByName(username);

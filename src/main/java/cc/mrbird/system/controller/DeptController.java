@@ -2,6 +2,7 @@ package cc.mrbird.system.controller;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,6 @@ import cc.mrbird.common.annotation.Log;
 import cc.mrbird.common.domain.ResponseBo;
 import cc.mrbird.common.domain.Tree;
 import cc.mrbird.common.util.FileUtils;
-import cc.mrbird.common.util.StringUtils;
 import cc.mrbird.system.domain.Dept;
 import cc.mrbird.system.service.DeptService;
 
@@ -89,7 +89,7 @@ public class DeptController {
 	@RequestMapping("dept/checkDeptName")
 	@ResponseBody
 	public boolean checkDeptName(String deptName, String oldDeptName) {
-		if (StringUtils.hasValue(oldDeptName) && deptName.equalsIgnoreCase(oldDeptName)) {
+		if (StringUtils.isNotBlank(oldDeptName) && deptName.equalsIgnoreCase(oldDeptName)) {
 			return true;
 		}
 		Dept result = this.deptService.findByName(deptName);

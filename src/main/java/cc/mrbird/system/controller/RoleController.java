@@ -3,6 +3,7 @@ package cc.mrbird.system.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,6 @@ import cc.mrbird.common.controller.BaseController;
 import cc.mrbird.common.domain.QueryRequest;
 import cc.mrbird.common.domain.ResponseBo;
 import cc.mrbird.common.util.FileUtils;
-import cc.mrbird.common.util.StringUtils;
 import cc.mrbird.system.domain.Role;
 import cc.mrbird.system.service.RoleService;
 
@@ -80,7 +80,7 @@ public class RoleController extends BaseController {
 	@RequestMapping("role/checkRoleName")
 	@ResponseBody
 	public boolean checkRoleName(String roleName, String oldRoleName) {
-		if (StringUtils.hasValue(oldRoleName) && roleName.equalsIgnoreCase(oldRoleName)) {
+		if (StringUtils.isNotBlank(oldRoleName) && roleName.equalsIgnoreCase(oldRoleName)) {
 			return true;
 		}
 		Role result = this.roleService.findByName(roleName);

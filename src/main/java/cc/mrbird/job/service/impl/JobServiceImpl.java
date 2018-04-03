@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.lang.StringUtils;
 import org.quartz.CronTrigger;
 import org.quartz.Scheduler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import cc.mrbird.common.service.impl.BaseService;
-import cc.mrbird.common.util.StringUtils;
 import cc.mrbird.job.dao.JobMapper;
 import cc.mrbird.job.domain.Job;
 import cc.mrbird.job.service.JobService;
@@ -58,13 +58,13 @@ public class JobServiceImpl extends BaseService<Job> implements JobService {
 	public List<Job> findAllJobs(Job job) {
 		Example example = new Example(Job.class);
 		Criteria criteria = example.createCriteria();
-		if (StringUtils.hasValue(job.getBeanName())) {
+		if (StringUtils.isNotBlank(job.getBeanName())) {
 			criteria.andCondition("bean_name=", job.getBeanName());
 		}
-		if (StringUtils.hasValue(job.getMethodName())) {
+		if (StringUtils.isNotBlank(job.getMethodName())) {
 			criteria.andCondition("method_name=", job.getMethodName());
 		}
-		if (StringUtils.hasValue(job.getStatus())) {
+		if (StringUtils.isNotBlank(job.getStatus())) {
 			criteria.andCondition("status=", Long.valueOf(job.getStatus()));
 		}
 		example.setOrderByClause("job_id");

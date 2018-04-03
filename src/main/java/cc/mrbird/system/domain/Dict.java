@@ -22,7 +22,7 @@ public class Dict implements Serializable{
 
 	@Column(name = "KEYY")
 	@ExportConfig(value = "字典Key")
-	private Long keyy;
+	private String keyy;
 
 	@Column(name = "VALUEE")
 	@ExportConfig(value = "字典Value")
@@ -50,11 +50,11 @@ public class Dict implements Serializable{
 		this.dictId = dictId;
 	}
 
-	public Long getKeyy() {
+	public String getKeyy() {
 		return keyy;
 	}
 
-	public void setKeyy(Long keyy) {
+	public void setKeyy(String keyy) {
 		this.keyy = keyy;
 	}
 

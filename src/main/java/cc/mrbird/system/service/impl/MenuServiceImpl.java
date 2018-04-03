@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -12,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cc.mrbird.common.domain.Tree;
 import cc.mrbird.common.service.impl.BaseService;
-import cc.mrbird.common.util.StringUtils;
 import cc.mrbird.common.util.TreeUtils;
 import cc.mrbird.system.dao.MenuMapper;
 import cc.mrbird.system.domain.Menu;
@@ -45,10 +45,10 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 	public List<Menu> findAllMenus(Menu menu) {
 		Example example = new Example(Menu.class);
 		Criteria criteria = example.createCriteria();
-		if (StringUtils.hasValue(menu.getMenuName())) {
+		if (StringUtils.isNotBlank(menu.getMenuName())) {
 			criteria.andCondition("menu_name=", menu.getMenuName());
 		}
-		if (StringUtils.hasValue(menu.getType())) {
+		if (StringUtils.isNotBlank(menu.getType())) {
 			criteria.andCondition("type=", Long.valueOf(menu.getType()));
 		}
 		example.setOrderByClause("menu_id");

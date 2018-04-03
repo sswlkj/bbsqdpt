@@ -7,16 +7,10 @@ $(function() {
             title: '用户名'
         }, {
             field: 'startTimestamp',
-            title: '登录时间',
-            formatter: function(value, row, index) {
-                return $MB.dateFormat(value, "yyyy-MM-dd hh:mm:ss");
-            }
+            title: '登录时间'
         }, {
             field: 'lastAccessTime',
-            title: '最后访问时间',
-            formatter: function(value, row, index) {
-                return $MB.dateFormat(value, "yyyy-MM-dd hh:mm:ss");
-            }
+            title: '最后访问时间'
         }, {
             field: 'host',
             title: 'IP地址'

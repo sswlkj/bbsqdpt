@@ -8,9 +8,11 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import net.sf.json.JSONObject;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class AddressUtils {
+
 	public static String getAddresses(String content, String encodingString) throws UnsupportedEncodingException {
 		String urlStr = "http://ip.taobao.com/service/getIpInfo.php";
 		String returnStr = getResult(urlStr, content, encodingString);
@@ -125,13 +127,14 @@ public class AddressUtils {
 		return outBuffer.toString();
 	}
 
-	public static String getRealAddressByIP(String ip) {
+	public static String getRealAddressByIP(String ip, ObjectMapper mapper) {
 		String address = "";
 		try {
 			address = getAddresses("ip=" + ip, "utf-8");
-			JSONObject json = JSONObject.fromObject(address);
-			String region = JSONObject.fromObject(json.get("data")).get("region").toString();
-			String city = JSONObject.fromObject(json.get("data")).get("city").toString();
+			JsonNode node = mapper.readTree(address);
+			JsonNode data = node.get("data");
+			String region = data.get("region").asText();
+			String city = data.get("city").asText();
 			address = region + "" + city;
 		} catch (Exception e) {
 

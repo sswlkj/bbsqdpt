@@ -3,12 +3,12 @@ package cc.mrbird.job.service.impl;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import cc.mrbird.common.service.impl.BaseService;
-import cc.mrbird.common.util.StringUtils;
 import cc.mrbird.job.domain.JobLog;
 import cc.mrbird.job.service.JobLogService;
 import tk.mybatis.mapper.entity.Example;
@@ -22,13 +22,13 @@ public class JobLogServiceImpl extends BaseService<JobLog> implements JobLogServ
 	public List<JobLog> findAllJobLogs(JobLog jobLog) {
 		Example example = new Example(JobLog.class);
 		Criteria criteria = example.createCriteria();
-		if (StringUtils.hasValue(jobLog.getBeanName())) {
+		if (StringUtils.isNotBlank(jobLog.getBeanName())) {
 			criteria.andCondition("bean_name=", jobLog.getBeanName());
 		}
-		if (StringUtils.hasValue(jobLog.getMethodName())) {
+		if (StringUtils.isNotBlank(jobLog.getMethodName())) {
 			criteria.andCondition("method_name=", jobLog.getMethodName());
 		}
-		if (StringUtils.hasValue(jobLog.getStatus())) {
+		if (StringUtils.isNotBlank(jobLog.getStatus())) {
 			criteria.andCondition("status=", Long.valueOf(jobLog.getStatus()));
 		}
 		example.setOrderByClause("log_id");

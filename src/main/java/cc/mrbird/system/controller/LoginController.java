@@ -3,6 +3,7 @@ package cc.mrbird.system.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cc.mrbird.common.controller.BaseController;
 import cc.mrbird.common.domain.ResponseBo;
 import cc.mrbird.common.util.MD5Utils;
-import cc.mrbird.common.util.StringUtils;
 import cc.mrbird.common.util.vcode.Captcha;
 import cc.mrbird.common.util.vcode.GifCaptcha;
 import cc.mrbird.system.domain.User;
@@ -40,7 +40,7 @@ public class LoginController extends BaseController {
 	@PostMapping("/login")
 	@ResponseBody
 	public ResponseBo login(String username, String password, String code, Boolean rememberMe) {
-		if (!StringUtils.hasValue(code)) {
+		if (!StringUtils.isNotBlank(code)) {
 			return ResponseBo.warn("验证码不能为空！");
 		}
 		Session session = super.getSession();

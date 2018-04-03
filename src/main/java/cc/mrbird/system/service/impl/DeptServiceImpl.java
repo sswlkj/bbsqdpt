@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -12,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cc.mrbird.common.domain.Tree;
 import cc.mrbird.common.service.impl.BaseService;
-import cc.mrbird.common.util.StringUtils;
 import cc.mrbird.common.util.TreeUtils;
 import cc.mrbird.system.dao.DeptMapper;
 import cc.mrbird.system.domain.Dept;
@@ -44,7 +44,7 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
 	@Override
 	public List<Dept> findAllDepts(Dept dept) {
 		Example example = new Example(Dept.class);
-		if (StringUtils.hasValue(dept.getDeptName())) {
+		if (StringUtils.isNotBlank(dept.getDeptName())) {
 			example.createCriteria().andCondition("dept_name=", dept.getDeptName());
 		}
 		example.setOrderByClause("dept_id");

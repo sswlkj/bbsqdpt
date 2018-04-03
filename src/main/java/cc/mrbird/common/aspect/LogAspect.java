@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import cc.mrbird.common.annotation.Log;
 import cc.mrbird.common.util.AddressUtils;
 import cc.mrbird.common.util.HttpContextUtils;
@@ -29,6 +31,9 @@ public class LogAspect {
 
 	@Autowired
 	private LogService logService;
+
+	@Autowired
+	ObjectMapper mapper;
 
 	@Pointcut("@annotation(cc.mrbird.common.annotation.Log)")
 	public void pointcut() {
@@ -75,7 +80,7 @@ public class LogAspect {
 		log.setUsername(user.getUsername());
 		log.setTime(time);
 		log.setCreateTime(new Date());
-		log.setLocation(AddressUtils.getRealAddressByIP(log.getIp()));
+		log.setLocation(AddressUtils.getRealAddressByIP(log.getIp(), mapper));
 		this.logService.save(log);
 	}
 }

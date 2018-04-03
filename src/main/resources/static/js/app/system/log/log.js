@@ -36,10 +36,7 @@ $(function() {
                 title: '操作地点'
             }, {
                 field: 'createTime',
-                title: '操作时间',
-                formatter: function(value, row, index) {
-                    return $MB.dateFormat(value, "yyyy-MM-dd hh:mm:ss");
-                }
+                title: '操作时间'
             }
         ]
     }

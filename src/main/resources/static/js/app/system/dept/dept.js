@@ -27,10 +27,7 @@ function initTreeTable() {
             },
             {
                 title: '创建时间',
-                field: 'createTime',
-                formatter: function(item, index) {
-                    return $MB.dateFormat(item.createTime, "yyyy-MM-dd hh:mm:ss");
-                }
+                field: 'createTime'
             }
         ]
     }

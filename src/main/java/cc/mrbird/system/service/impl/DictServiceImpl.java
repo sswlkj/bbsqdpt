@@ -3,13 +3,13 @@ package cc.mrbird.system.service.impl;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import cc.mrbird.common.service.impl.BaseService;
-import cc.mrbird.common.util.StringUtils;
 import cc.mrbird.system.dao.DictMapper;
 import cc.mrbird.system.domain.Dict;
 import cc.mrbird.system.service.DictService;
@@ -27,16 +27,16 @@ public class DictServiceImpl extends BaseService<Dict> implements DictService {
 	public List<Dict> findAllDicts(Dict dict) {
 		Example example = new Example(Dict.class);
 		Criteria criteria = example.createCriteria();
-		if (StringUtils.hasValue(dict.getKeyy())) {
-			criteria.andCondition("keyy=", dict.getKeyy());
+		if (StringUtils.isNotBlank(dict.getKeyy())) {
+			criteria.andCondition("keyy=", Long.valueOf(dict.getKeyy()));
 		}
-		if (StringUtils.hasValue(dict.getValuee())) {
+		if (StringUtils.isNotBlank(dict.getValuee())) {
 			criteria.andCondition("valuee=", dict.getValuee());
 		}
-		if (StringUtils.hasValue(dict.getTableName())) {
+		if (StringUtils.isNotBlank(dict.getTableName())) {
 			criteria.andCondition("table_name=", dict.getTableName());
 		}
-		if (StringUtils.hasValue(dict.getFieldName())) {
+		if (StringUtils.isNotBlank(dict.getFieldName())) {
 			criteria.andCondition("field_name=", dict.getFieldName());
 		}
 		example.setOrderByClause("dict_id");

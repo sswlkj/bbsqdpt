@@ -6,8 +6,8 @@ $(function() {
             return {
                 pageSize: params.limit,
                 pageNum: params.offset / params.limit + 1,
-                key: $(".dict-table-form").find("input[name='key']").val().trim(),
-                value: $(".dict-table-form").find("input[name='value']").val().trim(),
+                keyy: $(".dict-table-form").find("input[name='key']").val().trim(),
+                valuee: $(".dict-table-form").find("input[name='value']").val().trim(),
                 tableName: $(".dict-table-form").find("input[name='tableName']").val().trim(),
                 fieldName: $(".dict-table-form").find("input[name='fieldName']").val().trim(),
             };

@@ -2,6 +2,7 @@ package cc.mrbird.system.controller;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,6 @@ import cc.mrbird.common.controller.BaseController;
 import cc.mrbird.common.domain.ResponseBo;
 import cc.mrbird.common.domain.Tree;
 import cc.mrbird.common.util.FileUtils;
-import cc.mrbird.common.util.StringUtils;
 import cc.mrbird.system.domain.Menu;
 import cc.mrbird.system.service.MenuService;
 
@@ -125,7 +125,7 @@ public class MenuController extends BaseController {
 	@RequestMapping("menu/checkMenuName")
 	@ResponseBody
 	public boolean checkMenuName(String menuName, String type, String oldMenuName) {
-		if (StringUtils.hasValue(oldMenuName) && menuName.equalsIgnoreCase(oldMenuName)) {
+		if (StringUtils.isNotBlank(oldMenuName) && menuName.equalsIgnoreCase(oldMenuName)) {
 			return true;
 		}
 		Menu result = this.menuService.findByNameAndType(menuName, type);

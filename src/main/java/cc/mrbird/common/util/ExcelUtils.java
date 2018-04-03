@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
@@ -290,7 +291,7 @@ public class ExcelUtils {
 				for (int j = 0; j < exportItems.size(); j++) {
 					// 处理单元格值
 					cellValue = exportItems.get(j).getReplace();
-					if (!StringUtils.hasValue(cellValue)) {
+					if (!StringUtils.isNotBlank(cellValue)) {
 						try {
 							cellValue = BeanUtils.getProperty(data.get(i), exportItems.get(j).getField());
 						} catch (Exception e) {
@@ -299,7 +300,7 @@ public class ExcelUtils {
 					}
 
 					// 格式化单元格值
-					if (StringUtils.hasValue(exportItems.get(j).getConvert())) {
+					if (StringUtils.isNotBlank(exportItems.get(j).getConvert())) {
 						cellValue = convertCellValue(cellValue, exportItems.get(j).getConvert());
 					}
 					csvContent.add(cellValue);

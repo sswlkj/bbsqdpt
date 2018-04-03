@@ -19,10 +19,7 @@ $(function() {
             title: '描述'
         }, {
             field: 'createTime',
-            title: '创建时间',
-            formatter: function(value, row, index) {
-                return $MB.dateFormat(value, "yyyy-MM-dd hh:mm:ss");
-            }
+            title: '创建时间'
         }]
     }
     $MB.initTable('roleTable', settings);

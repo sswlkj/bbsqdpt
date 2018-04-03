@@ -5,13 +5,13 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import cc.mrbird.common.service.impl.BaseService;
-import cc.mrbird.common.util.StringUtils;
 import cc.mrbird.system.dao.RoleMapper;
 import cc.mrbird.system.dao.RoleMenuMapper;
 import cc.mrbird.system.domain.Role;
@@ -46,7 +46,7 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 	@Override
 	public List<Role> findAllRole(Role role) {
 		Example example = new Example(Role.class);
-		if (StringUtils.hasValue(role.getRoleName())) {
+		if (StringUtils.isNotBlank(role.getRoleName())) {
 			example.createCriteria().andCondition("role_name=", role.getRoleName());
 		}
 		example.setOrderByClause("create_time");
