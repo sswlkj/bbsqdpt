@@ -60,6 +60,7 @@ public class UserController extends BaseController {
 		}
 	}
 
+	@Log("获取用户信息")
 	@RequestMapping("user/list")
 	@ResponseBody
 	public Map<String, Object> userList(QueryRequest request, User user) {

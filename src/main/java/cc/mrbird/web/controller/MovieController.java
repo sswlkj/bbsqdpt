@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cc.mrbird.common.annotation.Log;
 import cc.mrbird.common.controller.BaseController;
 import cc.mrbird.common.domain.ResponseBo;
 import cc.mrbird.common.util.HttpUtils;
@@ -12,11 +13,13 @@ import cc.mrbird.common.util.UrlUtils;
 @Controller
 public class MovieController extends BaseController {
 
+	@Log("获取热门电影信息")
 	@RequestMapping("movie/hot")
 	public String movieHot() {
 		return "web/movie/hot";
 	}
 
+	@Log("获取即将上映电影信息")
 	@RequestMapping("movie/coming")
 	public String movieComing() {
 		return "web/movie/coming";

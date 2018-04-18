@@ -26,6 +26,7 @@ public class JobLogController extends BaseController {
 	@Autowired
 	private JobLogService jobLogService;
 
+	@Log("获取调度日志信息")
 	@RequestMapping("jobLog")
 	public String index() {
 		return "job/log/log";

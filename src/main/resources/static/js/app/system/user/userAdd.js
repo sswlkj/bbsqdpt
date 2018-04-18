@@ -27,7 +27,7 @@
 	                        closeModal();
 	                        $MB.n_success(r.msg);
 	                        $MB.refreshTable("userTable");
-	                    } else $MB.n_danger(r.msg, '.modal');
+	                    } else $MB.n_danger(r.msg);
 	                });
 	            }
 	            if (name == "update") {
@@ -36,14 +36,13 @@
 	                        closeModal();
 	                        $MB.n_success(r.msg);
 	                        $MB.refreshTable("userTable");
-	                    } else $MB.n_danger(r.msg, '.modal');
+	                    } else $MB.n_danger(r.msg);
 	                });
 	            }
 	        }
 	    });
 
 	    $("#user-add .btn-close").click(function() {
-	        $("#user-add-modal-title").html('新增用户');
 	        closeModal();
 	    });
 
@@ -57,6 +56,7 @@
 	    $MB.closeAndRestModal("user-add");
 	    $userAddForm.find("input[name='username']").removeAttr("readonly");
 	    $userAddForm.find(".user_password").show();
+	    $("#user-add-modal-title").html('新增用户');
 	}
 
 	function validateRule() {
@@ -73,10 +73,10 @@
 	                    dataType: "json",
 	                    data: {
 	                        username: function() {
-	                            return $("input[name='username']").val();
+	                            return $("input[name='username']").val().trim();
 	                        },
 	                        oldusername: function() {
-	                            return $("input[name='oldusername']").val();
+	                            return $("input[name='oldusername']").val().trim();
 	                        }
 	                    }
 	                }

@@ -22,6 +22,7 @@ public class MenuController extends BaseController {
 	@Autowired
 	private MenuService menuService;
 
+	@Log("获取菜单信息")
 	@RequestMapping("menu")
 	public String index() {
 		return "system/menu/menu";

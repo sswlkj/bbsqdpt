@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 
+import cc.mrbird.common.annotation.Log;
 import cc.mrbird.common.controller.BaseController;
 import cc.mrbird.common.domain.ResponseBo;
 import cc.mrbird.common.util.HttpUtils;
@@ -17,16 +18,19 @@ public class OneIsAllController extends BaseController {
 
 	private static final String STATIC_URL = "channel=wdj&version=4.0.2&uuid=ffffffff-a90e-706a-63f7-ccf973aae5ee&platform=android";
 
+	@Log("获取One--绘画信息")
 	@RequestMapping("one/painting")
 	public String paintIndex() {
 		return "web/one/paint";
 	}
 
+	@Log("获取One--文章信息")
 	@RequestMapping("one/yuwen")
 	public String yuwenIndex() {
 		return "web/one/yuwen";
 	}
 
+	@Log("获取One--散文信息")
 	@RequestMapping("one/essay")
 	public String essayIndex() {
 		return "web/one/essay";

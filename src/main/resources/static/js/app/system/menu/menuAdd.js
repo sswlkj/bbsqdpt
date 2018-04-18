@@ -55,7 +55,7 @@ $(function() {
                         refresh();
                         closeModal();
                         $MB.n_success(r.msg);
-                    } else $MB.n_danger(r.msg, '.modal');
+                    } else $MB.n_danger(r.msg);
                 });
             }
             if (name == "update") {
@@ -64,14 +64,13 @@ $(function() {
                         refresh();
                         closeModal();
                         $MB.n_success(r.msg);
-                    } else $MB.n_danger(r.msg, '.modal');
+                    } else $MB.n_danger(r.msg);
                 });
             }
         }
     });
 
     $("#menu-add .btn-close").click(function() {
-        $("#menu-add-modal-title").html('新增菜单/按钮');
         $("input:radio[value='0']").trigger("click");
         closeModal();
     });
@@ -87,6 +86,7 @@ function closeModal() {
     $MB.closeAndRestModal("menu-add");
     validator.resetForm();
     $MB.refreshJsTree("menuTree", createMenuTree());
+    $("#menu-add-modal-title").html('新增菜单/按钮');
 }
 
 function validateRule() {

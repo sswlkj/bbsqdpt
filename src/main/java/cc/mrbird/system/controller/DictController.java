@@ -26,6 +26,7 @@ public class DictController extends BaseController {
 	@Autowired
 	private DictService dictService;
 
+	@Log("获取字典信息")
 	@RequestMapping("dict")
 	public String index() {
 		return "system/dict/dict";

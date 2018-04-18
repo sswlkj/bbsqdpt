@@ -64,14 +64,14 @@ var $MB = (function() {
     /*--------------------------------------
         Bootstrap Notify Notifications
     ---------------------------------------*/
-    function _notify(message, type, element) {
+    function _notify(message, type) {
         $.notify({
             icon: "fa fa-check",
             title: "",
             message: message,
             url: ''
         }, {
-            element: element == null ? 'body' : element,
+            element: 'body',
             type: type,
             allow_dismiss: true,
             placement: {
@@ -83,7 +83,7 @@ var $MB = (function() {
                 y: 20
             },
             spacing: 10,
-            z_index: 1031,
+            z_index: 3001,
             delay: 2500,
             timer: 1000,
             url_target: '_blank',
@@ -199,20 +199,20 @@ var $MB = (function() {
         refreshTable: function(id) {
             $('#' + id).bootstrapTable('refresh');
         },
-        n_default: function(message, element) {
-            _notify(message, "inverse", element);
+        n_default: function(message) {
+            _notify(message, "inverse");
         },
-        n_info: function(message, element) {
-            _notify(message, "info", element);
+        n_info: function(message) {
+            _notify(message, "info");
         },
-        n_success: function(message, element) {
-            _notify(message, "success", element);
+        n_success: function(message) {
+            _notify(message, "success");
         },
-        n_warning: function(message, element) {
-            _notify(message, "warning", element);
+        n_warning: function(message) {
+            _notify(message, "warning");
         },
-        n_danger: function(message, element) {
-            _notify(message, "danger", element);
+        n_danger: function(message) {
+            _notify(message, "danger");
         },
         closeModal: function(modalId) {
             _closeModal(modalId);

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cc.mrbird.common.annotation.Log;
 import cc.mrbird.common.controller.BaseController;
 import cc.mrbird.common.domain.ResponseBo;
 import cc.mrbird.common.util.HttpUtils;
@@ -12,6 +13,7 @@ import cc.mrbird.common.util.UrlUtils;
 @Controller
 public class WeatherController extends BaseController {
 
+	@Log("获取天气信息")
 	@RequestMapping("weather")
 	public String weather() {
 		return "web/weather/weather";
