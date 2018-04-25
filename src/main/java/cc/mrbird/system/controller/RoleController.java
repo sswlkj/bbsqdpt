@@ -29,6 +29,7 @@ public class RoleController extends BaseController {
 
 	@Log("获取角色信息")
 	@RequestMapping("role")
+	@RequiresPermissions("role:list")
 	public String index() {
 		return "system/role/role";
 	}

@@ -1,6 +1,7 @@
 package cc.mrbird.web.controller;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +16,7 @@ public class ArticleController {
 
 	@Log("获取每日一文信息")
 	@RequestMapping("article")
+	@RequiresPermissions("article:list")
 	public String index() {
 		return "web/article/article";
 	}

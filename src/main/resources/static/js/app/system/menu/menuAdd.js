@@ -7,7 +7,6 @@ var $icon = $menuAddForm.find("input[name='icon']");
 var $icon_drop = $menuAddForm.find("div.icon-drop");
 
 $(function() {
-    $perms.parents(".row").hide();
     $icon_drop.hide();
     validateRule();
     createMenuTree();
@@ -18,12 +17,10 @@ $(function() {
             $menuName.parent().prev().text("菜单名称：");
             $url.val("").parents(".row").show();
             $icon.val("").parents(".row").show();
-            $perms.parents(".row").hide();
         } else {
             $menuName.parent().prev().text("按钮名称：");
             $url.parents(".row").hide();
             $icon.parents(".row").hide();
-            $perms.val("").parents(".row").show();
         }
     });
 
@@ -81,7 +78,6 @@ function closeModal() {
 	$menuName.parent().prev().text("菜单名称：");
     $url.val("").parents(".row").show();
     $icon.val("").parents(".row").show();
-    $perms.parents(".row").hide();
 	$("#menu-add-button").attr("name", "save");
     $MB.closeAndRestModal("menu-add");
     validator.resetForm();

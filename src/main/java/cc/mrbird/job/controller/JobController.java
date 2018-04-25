@@ -29,6 +29,7 @@ public class JobController extends BaseController {
 
 	@Log("获取定时任务信息")
 	@RequestMapping("job")
+	@RequiresPermissions("job:list")
 	public String index() {
 		return "job/job/job";
 	}

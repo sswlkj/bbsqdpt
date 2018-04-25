@@ -24,6 +24,7 @@ public class DeptController {
 
 	@Log("获取部门信息")
 	@RequestMapping("dept")
+	@RequiresPermissions("dept:list")
 	public String index() {
 		return "system/dept/dept";
 	}

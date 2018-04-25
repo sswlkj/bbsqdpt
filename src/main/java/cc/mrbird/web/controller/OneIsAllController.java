@@ -1,5 +1,6 @@
 package cc.mrbird.web.controller;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,18 +21,21 @@ public class OneIsAllController extends BaseController {
 
 	@Log("获取One--绘画信息")
 	@RequestMapping("one/painting")
+	@RequiresPermissions("one:painting")
 	public String paintIndex() {
 		return "web/one/paint";
 	}
 
 	@Log("获取One--文章信息")
 	@RequestMapping("one/yuwen")
+	@RequiresPermissions("one:yuwen")
 	public String yuwenIndex() {
 		return "web/one/yuwen";
 	}
 
 	@Log("获取One--散文信息")
 	@RequestMapping("one/essay")
+	@RequiresPermissions("one:essay")
 	public String essayIndex() {
 		return "web/one/essay";
 	}

@@ -24,6 +24,7 @@ public class MenuController extends BaseController {
 
 	@Log("获取菜单信息")
 	@RequestMapping("menu")
+	@RequiresPermissions("menu:list")
 	public String index() {
 		return "system/menu/menu";
 	}

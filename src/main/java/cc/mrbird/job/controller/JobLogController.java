@@ -28,6 +28,7 @@ public class JobLogController extends BaseController {
 
 	@Log("获取调度日志信息")
 	@RequestMapping("jobLog")
+	@RequiresPermissions("jobLog:list")
 	public String index() {
 		return "job/log/log";
 	}

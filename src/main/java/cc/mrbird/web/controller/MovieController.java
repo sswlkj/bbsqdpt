@@ -1,5 +1,6 @@
 package cc.mrbird.web.controller;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,12 +16,14 @@ public class MovieController extends BaseController {
 
 	@Log("获取热门电影信息")
 	@RequestMapping("movie/hot")
+	@RequiresPermissions("movie:hot")
 	public String movieHot() {
 		return "web/movie/hot";
 	}
 
 	@Log("获取即将上映电影信息")
 	@RequestMapping("movie/coming")
+	@RequiresPermissions("movie:coming")
 	public String movieComing() {
 		return "web/movie/coming";
 	}

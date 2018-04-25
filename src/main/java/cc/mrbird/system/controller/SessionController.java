@@ -24,6 +24,7 @@ public class SessionController {
 	
 	@Log("获取在线用户信息")
 	@RequestMapping("session")
+	@RequiresPermissions("session:list")
 	public String online() {
 		return "system/monitor/online";
 	}

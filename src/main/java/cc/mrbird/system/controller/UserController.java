@@ -30,6 +30,7 @@ public class UserController extends BaseController {
 	private UserService userService;
 
 	@RequestMapping("user")
+	@RequiresPermissions("user:list")
 	public String index(Model model) {
 		User user = super.getCurrentUser();
 		model.addAttribute("user", user);

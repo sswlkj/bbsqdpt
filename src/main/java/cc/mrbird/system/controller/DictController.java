@@ -28,6 +28,7 @@ public class DictController extends BaseController {
 
 	@Log("获取字典信息")
 	@RequestMapping("dict")
+	@RequiresPermissions("dict:list")
 	public String index() {
 		return "system/dict/dict";
 	}
