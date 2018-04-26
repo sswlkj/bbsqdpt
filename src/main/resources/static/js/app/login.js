@@ -7,7 +7,7 @@ $(document).ready(function() {
     });
 
     var panelOne = $('.form-panel.two').height();
-    /*    panelTwo = $('.form-panel.two')[0].scrollHeight;
+        panelTwo = $('.form-panel.two')[0].scrollHeight;
 
    $('.form-panel.two').not('.form-panel.two.active').on('click', function(e) {
         e.preventDefault();
@@ -18,7 +18,7 @@ $(document).ready(function() {
         $('.form').animate({
             'height': panelTwo
         }, 200);
-    });*/
+    });
 
     $('.form-toggle').on('click', function(e) {
         e.preventDefault();
@@ -79,7 +79,7 @@ function login() {
     });
 }
 
-/*function regist() {
+function regist() {
     var username = $(".two input[name='username']").val().trim();
     var password = $(".two input[name='password']").val().trim();
     var cpassword = $(".two input[name='cpassword']").val().trim();
@@ -125,7 +125,7 @@ function login() {
             }
         }
     });
-}*/
+}
 
 document.onkeyup = function(e) {
     if (window.event)

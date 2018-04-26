@@ -51,12 +51,15 @@
 	function closeModal() {
 		$("#user-add-button").attr("name", "save");
 	    validator.resetForm();
+	    $rolesSelect.multipleSelect('setSelects', []);
 	    $rolesSelect.multipleSelect("refresh");
 	    $MB.resetJsTree("deptTree");
 	    $MB.closeAndRestModal("user-add");
 	    $userAddForm.find("input[name='username']").removeAttr("readonly");
 	    $userAddForm.find(".user_password").show();
 	    $("#user-add-modal-title").html('新增用户');
+	    $("#status").html('可用');
+	    $userAddForm.find("input[name='status']").prop("checked",true);
 	}
 
 	function validateRule() {
