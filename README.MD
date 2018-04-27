@@ -50,7 +50,7 @@
  
 - 基础框架：Bootstrap
 
-- JavaScirpy框架：jQuery
+- JavaScript框架：jQuery
 
 - 消息组件：Bootstrap notify
 
@@ -67,6 +67,8 @@
 - 多选下拉框插件：multiple-select
 
 - 图表插件：Highcharts
+
+- 时间插件：daterangepicker
 
 ### 开发环境
 
@@ -107,7 +109,6 @@
 ![2bd554ce2511cd1e7e3e7b3b56216ed6.png](http://olwqftdzl.bkt.clouddn.com/18-4-18/86512301.jpg)
 
 ![5e6d35e4390cf7f0752d7864ad701e2b.png](http://olwqftdzl.bkt.clouddn.com/18-4-18/81830531.jpg)
-
 
 ## 部署方式
 
