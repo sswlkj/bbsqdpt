@@ -127,4 +127,8 @@ GitHub 地址： https://github.com/wuyouzhuguli/FEBS
 
 ## 反馈交流
 
+对于想通过此项目来学习Spring Boot及Shiro的同学可以结合个人Spring Boot系列教程一起学习，效果更佳[https://github.com/wuyouzhuguli/Spring-Boot-Demos](https://github.com/wuyouzhuguli/Spring-Boot-Demos)。
+
+此外，也欢迎加入Q群一起探讨交流。
+
 ![http://olwqftdzl.bkt.clouddn.com/18-3-23/40328650.jpg](http://olwqftdzl.bkt.clouddn.com/18-3-23/40328650.jpg)
