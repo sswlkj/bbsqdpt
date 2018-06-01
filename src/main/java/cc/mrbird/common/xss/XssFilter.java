@@ -2,6 +2,7 @@ package cc.mrbird.common.xss;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,10 +31,10 @@ public class XssFilter implements Filter {
 	// 是否过滤富文本内容
 	private static boolean IS_INCLUDE_RICH_TEXT = false;
 
-	public List<String> excludes = new ArrayList<String>();
+	private List<String> excludes = new ArrayList<>();
 
 	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
+	public void init(FilterConfig filterConfig) {
 		logger.info("------------ xss filter init ------------");
 		String isIncludeRichText = filterConfig.getInitParameter("isIncludeRichText");
 		if (StringUtils.isNotBlank(isIncludeRichText)) {
@@ -42,9 +43,7 @@ public class XssFilter implements Filter {
 		String temp = filterConfig.getInitParameter("excludes");
 		if (temp != null) {
 			String[] url = temp.split(",");
-			for (int i = 0; url != null && i < url.length; i++) {
-				excludes.add(url[i]);
-			}
+			excludes.addAll(Arrays.asList(url));
 		}
 	}
 
@@ -52,8 +51,7 @@ public class XssFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletResponse resp = (HttpServletResponse) response;
-		if (handleExcludeURL(req, resp)) {
+		if (handleExcludeURL(req)) {
 			chain.doFilter(request, response);
 			return;
 		}
@@ -67,7 +65,7 @@ public class XssFilter implements Filter {
 
 	}
 
-	private boolean handleExcludeURL(HttpServletRequest request, HttpServletResponse response) {
+	private boolean handleExcludeURL(HttpServletRequest request) {
 		if (excludes == null || excludes.isEmpty()) {
 			return false;
 		}

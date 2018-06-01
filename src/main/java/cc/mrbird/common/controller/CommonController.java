@@ -35,9 +35,7 @@ public class CommonController {
 			}
 			os.close();
 			inputStream.close();
-			if (delete && file.exists()) {
-				file.delete();
-			}
+			if (delete && file.exists()) file.delete();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

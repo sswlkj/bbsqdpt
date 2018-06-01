@@ -44,9 +44,7 @@ public class UserController extends BaseController {
 			return true;
 		}
 		User result = this.userService.findByName(username);
-		if (result != null)
-			return false;
-		return true;
+		return result == null;
 	}
 
 	@RequestMapping("user/getUser")
@@ -67,7 +65,7 @@ public class UserController extends BaseController {
 	public Map<String, Object> userList(QueryRequest request, User user) {
 		PageHelper.startPage(request.getPageNum(), request.getPageSize());
 		List<User> list = this.userService.findUserWithDept(user);
-		PageInfo<User> pageInfo = new PageInfo<User>(list);
+		PageInfo<User> pageInfo = new PageInfo<>(list);
 		return getDataTable(pageInfo);
 	}
 
@@ -179,9 +177,7 @@ public class UserController extends BaseController {
 	public boolean checkPassword(String password) {
 		User user = getCurrentUser();
 		String encrypt = MD5Utils.encrypt(user.getUsername().toLowerCase(), password);
-		if (user.getPassword().equals(encrypt))
-			return true;
-		return false;
+		return user.getPassword().equals(encrypt);
 	}
 
 	@RequestMapping("user/updatePassword")

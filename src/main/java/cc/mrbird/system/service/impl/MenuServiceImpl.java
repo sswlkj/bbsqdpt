@@ -56,49 +56,45 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 			return this.selectByExample(example);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
-			return new ArrayList<Menu>();
+			return new ArrayList<>();
 		}
 	}
 
 	@Override
 	public Tree<Menu> getMenuButtonTree() {
-		List<Tree<Menu>> trees = new ArrayList<Tree<Menu>>();
+		List<Tree<Menu>> trees = new ArrayList<>();
 		List<Menu> menus = this.findAllMenus(new Menu());
-		for (Menu menu : menus) {
-			Tree<Menu> tree = new Tree<Menu>();
-			tree.setId(menu.getMenuId().toString());
-			tree.setParentId(menu.getParentId().toString());
-			tree.setText(menu.getMenuName());
-			trees.add(tree);
-		}
-		Tree<Menu> t = TreeUtils.build(trees);
-		return t;
+		buildTrees(trees, menus);
+		return TreeUtils.build(trees);
 	}
 
 	@Override
 	public Tree<Menu> getMenuTree() {
-		List<Tree<Menu>> trees = new ArrayList<Tree<Menu>>();
+		List<Tree<Menu>> trees = new ArrayList<>();
 		Example example = new Example(Menu.class);
 		example.createCriteria().andCondition("type =", 0);
 		example.setOrderByClause("create_time");
 		List<Menu> menus = this.menuMapper.selectByExample(example);
+		buildTrees(trees, menus);
+		return TreeUtils.build(trees);
+	}
+
+	private void buildTrees(List<Tree<Menu>> trees, List<Menu> menus) {
 		for (Menu menu : menus) {
-			Tree<Menu> tree = new Tree<Menu>();
+			Tree<Menu> tree = new Tree<>();
 			tree.setId(menu.getMenuId().toString());
 			tree.setParentId(menu.getParentId().toString());
 			tree.setText(menu.getMenuName());
 			trees.add(tree);
 		}
-		Tree<Menu> t = TreeUtils.build(trees);
-		return t;
 	}
 
 	@Override
 	public Tree<Menu> getUserMenu(String userName) {
-		List<Tree<Menu>> trees = new ArrayList<Tree<Menu>>();
+		List<Tree<Menu>> trees = new ArrayList<>();
 		List<Menu> menus = this.findUserMenus(userName);
 		for (Menu menu : menus) {
-			Tree<Menu> tree = new Tree<Menu>();
+			Tree<Menu> tree = new Tree<>();
 			tree.setId(menu.getMenuId().toString());
 			tree.setParentId(menu.getParentId().toString());
 			tree.setText(menu.getMenuName());
@@ -106,8 +102,7 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 			tree.setUrl(menu.getUrl());
 			trees.add(tree);
 		}
-		Tree<Menu> t = TreeUtils.build(trees);
-		return t;
+		return TreeUtils.build(trees);
 	}
 
 	@Override
@@ -124,16 +119,16 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional
 	public void addMenu(Menu menu) {
 		menu.setCreateTime(new Date());
 		if (menu.getParentId() == null)
-			menu.setParentId(0l);
+			menu.setParentId(0L);
 		this.save(menu);
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional
 	public void deleteMeuns(String menuIds) {
 		List<String> list = Arrays.asList(menuIds.split(","));
 		this.batchDelete(list, "menuId", Menu.class);
@@ -147,11 +142,11 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional
 	public void updateMenu(Menu menu) {
 		menu.setModifyTime(new Date());
 		if (menu.getParentId() == null)
-			menu.setParentId(0l);
+			menu.setParentId(0L);
 		this.updateNotNull(menu);
 	}
 

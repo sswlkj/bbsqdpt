@@ -69,11 +69,11 @@ public class LogAspect {
 		LocalVariableTableParameterNameDiscoverer u = new LocalVariableTableParameterNameDiscoverer();
 		String[] paramNames = u.getParameterNames(method);
 		if (args != null && paramNames != null) {
-			String params = "";
+			StringBuilder params = new StringBuilder();
 			for (int i = 0; i < args.length; i++) {
-				params += "  " + paramNames[i] + ": " + args[i];
+				params.append("  ").append(paramNames[i]).append(": ").append(args[i]);
 			}
-			log.setParams(params);
+			log.setParams(params.toString());
 		}
 		HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
 		log.setIp(IPUtils.getIpAddr(request));

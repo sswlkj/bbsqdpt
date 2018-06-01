@@ -28,17 +28,16 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
 
 	@Override
 	public Tree<Dept> getDeptTree() {
-		List<Tree<Dept>> trees = new ArrayList<Tree<Dept>>();
+		List<Tree<Dept>> trees = new ArrayList<>();
 		List<Dept> depts = this.findAllDepts(new Dept());
 		for (Dept dept : depts) {
-			Tree<Dept> tree = new Tree<Dept>();
+			Tree<Dept> tree = new Tree<>();
 			tree.setId(dept.getDeptId().toString());
 			tree.setParentId(dept.getParentId().toString());
 			tree.setText(dept.getDeptName());
 			trees.add(tree);
 		}
-		Tree<Dept> t = TreeUtils.build(trees);
-		return t;
+		return TreeUtils.build(trees);
 	}
 
 	@Override
@@ -52,7 +51,7 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
 			return this.deptMapper.selectByExample(example);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ArrayList<Dept>();
+			return new ArrayList<>();
 		}
 
 	}
@@ -70,17 +69,17 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional
 	public void addDept(Dept dept) {
 		Long parentId = dept.getParentId();
 		if (parentId == null)
-			dept.setParentId(0l);
+			dept.setParentId(0L);
 		dept.setCreateTime(new Date());
 		this.deptMapper.insert(dept);
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional
 	public void deleteDepts(String deptIds) {
 		List<String> list = Arrays.asList(deptIds.split(","));
 		this.batchDelete(list, "deptId", Dept.class);
@@ -93,7 +92,7 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional
 	public void updateDept(Dept dept) {
 		this.deptMapper.updateByPrimaryKeySelective(dept);
 	}

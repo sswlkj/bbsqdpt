@@ -39,7 +39,7 @@ public class JobController extends BaseController {
 	public Map<String, Object> jobList(QueryRequest request, Job job) {
 		PageHelper.startPage(request.getPageNum(), request.getPageSize());
 		List<Job> list = this.jobService.findAllJobs(job);
-		PageInfo<Job> pageInfo = new PageInfo<Job>(list);
+		PageInfo<Job> pageInfo = new PageInfo<>(list);
 		return getDataTable(pageInfo);
 	}
 

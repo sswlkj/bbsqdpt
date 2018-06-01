@@ -45,25 +45,25 @@ public class DictServiceImpl extends BaseService<Dict> implements DictService {
 			return this.selectByExample(example);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ArrayList<Dict>();
+			return new ArrayList<>();
 		}
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional
 	public void addDict(Dict dict) {
 		this.dictMapper.insert(dict);
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional
 	public void deleteDicts(String dictIds) {
 		List<String> list = Arrays.asList(dictIds.split(","));
 		this.batchDelete(list, "dictId", Dict.class);
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional
 	public void updateDict(Dict dict) {
 		this.updateNotNull(dict);
 	}

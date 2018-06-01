@@ -37,18 +37,18 @@ public class JobLogServiceImpl extends BaseService<JobLog> implements JobLogServ
 			return this.selectByExample(example);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
-			return new ArrayList<JobLog>();
+			return new ArrayList<>();
 		}
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional
 	public void saveJobLog(JobLog log) {
 		this.save(log);
 	}
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional
 	public void deleteBatch(String jobLogIds) {
 		List<String> list = Arrays.asList(jobLogIds.split(","));
 		this.batchDelete(list, "logId", JobLog.class);
