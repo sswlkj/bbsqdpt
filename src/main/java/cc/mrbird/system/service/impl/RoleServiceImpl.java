@@ -62,7 +62,7 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 	public Role findByName(String roleName) {
 		Example example = new Example(Role.class);
 		example.createCriteria().andCondition("lower(role_name)=", roleName.toLowerCase());
-		List<Role> list = this.roleMapper.selectByExample(example);
+		List<Role> list = this.selectByExample(example);
 		if (list.size() == 0) {
 			return null;
 		} else {
@@ -117,7 +117,7 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 	@Transactional
 	public void updateRole(Role role, Long[] menuIds) {
 		role.setModifyTime(new Date());
-		this.roleMapper.updateByPrimaryKeySelective(role);
+		this.updateNotNull(role);
 		Example example = new Example(RoleMenu.class);
 		example.createCriteria().andCondition("role_id=", role.getRoleId());
 		this.roleMenuMapper.deleteByExample(example);

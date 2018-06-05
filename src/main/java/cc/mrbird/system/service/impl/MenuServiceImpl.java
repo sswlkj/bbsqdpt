@@ -74,7 +74,7 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 		Example example = new Example(Menu.class);
 		example.createCriteria().andCondition("type =", 0);
 		example.setOrderByClause("create_time");
-		List<Menu> menus = this.menuMapper.selectByExample(example);
+		List<Menu> menus = this.selectByExample(example);
 		buildTrees(trees, menus);
 		return TreeUtils.build(trees);
 	}
@@ -110,7 +110,7 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 		Example example = new Example(Menu.class);
 		example.createCriteria().andCondition("lower(menu_name)=", menuName.toLowerCase()).andEqualTo("type",
 				Long.valueOf(type));
-		List<Menu> list = this.menuMapper.selectByExample(example);
+		List<Menu> list = this.selectByExample(example);
 		if (list.size() == 0) {
 			return null;
 		} else {

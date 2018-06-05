@@ -47,6 +47,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 		}
 	}
 
+	@Override
 	public List<User> findUserWithDept(User user) {
 		try {
 			return this.userMapper.findUserWithDept(user);

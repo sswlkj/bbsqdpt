@@ -48,7 +48,7 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
 				example.createCriteria().andCondition("dept_name=", dept.getDeptName());
 			}
 			example.setOrderByClause("dept_id");
-			return this.deptMapper.selectByExample(example);
+			return this.selectByExample(example);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ArrayList<>();
@@ -60,7 +60,7 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
 	public Dept findByName(String deptName) {
 		Example example = new Example(Dept.class);
 		example.createCriteria().andCondition("lower(dept_name) =", deptName.toLowerCase());
-		List<Dept> list = this.deptMapper.selectByExample(example);
+		List<Dept> list = this.selectByExample(example);
 		if (list.size() == 0) {
 			return null;
 		} else {
@@ -75,7 +75,7 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
 		if (parentId == null)
 			dept.setParentId(0L);
 		dept.setCreateTime(new Date());
-		this.deptMapper.insert(dept);
+		this.save(dept);
 	}
 
 	@Override
@@ -88,13 +88,13 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
 
 	@Override
 	public Dept findById(Long deptId) {
-		return this.deptMapper.selectByPrimaryKey(deptId);
+		return this.selectByKey(deptId);
 	}
 
 	@Override
 	@Transactional
 	public void updateDept(Dept dept) {
-		this.deptMapper.updateByPrimaryKeySelective(dept);
+		this.updateNotNull(dept);
 	}
 
 }

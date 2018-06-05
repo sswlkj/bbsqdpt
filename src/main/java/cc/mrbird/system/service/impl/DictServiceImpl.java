@@ -1,28 +1,22 @@
 package cc.mrbird.system.service.impl;
 
+import cc.mrbird.common.service.impl.BaseService;
+import cc.mrbird.system.domain.Dict;
+import cc.mrbird.system.service.DictService;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.entity.Example.Criteria;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import cc.mrbird.common.service.impl.BaseService;
-import cc.mrbird.system.dao.DictMapper;
-import cc.mrbird.system.domain.Dict;
-import cc.mrbird.system.service.DictService;
-import tk.mybatis.mapper.entity.Example;
-import tk.mybatis.mapper.entity.Example.Criteria;
-
 @Service("dictService")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class DictServiceImpl extends BaseService<Dict> implements DictService {
-
-	@Autowired
-	private DictMapper dictMapper;
 
 	@Override
 	public List<Dict> findAllDicts(Dict dict) {
@@ -52,7 +46,7 @@ public class DictServiceImpl extends BaseService<Dict> implements DictService {
 	@Override
 	@Transactional
 	public void addDict(Dict dict) {
-		this.dictMapper.insert(dict);
+		this.save(dict);
 	}
 
 	@Override

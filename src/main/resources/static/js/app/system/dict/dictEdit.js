@@ -10,8 +10,8 @@ function updateDict() {
         return;
     }
     var dictId = selected[0].dictId;
-    $.post(ctx + "dict/getDict", { "dictId": dictId }, function(r) {
-        if (r.code == 0) {
+    $.post(ctx + "dict/getDict", {"dictId": dictId}, function (r) {
+        if (r.code === 0) {
             var $form = $('#dict-add');
             $form.modal();
             var dict = r.msg;
