@@ -25,6 +25,24 @@ $(window).on("load", function () {
         .append("<style>.daterangepicker td.active, .daterangepicker td.active:hover,.end-date {background-color: " + theme_color + " !important}</style>")
         .append("<style>.daterangepicker td.in-range {background-color:" + opacity_color + "}</style>");
 }), $(document).ready(function () {
+    function a(a) {
+        a.requestFullscreen ? a.requestFullscreen() : a.mozRequestFullScreen ? a.mozRequestFullScreen() : a.webkitRequestFullscreen ? a.webkitRequestFullscreen() : a.msRequestFullscreen && a.msRequestFullscreen()
+    }
+    $("body").on("click", "[data-ma-action]", function (b) {
+        b.preventDefault();
+        var c = $(this),
+            d = c.data("ma-action"),
+            e = "";
+        switch (d) {
+            case "aside-open":
+                e = c.data("ma-target"), c.addClass("toggled"), $(e).addClass("toggled"), $(".content, .header").append('<div class="ma-backdrop" data-ma-action="aside-close" data-ma-target=' + e + " />");
+                break;
+            case "aside-close":
+                e = c.data("ma-target"), $('[data-ma-action="aside-open"], ' + e).removeClass("toggled"), $(".content, .header").find(".ma-backdrop").remove();
+                break;
+        }
+    });
+}), $(document).ready(function () {
     //使用递归处理菜单
     var str = "";
     var forTree = function (o) {
