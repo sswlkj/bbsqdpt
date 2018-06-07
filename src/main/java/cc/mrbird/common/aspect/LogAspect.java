@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.shiro.SecurityUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -40,7 +41,7 @@ public class LogAspect {
 	}
 
 	@Around("pointcut()")
-	public Object around(ProceedingJoinPoint point) {
+	public Object around(ProceedingJoinPoint point) throws JsonProcessingException {
 		Object result = null;
 		long beginTime = System.currentTimeMillis();
 		try {
@@ -53,7 +54,7 @@ public class LogAspect {
 		return result;
 	}
 
-	private void saveLog(ProceedingJoinPoint joinPoint, long time) {
+	private void saveLog(ProceedingJoinPoint joinPoint, long time) throws JsonProcessingException {
 		User user = (User) SecurityUtils.getSubject().getPrincipal();
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 		Method method = signature.getMethod();
@@ -71,7 +72,7 @@ public class LogAspect {
 		if (args != null && paramNames != null) {
 			StringBuilder params = new StringBuilder();
 			for (int i = 0; i < args.length; i++) {
-				params.append("  ").append(paramNames[i]).append(": ").append(args[i]);
+				params.append("  ").append(paramNames[i]).append(": ").append(this.mapper.writeValueAsString(args[i]));
 			}
 			log.setParams(params.toString());
 		}
