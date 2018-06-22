@@ -5,8 +5,8 @@
 
 	<groupId>cc.mrbird</groupId>
 	<artifactId>project</artifactId>
-	<version>1.0-snapshot</version>
-	<packaging>war</packaging>
+	<version>1.0</version>
+	<packaging>jar</packaging>
 
 	<name>febs</name>
 	<description>Authority Management System</description>
