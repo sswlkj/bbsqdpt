@@ -8,7 +8,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
-import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
 import javax.net.ssl.HostnameVerifier;
@@ -30,7 +29,7 @@ public class HttpUtils {
 	 * @return 所代表远程资源的响应结果
 	 */
 	public static String sendGet(String url, String param) {
-		String result = "";
+		StringBuilder result = new StringBuilder();
 		BufferedReader in = null;
 		try {
 			String urlNameString = url + "?" + param;
@@ -43,7 +42,7 @@ public class HttpUtils {
 			in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			String line;
 			while ((line = in.readLine()) != null) {
-				result += line;
+				result.append(line);
 			}
 		} catch (Exception e) {
 			System.out.println("发送GET请求出现异常！" + e);
@@ -57,7 +56,7 @@ public class HttpUtils {
 				e2.printStackTrace();
 			}
 		}
-		return result;
+		return result.toString();
 	}
 
 	/**
@@ -72,7 +71,7 @@ public class HttpUtils {
 	public static String sendPost(String url, String param) {
 		PrintWriter out = null;
 		BufferedReader in = null;
-		String result = "";
+		StringBuilder result = new StringBuilder();
 		try {
 			String urlNameString = url + "?" + param;
 			URL realUrl = new URL(urlNameString);
@@ -90,7 +89,7 @@ public class HttpUtils {
 			in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
 			String line;
 			while ((line = in.readLine()) != null) {
-				result += line;
+				result.append(line);
 			}
 		} catch (Exception e) {
 			System.out.println("发送 POST 请求出现异常！" + e);
@@ -107,12 +106,12 @@ public class HttpUtils {
 				ex.printStackTrace();
 			}
 		}
-		return result;
+		return result.toString();
 	}
 
 	@SuppressWarnings("deprecation")
 	public static String sendSSLPost(String url, String param) {
-		String result = "";
+		StringBuilder result = new StringBuilder();
 		String urlNameString = url + "?" + param;
 		try {
 			SSLContext sc = SSLContext.getInstance("SSL");
@@ -128,7 +127,7 @@ public class HttpUtils {
 			while (ret != null) {
 				ret = indata.readLine();
 				if (ret != null && !ret.trim().equals("")) {
-					result += new String(ret.getBytes("ISO-8859-1"), "utf-8");
+					result.append(new String(ret.getBytes("ISO-8859-1"), "utf-8"));
 				}
 			}
 			conn.disconnect();
@@ -137,14 +136,14 @@ public class HttpUtils {
 			System.out.println("发送SSL POST 请求出现异常！" + e);
 			e.printStackTrace();
 		}
-		return result;
+		return result.toString();
 	}
 
 	private static class TrustAnyTrustManager implements X509TrustManager {
-		public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+		public void checkClientTrusted(X509Certificate[] chain, String authType) {
 		}
 
-		public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+		public void checkServerTrusted(X509Certificate[] chain, String authType) {
 		}
 
 		public X509Certificate[] getAcceptedIssuers() {

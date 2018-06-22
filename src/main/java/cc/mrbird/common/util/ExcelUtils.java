@@ -35,16 +35,16 @@ public class ExcelUtils {
 	// 分Sheet机制：每个Sheet最多多少条数据
 	private Integer mMaxSheetRecords = 10000;
 	// 缓存数据格式器实例,避免多次使用反射进行实例化
-	private Map<String, ExportConvert> mConvertInstanceCache = new HashMap<String, ExportConvert>();
+	private Map<String, ExportConvert> mConvertInstanceCache = new HashMap<>();
 
 	protected ExcelUtils() {
 	}
 
-	protected ExcelUtils(Class<?> clazz) {
+	private ExcelUtils(Class<?> clazz) {
 		this(clazz, null);
 	}
 
-	protected ExcelUtils(Class<?> clazz, HttpServletResponse response) {
+	private ExcelUtils(Class<?> clazz, HttpServletResponse response) {
 		this.mResponse = response;
 		this.mClass = clazz;
 	}
@@ -56,7 +56,7 @@ public class ExcelUtils {
 	 *            实体Class对象
 	 * @return ExcelUtils
 	 */
-	public static ExcelUtils $Builder(Class<?> clazz) {
+	static ExcelUtils $Builder(Class<?> clazz) {
 		return new ExcelUtils(clazz);
 	}
 
@@ -155,9 +155,9 @@ public class ExcelUtils {
 		}
 
 		// 导出列查询。
-		ExportConfig currentExportConfig = null;
-		ExportItem currentExportItem = null;
-		List<ExportItem> exportItems = new ArrayList<ExportItem>();
+		ExportConfig currentExportConfig;
+		ExportItem currentExportItem;
+		List<ExportItem> exportItems = new ArrayList<>();
 		for (Field field : mClass.getDeclaredFields()) {
 
 			currentExportConfig = field.getAnnotation(ExportConfig.class);
@@ -170,8 +170,6 @@ public class ExcelUtils {
 				exportItems.add(currentExportItem);
 			}
 
-			currentExportItem = null;
-			currentExportConfig = null;
 		}
 
 		// 创建新的工作薄。
@@ -204,7 +202,7 @@ public class ExcelUtils {
 			style.setFont(font);
 
 			// 产生数据行
-			if (data != null && data.size() > 0) {
+			if (data.size() > 0) {
 				int startNo = index * mMaxSheetRecords;
 				int endNo = Math.min(startNo + mMaxSheetRecords, data.size());
 
@@ -257,9 +255,9 @@ public class ExcelUtils {
 			}
 
 			// 导出列查询。
-			ExportConfig currentExportConfig = null;
-			ExportItem currentExportItem = null;
-			List<ExportItem> exportItems = new ArrayList<ExportItem>();
+			ExportConfig currentExportConfig;
+			ExportItem currentExportItem;
+			List<ExportItem> exportItems = new ArrayList<>();
 			for (Field field : mClass.getDeclaredFields()) {
 
 				currentExportConfig = field.getAnnotation(ExportConfig.class);
@@ -271,8 +269,6 @@ public class ExcelUtils {
 					exportItems.add(currentExportItem);
 				}
 
-				currentExportItem = null;
-				currentExportConfig = null;
 			}
 
 			String cellValue;
@@ -280,32 +276,32 @@ public class ExcelUtils {
 			// 解决乱码
 			out.write(new byte[] { (byte) 0xEF, (byte) 0xBB, (byte) 0xBF });
 			CsvWriter csvWriter = new CsvWriter(out, ',', Charset.forName("UTF-8"));
-			List<Object> csvHeaders = new ArrayList<Object>();
-			for (int i = 0; i < exportItems.size(); i++) {
-				csvHeaders.add(exportItems.get(i).getDisplay());
+			List<Object> csvHeaders = new ArrayList<>();
+			for (ExportItem exportItem1 : exportItems) {
+				csvHeaders.add(exportItem1.getDisplay());
 			}
-			String[] csvHeadersArr = csvHeaders.toArray(new String[csvHeaders.size()]);
+			String[] csvHeadersArr = csvHeaders.toArray(new String[0]);
 			csvWriter.writeRecord(csvHeadersArr);
-			for (int i = 0; i < data.size(); i++) {
+			for (Object aData : data) {
 				List<Object> csvContent = new ArrayList<Object>();
-				for (int j = 0; j < exportItems.size(); j++) {
+				for (ExportItem exportItem : exportItems) {
 					// 处理单元格值
-					cellValue = exportItems.get(j).getReplace();
+					cellValue = exportItem.getReplace();
 					if (!StringUtils.isNotBlank(cellValue)) {
 						try {
-							cellValue = BeanUtils.getProperty(data.get(i), exportItems.get(j).getField());
+							cellValue = BeanUtils.getProperty(aData, exportItem.getField());
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
 					}
 
 					// 格式化单元格值
-					if (StringUtils.isNotBlank(exportItems.get(j).getConvert())) {
-						cellValue = convertCellValue(cellValue, exportItems.get(j).getConvert());
+					if (StringUtils.isNotBlank(exportItem.getConvert())) {
+						cellValue = convertCellValue(cellValue, exportItem.getConvert());
 					}
 					csvContent.add(cellValue);
 				}
-				String[] csvContentArr = csvContent.toArray(new String[csvContent.size()]);
+				String[] csvContentArr = csvContent.toArray(new String[0]);
 				csvWriter.writeRecord(csvContentArr);
 			}
 			csvWriter.close();

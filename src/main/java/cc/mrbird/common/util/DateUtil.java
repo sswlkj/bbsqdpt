@@ -264,8 +264,8 @@ public class DateUtil {
 	 * @param dateFormatType
 	 *            日期格式
 	 * @return String 时间字符串
-	 * @throws CSException
-	 *             CSExceptionCode.EC_2000,CSExceptionCode.MSG_2000
+	 * @throws Exception
+	 *
 	 */
 	public static String getTheLastDayOfSpecifiedMonth(int specifiedMonth, String dateFormatType) throws Exception {
 
@@ -276,8 +276,7 @@ public class DateUtil {
 		calendar.setTime(date);
 		calendar.add(Calendar.MONTH, 1);
 		calendar.add(Calendar.DAY_OF_YEAR, -1);
-		String result = turnJavaUtilDateToStrDate(calendar.getTime(), "yyyy-MM-dd");
-		return result;
+		return turnJavaUtilDateToStrDate(calendar.getTime(), "yyyy-MM-dd");
 	}
 
 	/**

@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class AddressUtils {
 
-	public static String getAddresses(String content, String encodingString) throws UnsupportedEncodingException {
+	private static String getAddresses(String content, String encodingString) throws UnsupportedEncodingException {
 		String urlStr = "http://ip.taobao.com/service/getIpInfo.php";
 		String returnStr = getResult(urlStr, content, encodingString);
 		if (returnStr != null) {
@@ -28,7 +28,7 @@ public class AddressUtils {
 	}
 
 	private static String getResult(String urlStr, String content, String encoding) {
-		URL url = null;
+		URL url;
 		HttpURLConnection connection = null;
 		try {
 			url = new URL(urlStr);
@@ -45,8 +45,8 @@ public class AddressUtils {
 			out.flush();
 			out.close();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), encoding));
-			StringBuffer buffer = new StringBuffer();
-			String line = "";
+			StringBuilder buffer = new StringBuilder();
+			String line;
 			while ((line = reader.readLine()) != null) {
 				buffer.append(line);
 			}
@@ -62,10 +62,10 @@ public class AddressUtils {
 		return null;
 	}
 
-	public static String decodeUnicode(String theString) {
+	private static String decodeUnicode(String theString) {
 		char aChar;
 		int len = theString.length();
-		StringBuffer outBuffer = new StringBuffer(len);
+		StringBuilder outBuffer = new StringBuilder(len);
 		for (int x = 0; x < len;) {
 			aChar = theString.charAt(x++);
 			if (aChar == '\\') {
@@ -136,7 +136,7 @@ public class AddressUtils {
 			String region = data.get("region").asText();
 			String city = data.get("city").asText();
 			address = region + "" + city;
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 
 		}
 		return address;

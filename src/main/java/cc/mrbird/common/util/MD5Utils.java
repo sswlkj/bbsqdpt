@@ -11,14 +11,12 @@ public class MD5Utils {
 	private static final int HASH_ITERATIONS = 2;
 
 	public static String encrypt(String pswd) {
-		String newPassword = new SimpleHash(ALGORITH_NAME, pswd, ByteSource.Util.bytes(SALT), HASH_ITERATIONS).toHex();
-		return newPassword;
+		return new SimpleHash(ALGORITH_NAME, pswd, ByteSource.Util.bytes(SALT), HASH_ITERATIONS).toHex();
 	}
 
 	public static String encrypt(String username, String pswd) {
-		String newPassword = new SimpleHash(ALGORITH_NAME, pswd, ByteSource.Util.bytes(username.toLowerCase() + SALT),
+		return new SimpleHash(ALGORITH_NAME, pswd, ByteSource.Util.bytes(username.toLowerCase() + SALT),
 				HASH_ITERATIONS).toHex();
-		return newPassword;
 	}
 	public static void main(String[] args) {
 		
