@@ -412,6 +412,8 @@ INSERT INTO `t_menu` VALUES ('107', '102', '恢复任务', null, 'job:resume', n
 INSERT INTO `t_menu` VALUES ('108', '102', '立即执行任务', null, 'job:run', null, '1', null, '2018-02-24 15:59:45', null);
 INSERT INTO `t_menu` VALUES ('109', '101', '调度日志', 'jobLog', 'jobLog:list', '', '0', null, '2018-02-24 16:00:45', '2018-04-25 09:05:25');
 INSERT INTO `t_menu` VALUES ('110', '109', '删除日志', null, 'jobLog:delete', null, '1', null, '2018-02-24 16:01:21', null);
+INSERT INTO `t_menu` VALUES ('113', '2', 'Redis监控', 'redis/info', 'redis:list', '', '0', null, '2018-06-28 14:29:42', null);
+INSERT INTO `t_menu` VALUES ('114', '2', 'Redis终端', 'redis/terminal', 'redis:terminal', '', '0', null, '2018-06-28 15:35:21', null);
 
 -- ----------------------------
 -- Table structure for t_role
@@ -550,6 +552,8 @@ INSERT INTO `t_role_menu` VALUES ('1', '109');
 INSERT INTO `t_role_menu` VALUES ('1', '110');
 INSERT INTO `t_role_menu` VALUES ('64', '59');
 INSERT INTO `t_role_menu` VALUES ('64', '58');
+INSERT INTO `t_role_menu` VALUES ('1', '113');
+INSERT INTO `t_role_menu` VALUES ('1', '114');
 
 -- ----------------------------
 -- Table structure for t_user
