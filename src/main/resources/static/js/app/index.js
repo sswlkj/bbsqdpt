@@ -2,6 +2,9 @@ var $breadcrumb = $(".breadcrumb");
 var $main_content = $(".main-content");
 var $navigation = $("#navigation");
 
+var redisMemoryInfoInterval;
+var rediskeysSizeInterval;
+
 $(window).on("load", function () {
     // 加载loading
     setTimeout(function () {
@@ -28,6 +31,7 @@ $(window).on("load", function () {
     function a(a) {
         a.requestFullscreen ? a.requestFullscreen() : a.mozRequestFullScreen ? a.mozRequestFullScreen() : a.webkitRequestFullscreen ? a.webkitRequestFullscreen() : a.msRequestFullscreen && a.msRequestFullscreen()
     }
+
     $("body").on("click", "[data-ma-action]", function (b) {
         b.preventDefault();
         var c = $(this),
@@ -150,6 +154,8 @@ function loadMain(obj) {
             location = location;
             return;
         }
+        clearInterval(rediskeysSizeInterval);
+        clearInterval(redisMemoryInfoInterval);
         $main_content.html("").append(r);
     });
 }

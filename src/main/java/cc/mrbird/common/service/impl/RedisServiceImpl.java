@@ -78,13 +78,13 @@ public class RedisServiceImpl implements RedisService {
                 }
         );
         Map<String, Object> map = new HashMap<>();
-        map.put("create_time", new Date().getTime());
+        map.put("create_time", System.currentTimeMillis());
         map.put("dbSize", dbSize);
         return map;
     }
 
     @Override
-    public Map<String, Object> getMemeryInfo() {
+    public Map<String, Object> getMemoryInfo() {
         String info = (String) this.excuteByJedis(
                 j -> {
                     Client client = j.getClient();
@@ -96,7 +96,7 @@ public class RedisServiceImpl implements RedisService {
         Map<String, Object> map = null;
         for (String s : strs) {
             String[] detail = s.split(":");
-            if (detail[0].equals("used_memory")) {
+            if ("used_memory".equals(detail[0])) {
                 map = new HashMap<>();
                 map.put("used_memory", detail[1].substring(0, detail[1].length() - 1));
                 map.put("create_time", new Date().getTime());

@@ -18,6 +18,11 @@ import cc.mrbird.system.domain.User;
 import cc.mrbird.system.domain.UserOnline;
 import cc.mrbird.system.service.SessionService;
 
+/**
+ * Shiro Session 对象管理
+ * @link https://mrbird.cc/Spring-Boot-Shiro%20session.html
+ * @author MrBird
+ */
 @Service("sessionService")
 public class SessionServiceImpl implements SessionService {
 

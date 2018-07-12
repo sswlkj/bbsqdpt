@@ -26,6 +26,11 @@ import cc.mrbird.system.domain.SysLog;
 import cc.mrbird.system.domain.User;
 import cc.mrbird.system.service.LogService;
 
+/**
+ * AOP 记录用户操作日志
+ * @link https://mrbird.cc/Spring-Boot-AOP%20log.html
+ * @author MrBird
+ */
 @Aspect
 @Component
 public class LogAspect {
@@ -45,11 +50,14 @@ public class LogAspect {
 		Object result = null;
 		long beginTime = System.currentTimeMillis();
 		try {
+			// 执行方法
 			result = point.proceed();
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+		// 执行时长(毫秒)
 		long time = System.currentTimeMillis() - beginTime;
+		// 保持日志
 		saveLog(point, time);
 		return result;
 	}
@@ -61,12 +69,18 @@ public class LogAspect {
 		SysLog log = new SysLog();
 		Log logAnnotation = method.getAnnotation(Log.class);
 		if (logAnnotation != null) {
+			// 注解上的描述
 			log.setOperation(logAnnotation.value());
 		}
+
+		// 请求的类名
 		String className = joinPoint.getTarget().getClass().getName();
+		// 请求的方法名
 		String methodName = signature.getName();
 		log.setMethod(className + "." + methodName + "()");
+		// 请求的方法参数值
 		Object[] args = joinPoint.getArgs();
+		// 请求的方法参数名称
 		LocalVariableTableParameterNameDiscoverer u = new LocalVariableTableParameterNameDiscoverer();
 		String[] paramNames = u.getParameterNames(method);
 		if (args != null && paramNames != null) {
@@ -76,12 +90,15 @@ public class LogAspect {
 			}
 			log.setParams(params.toString());
 		}
+		// 获取request
 		HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
+		// 设置IP地址
 		log.setIp(IPUtils.getIpAddr(request));
 		log.setUsername(user.getUsername());
 		log.setTime(time);
 		log.setCreateTime(new Date());
 		log.setLocation(AddressUtils.getRealAddressByIP(log.getIp(), mapper));
+		// 保存系统日志
 		this.logService.save(log);
 	}
 }

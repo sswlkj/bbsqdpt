@@ -27,11 +27,11 @@ public interface RedisService {
      *
      * @return Map
      */
-    Map<String, Object> getMemeryInfo();
+    Map<String, Object> getMemoryInfo();
 
     /**
      * 获取 key
-     *
+     * @param pattern 正则
      * @return Set
      */
     Set<String> getKeys(String pattern);

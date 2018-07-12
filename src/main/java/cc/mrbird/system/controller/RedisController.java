@@ -44,10 +44,10 @@ public class RedisController {
         return JSON.toJSONString(redisService.getKeysSize());
     }
 
-    @RequestMapping("memeryInfo")
+    @RequestMapping("memoryInfo")
     @ResponseBody
-    public String getMemeryInfo() {
-        return JSON.toJSONString(redisService.getMemeryInfo());
+    public String getMemoryInfo() {
+        return JSON.toJSONString(redisService.getMemoryInfo());
     }
 
     @Log("执行Redis keys命令")
