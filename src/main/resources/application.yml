@@ -118,3 +118,35 @@ logging:
       mrbird:
         system:
           dao: warn
+
+# febs 配置
+febs:
+  shiro:
+    # shiro redis缓存时长，默认1800秒
+    expireIn: 1800
+    # session 超时时间，默认1800000毫秒
+    sessionTimeout: 1800000
+    # rememberMe cookie有效时长，默认86400秒，即一天
+    cookieTimeout: 86400
+    # 免认证的路径配置，如静态资源，druid监控页面，注册页面，验证码请求等
+    anonUrl: /css/**,/js/**,/fonts/**,/img/**,/druid/**,/user/regist,/gifCode,/
+    # 登录 url
+    loginUrl: /login
+    # 登录成功后跳转的 url
+    successUrl: /index
+    # 登出 url
+    logoutUrl: /logout
+    # 未授权跳转 url
+    unauthorizedUrl: /403
+  # 时间类型参数在前端页面的展示格式，默认格式为 yyyy-MM-dd HH:mm:ss
+  timeFormat: yyyy-MM-dd HH:mm:ss
+  # 是否开启 AOP 日志，默认开启
+  openAopLog: true
+  # 验证码
+  validateCode:
+    # 宽度，默认 146px
+    width: 146
+    # 高度，默认 33px
+    height: 33
+    # 验证码字符个数，默认4个字符
+    length: 4

@@ -1,6 +1,7 @@
 package cc.mrbird.system.controller;
 
 import cc.mrbird.common.annotation.Log;
+import cc.mrbird.common.config.FebsProperies;
 import cc.mrbird.common.controller.BaseController;
 import cc.mrbird.common.domain.ResponseBo;
 import cc.mrbird.common.util.MD5Utils;
@@ -25,6 +26,9 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class LoginController extends BaseController {
+
+    @Autowired
+    private FebsProperies febsProperies;
 
     @Autowired
     private UserService userService;
@@ -68,7 +72,10 @@ public class LoginController extends BaseController {
             response.setDateHeader("Expires", 0);
             response.setContentType("image/gif");
 
-            Captcha captcha = new GifCaptcha(146, 33, 4);
+            Captcha captcha = new GifCaptcha(
+                    febsProperies.getValidateCode().getWidth(),
+                    febsProperies.getValidateCode().getHeight(),
+                    febsProperies.getValidateCode().getLength());
             captcha.out(response.getOutputStream());
             HttpSession session = request.getSession(true);
             session.removeAttribute("_code");
