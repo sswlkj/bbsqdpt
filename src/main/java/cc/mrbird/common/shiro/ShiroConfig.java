@@ -81,7 +81,7 @@ public class ShiroConfig {
         // 未授权 url
         shiroFilterFactoryBean.setUnauthorizedUrl(febsProperies.getShiro().getUnauthorizedUrl());
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-
+        // 设置免认证 url
         String[] anonUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(febsProperies.getShiro().getAnonUrl(), ",");
         for (String url : anonUrls) {
             filterChainDefinitionMap.put(url, "anon");

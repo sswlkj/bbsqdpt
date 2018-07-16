@@ -63,7 +63,7 @@ public class LogAspect {
         // 执行时长(毫秒)
         long time = System.currentTimeMillis() - beginTime;
         if (febsProperies.isOpenAopLog())
-            // 保持日志
+            // 保存日志
             saveLog(point, time);
         return result;
     }
