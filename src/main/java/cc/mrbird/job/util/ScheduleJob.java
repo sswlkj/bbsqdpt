@@ -1,26 +1,24 @@
 package cc.mrbird.job.util;
 
+import cc.mrbird.common.util.SpringContextUtils;
+import cc.mrbird.job.domain.Job;
+import cc.mrbird.job.domain.JobLog;
+import cc.mrbird.job.service.JobLogService;
+import org.apache.commons.lang.StringUtils;
+import org.quartz.JobExecutionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.quartz.QuartzJobBean;
+
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import org.apache.commons.lang.StringUtils;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.quartz.QuartzJobBean;
-
-import cc.mrbird.common.util.SpringContextUtils;
-import cc.mrbird.job.domain.Job;
-import cc.mrbird.job.domain.JobLog;
-import cc.mrbird.job.service.JobLogService;
-
 /**
  * 定时任务
  * 
- * @author Administrator
+ * @author MrBird
  *
  */
 public class ScheduleJob extends QuartzJobBean {
@@ -28,7 +26,7 @@ public class ScheduleJob extends QuartzJobBean {
 	private ExecutorService service = Executors.newSingleThreadExecutor();
 
 	@Override
-	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
+	protected void executeInternal(JobExecutionContext context) {
 		Job scheduleJob = (Job) context.getMergedJobDataMap().get(Job.JOB_PARAM_KEY);
 
 		// 获取spring bean

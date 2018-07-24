@@ -91,8 +91,10 @@ public class LogAspect {
         String[] paramNames = u.getParameterNames(method);
         if (args != null) {
             StringBuilder params = new StringBuilder();
-            for (int i = 0; i < args.length; i++) {
+            int i = 0;
+            while (i < args.length) {
                 params.append("  ").append(paramNames[i]).append(": ").append(this.mapper.writeValueAsString(args[i]));
+                i++;
             }
             log.setParams(params.toString());
         }

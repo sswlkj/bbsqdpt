@@ -3,6 +3,7 @@ package cc.mrbird.common.shiro;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -52,10 +53,7 @@ public class ShiroRealm extends AuthorizingRealm {
 
 		// 获取用户角色集
 		List<Role> roleList = this.roleService.findUserRole(userName);
-		Set<String> roleSet = new HashSet<>();
-		for (Role r : roleList) {
-			roleSet.add(r.getRoleName());
-		}
+		Set<String> roleSet = roleList.stream().map(Role::getRoleName).collect(Collectors.toSet());
 		simpleAuthorizationInfo.setRoles(roleSet);
 
 		// 获取用户权限集

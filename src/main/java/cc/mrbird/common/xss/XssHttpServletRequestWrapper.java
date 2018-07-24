@@ -7,6 +7,8 @@ import org.apache.commons.lang.StringUtils;
 
 import cc.mrbird.common.util.JsoupUtil;
 
+import java.util.stream.IntStream;
+
 /**
  * Jsoup过滤http请求，防止Xss攻击
  *
@@ -45,9 +47,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 	public String[] getParameterValues(String name) {
 		String[] arr = super.getParameterValues(name);
 		if (arr != null) {
-			for (int i = 0; i < arr.length; i++) {
-				arr[i] = JsoupUtil.clean(arr[i]);
-			}
+			IntStream.range(0, arr.length).forEach(i -> arr[i] = JsoupUtil.clean(arr[i]));
 		}
 		return arr;
 	}

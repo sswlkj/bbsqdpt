@@ -178,7 +178,8 @@ public class ExcelUtils {
 		double sheetNo = Math.ceil((double) data.size() / mMaxSheetRecords);// 取出一共有多少个sheet.
 
 		// =====多sheet生成填充数据=====
-		for (int index = 0; index <= (sheetNo == 0.0 ? sheetNo : sheetNo - 1); index++) {
+		int index = 0;
+		while (index <= (sheetNo == 0.0 ? sheetNo : sheetNo - 1)) {
 			SXSSFSheet sheet = POIUtils.newSXSSFSheet(wb, sheetName + (index == 0 ? "" : "_" + index));
 
 			// 创建表头
@@ -206,7 +207,8 @@ public class ExcelUtils {
 				int startNo = index * mMaxSheetRecords;
 				int endNo = Math.min(startNo + mMaxSheetRecords, data.size());
 
-				for (int i = startNo; i < endNo; i++) {
+				int i = startNo;
+				while (i < endNo) {
 					bodyRow = POIUtils.newSXSSFRow(sheet, i + 1 - startNo);
 					for (int j = 0; j < exportItems.size(); j++) {
 						// 处理单元格值
@@ -232,8 +234,10 @@ public class ExcelUtils {
 						cell.setCellValue("".equals(cellValue) ? null : cellValue);
 						cell.setCellStyle(style);
 					}
+					i++;
 				}
 			}
+			index++;
 		}
 
 		try {
@@ -276,14 +280,10 @@ public class ExcelUtils {
 			// 解决乱码
 			out.write(new byte[] { (byte) 0xEF, (byte) 0xBB, (byte) 0xBF });
 			CsvWriter csvWriter = new CsvWriter(out, ',', Charset.forName("UTF-8"));
-			List<Object> csvHeaders = new ArrayList<>();
-			for (ExportItem exportItem1 : exportItems) {
-				csvHeaders.add(exportItem1.getDisplay());
-			}
-			String[] csvHeadersArr = csvHeaders.toArray(new String[0]);
+			String[] csvHeadersArr = exportItems.stream().map(ExportItem::getDisplay).toArray(String[]::new);
 			csvWriter.writeRecord(csvHeadersArr);
 			for (Object aData : data) {
-				List<Object> csvContent = new ArrayList<Object>();
+				List<Object> csvContent = new ArrayList<>();
 				for (ExportItem exportItem : exportItems) {
 					// 处理单元格值
 					cellValue = exportItem.getReplace();

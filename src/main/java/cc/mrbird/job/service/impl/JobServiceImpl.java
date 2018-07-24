@@ -39,15 +39,15 @@ public class JobServiceImpl extends BaseService<Job> implements JobService {
 	@PostConstruct
 	public void init() {
 		List<Job> scheduleJobList = this.jobMapper.queryList();
-		for (Job scheduleJob : scheduleJobList) {
+		// 如果不存在，则创建
+		scheduleJobList.forEach(scheduleJob -> {
 			CronTrigger cronTrigger = ScheduleUtils.getCronTrigger(scheduler, scheduleJob.getJobId());
-			// 如果不存在，则创建
 			if (cronTrigger == null) {
 				ScheduleUtils.createScheduleJob(scheduler, scheduleJob);
 			} else {
 				ScheduleUtils.updateScheduleJob(scheduler, scheduleJob);
 			}
-		}
+		});
 	}
 
 	@Override
@@ -97,9 +97,7 @@ public class JobServiceImpl extends BaseService<Job> implements JobService {
 	@Transactional
 	public void deleteBatch(String jobIds) {
 		List<String> list = Arrays.asList(jobIds.split(","));
-		for (String jobId : list) {
-			ScheduleUtils.deleteScheduleJob(scheduler, Long.valueOf(jobId));
-		}
+		list.forEach(jobId -> ScheduleUtils.deleteScheduleJob(scheduler, Long.valueOf(jobId)));
 		this.batchDelete(list, "jobId", Job.class);
 	}
 
@@ -118,18 +116,14 @@ public class JobServiceImpl extends BaseService<Job> implements JobService {
 	@Transactional
 	public void run(String jobIds) {
 		String[] list = jobIds.split(",");
-		for (String jobId : list) {
-			ScheduleUtils.run(scheduler, this.findJob(Long.valueOf(jobId)));
-		}
+		Arrays.stream(list).forEach(jobId -> ScheduleUtils.run(scheduler, this.findJob(Long.valueOf(jobId))));
 	}
 
 	@Override
 	@Transactional
 	public void pause(String jobIds) {
 		String[] list = jobIds.split(",");
-		for (String jobId : list) {
-			ScheduleUtils.pauseJob(scheduler, Long.valueOf(jobId));
-		}
+		Arrays.stream(list).forEach(jobId -> ScheduleUtils.pauseJob(scheduler, Long.valueOf(jobId)));
 		this.updateBatch(jobIds, Job.ScheduleStatus.PAUSE.getValue());
 	}
 
@@ -137,9 +131,7 @@ public class JobServiceImpl extends BaseService<Job> implements JobService {
 	@Transactional
 	public void resume(String jobIds) {
 		String[] list = jobIds.split(",");
-		for (String jobId : list) {
-			ScheduleUtils.resumeJob(scheduler, Long.valueOf(jobId));
-		}
+		Arrays.stream(list).forEach(jobId -> ScheduleUtils.resumeJob(scheduler, Long.valueOf(jobId)));
 		this.updateBatch(jobIds, Job.ScheduleStatus.NORMAL.getValue());
 	}
 

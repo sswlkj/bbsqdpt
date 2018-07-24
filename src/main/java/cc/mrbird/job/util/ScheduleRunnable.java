@@ -10,7 +10,7 @@ import cc.mrbird.common.util.SpringContextUtils;
 /**
  * 执行定时任务
  * 
- * @author Administrator
+ * @author MrBird
  *
  */
 public class ScheduleRunnable implements Runnable {
@@ -18,7 +18,7 @@ public class ScheduleRunnable implements Runnable {
 	private Method method;
 	private String params;
 
-	public ScheduleRunnable(String beanName, String methodName, String params)
+	ScheduleRunnable(String beanName, String methodName, String params)
 			throws NoSuchMethodException, SecurityException {
 		this.target = SpringContextUtils.getBean(beanName);
 		this.params = params;

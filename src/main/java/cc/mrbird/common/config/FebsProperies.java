@@ -4,7 +4,6 @@ import cc.mrbird.common.domain.ValidateCodeProperties;
 import cc.mrbird.common.shiro.ShiroProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @ConfigurationProperties(prefix = "febs")

@@ -40,11 +40,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 		Example example = new Example(User.class);
 		example.createCriteria().andCondition("lower(username)=", userName.toLowerCase());
 		List<User> list = this.selectByExample(example);
-		if (list.size() == 0) {
-			return null;
-		} else {
-			return list.get(0);
-		}
+		return list.size() == 0 ? null : list.get(0);
 	}
 
 	@Override
@@ -94,12 +90,12 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 	}
 
 	private void setUserRoles(User user, Long[] roles) {
-		for (Long roleId : roles) {
+		Arrays.stream(roles).forEach(roleId -> {
 			UserRole ur = new UserRole();
 			ur.setUserId(user.getUserId());
 			ur.setRoleId(roleId);
 			this.userRoleMapper.insert(ur);
-		}
+		});
 	}
 
 	@Override

@@ -61,7 +61,7 @@ public class POIUtils {
 
 	public static void writeByLocalOrBrowser(HttpServletResponse response, String fileName, SXSSFWorkbook wb,
 			OutputStream out) throws Exception {
-		ZipSecureFile.setMinInflateRatio(0l);
+		ZipSecureFile.setMinInflateRatio(0L);
 		if (response != null) {
 			// response对象不为空,响应到浏览器下载
 			response.setContentType(Constant.XLSX_CONTENT_TYPE);

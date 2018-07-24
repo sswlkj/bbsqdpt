@@ -1,28 +1,21 @@
 package cc.mrbird.common.util;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class AddressUtils {
 
-	private static String getAddresses(String content, String encodingString) throws UnsupportedEncodingException {
+	private static String getAddresses(String content, String encodingString) {
 		String urlStr = "http://ip.taobao.com/service/getIpInfo.php";
 		String returnStr = getResult(urlStr, content, encodingString);
 		if (returnStr != null) {
 			returnStr = decodeUnicode(returnStr);
 			String[] temp = returnStr.split(",");
-			if (temp.length < 3) {
-				return "0";
-			}
-			return returnStr;
+			return temp.length < 3 ? "0" : returnStr;
 		}
 		return null;
 	}
@@ -66,7 +59,8 @@ public class AddressUtils {
 		char aChar;
 		int len = theString.length();
 		StringBuilder outBuffer = new StringBuilder(len);
-		for (int x = 0; x < len;) {
+		int x = 0;
+		while (x < len) {
 			aChar = theString.charAt(x++);
 			if (aChar == '\\') {
 				aChar = theString.charAt(x++);

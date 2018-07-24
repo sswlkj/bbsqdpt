@@ -30,13 +30,13 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
 	public Tree<Dept> getDeptTree() {
 		List<Tree<Dept>> trees = new ArrayList<>();
 		List<Dept> depts = this.findAllDepts(new Dept());
-		for (Dept dept : depts) {
+		depts.forEach(dept -> {
 			Tree<Dept> tree = new Tree<>();
 			tree.setId(dept.getDeptId().toString());
 			tree.setParentId(dept.getParentId().toString());
 			tree.setText(dept.getDeptName());
 			trees.add(tree);
-		}
+		});
 		return TreeUtils.build(trees);
 	}
 
@@ -61,11 +61,7 @@ public class DeptServiceImpl extends BaseService<Dept> implements DeptService {
 		Example example = new Example(Dept.class);
 		example.createCriteria().andCondition("lower(dept_name) =", deptName.toLowerCase());
 		List<Dept> list = this.selectByExample(example);
-		if (list.size() == 0) {
-			return null;
-		} else {
-			return list.get(0);
-		}
+		return list.size() == 0 ? null : list.get(0);
 	}
 
 	@Override

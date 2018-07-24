@@ -63,13 +63,7 @@ public class XssFilter implements Filter {
 			return false;
 		}
 		String url = request.getServletPath();
-		for (String pattern : excludes) {
-			Pattern p = Pattern.compile("^" + pattern);
-			Matcher m = p.matcher(url);
-			if (m.find())
-				return true;
-		}
-		return false;
+		return excludes.stream().map(pattern -> Pattern.compile("^" + pattern)).map(p -> p.matcher(url)).anyMatch(Matcher::find);
 	}
 
 }

@@ -14,11 +14,11 @@ public class TreeUtils {
 			return null;
 		}
 		List<Tree<T>> topNodes = new ArrayList<>();
-		for (Tree<T> children : nodes) {
+		nodes.forEach(children -> {
 			String pid = children.getParentId();
 			if (pid == null || "0".equals(pid)) {
 				topNodes.add(children);
-				continue;
+				return;
 			}
 			for (Tree<T> parent : nodes) {
 				String id = parent.getId();
@@ -26,11 +26,10 @@ public class TreeUtils {
 					parent.getChildren().add(children);
 					children.setHasParent(true);
 					parent.setChildren(true);
-					continue;
+					return;
 				}
 			}
-
-		}
+		});
 
 		Tree<T> root = new Tree<>();
 		root.setId("0");
@@ -51,22 +50,21 @@ public class TreeUtils {
 			return null;
 		}
 		List<Tree<T>> topNodes = new ArrayList<>();
-		for (Tree<T> children : nodes) {
+		nodes.forEach(children -> {
 			String pid = children.getParentId();
 			if (pid == null || idParam.equals(pid)) {
 				topNodes.add(children);
-				continue;
+				return;
 			}
-			for (Tree<T> parent : nodes) {
+			nodes.forEach(parent -> {
 				String id = parent.getId();
 				if (id != null && id.equals(pid)) {
 					parent.getChildren().add(children);
 					children.setHasParent(true);
 					parent.setChildren(true);
-					continue;
 				}
-			}
-		}
+			});
+		});
 		return topNodes;
 	}
 }

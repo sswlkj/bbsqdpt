@@ -63,11 +63,7 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 		Example example = new Example(Role.class);
 		example.createCriteria().andCondition("lower(role_name)=", roleName.toLowerCase());
 		List<Role> list = this.selectByExample(example);
-		if (list.size() == 0) {
-			return null;
-		} else {
-			return list.get(0);
-		}
+		return list.size() == 0 ? null : list.get(0);
 	}
 
 	@Override
@@ -79,12 +75,12 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 	}
 
 	private void setRoleMenus(Role role, Long[] menuIds) {
-		for (Long menuId : menuIds) {
+		Arrays.stream(menuIds).forEach(menuId -> {
 			RoleMenu rm = new RoleMenu();
 			rm.setMenuId(menuId);
 			rm.setRoleId(role.getRoleId());
 			this.roleMenuMapper.insert(rm);
-		}
+		});
 	}
 
 	@Override

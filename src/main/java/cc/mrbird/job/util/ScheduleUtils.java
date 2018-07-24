@@ -15,7 +15,7 @@ import cc.mrbird.job.domain.Job;
 
 /**
  * 定时任务工具类
- * @author Administrator
+ * @author MrBird
  *
  */
 public class ScheduleUtils {
@@ -24,14 +24,14 @@ public class ScheduleUtils {
 	/**
 	 * 获取触发器key
 	 */
-	public static TriggerKey getTriggerKey(Long jobId) {
+	private static TriggerKey getTriggerKey(Long jobId) {
 		return TriggerKey.triggerKey(JOB_NAME + jobId);
 	}
 
 	/**
 	 * 获取jobKey
 	 */
-	public static JobKey getJobKey(Long jobId) {
+	private static JobKey getJobKey(Long jobId) {
 		return JobKey.jobKey(JOB_NAME + jobId);
 	}
 
