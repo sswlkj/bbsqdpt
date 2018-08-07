@@ -45,6 +45,9 @@ public class ShiroConfig {
     @Value("${spring.redis.port}")
     private int port;
 
+    @Value("${spring.redis.password}")
+    private String password = "";
+
     @Value("${spring.redis.timeout}")
     private int timeout;
 
@@ -59,6 +62,8 @@ public class ShiroConfig {
         redisManager.setExpire(febsProperies.getShiro().getExpireIn());
         redisManager.setHost(host);
         redisManager.setPort(port);
+        if (StringUtils.isNotBlank(password))
+            redisManager.setPassword(password);
         redisManager.setTimeout(timeout);
         return redisManager;
     }

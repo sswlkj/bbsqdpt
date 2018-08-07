@@ -1,5 +1,6 @@
 package cc.mrbird.common.config;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
@@ -18,6 +19,9 @@ public class RedisConfig extends CachingConfigurerSupport {
     @Value("${spring.redis.port}")
     private int port;
 
+    @Value("${spring.redis.password}")
+    private String password = "";
+
     @Value("${spring.redis.timeout}")
     private int timeout;
 
@@ -32,7 +36,10 @@ public class RedisConfig extends CachingConfigurerSupport {
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxIdle(maxIdle);
         jedisPoolConfig.setMaxWaitMillis(maxWaitMillis);
-        return new JedisPool(jedisPoolConfig, host, port, timeout);
+        if (StringUtils.isNotBlank(password))
+            return new JedisPool(jedisPoolConfig, host, port, timeout, password);
+        else
+            return new JedisPool(jedisPoolConfig, host, port, timeout);
     }
 
 }

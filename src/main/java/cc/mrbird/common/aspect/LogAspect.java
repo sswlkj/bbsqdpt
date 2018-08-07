@@ -1,5 +1,6 @@
 package cc.mrbird.common.aspect;
 
+import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.Date;
 
@@ -93,7 +94,10 @@ public class LogAspect {
             StringBuilder params = new StringBuilder();
             int i = 0;
             while (i < args.length) {
-                params.append("  ").append(paramNames[i]).append(": ").append(this.mapper.writeValueAsString(args[i]));
+                if(args[i] instanceof Serializable)
+                    params.append("  ").append(paramNames[i]).append(": ").append(this.mapper.writeValueAsString(args[i]));
+                else
+                    params.append("  ").append(paramNames[i]).append(": ").append(args[i]);
                 i++;
             }
             log.setParams(params.toString());
