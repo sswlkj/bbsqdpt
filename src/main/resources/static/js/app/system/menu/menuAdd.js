@@ -5,6 +5,10 @@ var $url = $menuAddForm.find("input[name='url']");
 var $icon = $menuAddForm.find("input[name='icon']");
 var $icon_drop = $menuAddForm.find("div.icon-drop");
 
+var $menuUrlListRow = $menuAddForm.find(".menu-url-list-row");
+var $menuIconListRow = $menuAddForm.find(".menu-icon-list-row");
+var $menuPermsListRow = $menuAddForm.find(".menu-perms-list-row");
+
 $(function () {
     $icon_drop.hide();
     validateRule();
@@ -14,12 +18,12 @@ $(function () {
         var $value = $menuAddForm.find("input[name='type']:checked").val();
         if ($value === "0") {
             $menuName.parent().prev().text("菜单名称：");
-            $url.val("").parents(".row").show();
-            $icon.val("").parents(".row").show();
+            $menuUrlListRow.show();
+            $menuIconListRow.show();
         } else {
             $menuName.parent().prev().text("按钮名称：");
-            $url.parents(".row").hide();
-            $icon.parents(".row").hide();
+            $menuUrlListRow.hide();
+            $menuIconListRow.hide();
         }
     });
 
@@ -40,6 +44,12 @@ $(function () {
     });
 
     $("#menu-add .btn-save").click(function () {
+        $menuPermsListRow.find("input[name='perms']").val(
+            $menuPermsListRow.find(".autocomplete-input").val()
+        );
+        $menuUrlListRow.find("input[name='url']").val(
+            $menuUrlListRow.find(".autocomplete-input").val()
+        );
         var name = $(this).attr("name");
         getMenu();
         validator = $menuAddForm.validate();
@@ -77,8 +87,8 @@ function closeModal() {
     $menuName.parent().prev().text("菜单名称：");
     $("#menu-add-modal-title").html('新增菜单/按钮');
     $("#menu-add-button").attr("name", "save");
-    $url.val("").parents(".row").show();
-    $icon.val("").parents(".row").show();
+    $menuUrlListRow.show();
+    $menuIconListRow.show();
     validator.resetForm();
     $MB.closeAndRestModal("menu-add");
     $MB.refreshJsTree("menuTree", createMenuTree());

@@ -22,8 +22,8 @@ function updateMenu() {
             $form.find("input[name='oldMenuName']").val(menu.menuName);
             $form.find("input[name='menuId']").val(menu.menuId);
             $form.find("input[name='icon']").val(menu.icon);
-            $form.find("input[name='url']").val(menu.url);
-            $form.find("input[name='perms']").val(menu.perms);
+            $('#menu-perms-list').find(".autocomplete-input").val(menu.perms == null ? "" : menu.perms);
+            $('#menu-url-list').find(".autocomplete-input").val(menu.url == null ? "" : menu.url);
             $menuTree.jstree('select_node', menu.parentId, true);
             $menuTree.jstree('disable_node', menu.menuId);
             $("#menu-add-button").attr("name", "update");

@@ -17,7 +17,7 @@ Author: Lorenzo Cioni - https://github.com/lorecioni
 			keyname: '',
 			valuename: '',
 			placeholder: '',
-			width: 200,
+			width: 300,
 			height: 16,
 			showButton: true,
 			onSubmit: function(text){},
@@ -33,7 +33,7 @@ Author: Lorenzo Cioni - https://github.com/lorecioni
 				
 			//Text input		
 			var input = $('<input type="text" autocomplete="off" name="query">')
-				.attr('placeholder', params.placeholder)
+                .attr('placeholder', params.placeholder)
 				.addClass('autocomplete-input')
 				.css({
 					'width' : params.width,
@@ -44,7 +44,9 @@ Author: Lorenzo Cioni - https://github.com/lorecioni
 			//Proposals
 			var proposals = $('<div></div>')
 				.addClass('proposal-box')
+				.css("box-shadow", '0 2px 10px rgba(0, 0, 0, 0.075)')
 				.css('width', params.width)
+				.css("border", '0px solid #f2f2f2')
 				.css('top', input.height());
 			var proposalList = $('<ul></ul>')
 				.addClass('proposal-list');
@@ -57,6 +59,9 @@ Author: Lorenzo Cioni - https://github.com/lorecioni
 					currentProposals = [];
 					currentSelection = -1;
 					proposalList.empty();
+                    proposals.css({
+                        "border": '0px solid #f2f2f2'
+                    });
 					if(input.val() != ''){
 						var word = input.val();
 						proposalList.empty();
@@ -75,7 +80,7 @@ Author: Lorenzo Cioni - https://github.com/lorecioni
 											proposalList.empty();
 											params.onSubmit($(this).attr("value"));
 											proposals.css({
-												"border-bottom": 'none'
+                                                "border": '0px solid #f2f2f2'
 											});
 										})
 										.mouseenter(function() {
@@ -85,22 +90,32 @@ Author: Lorenzo Cioni - https://github.com/lorecioni
 											$(this).removeClass('selected');
 										});
 									proposalList.append(element);
+                                    proposals.css({
+                                        "border": '1px solid #f2f2f2'
+                                    });
 								}
 							}
 						}
-						proposals.css({
-							"border-bottom": '1px solid rgba(0, 0, 0, 0.19)'
-						});
+					}else{
+                        proposals.css({
+                            "border": '0px solid #f2f2f2'
+                        });
 					}
 				}
 			});
-			
+
+
 			input.blur(function(e){
 				currentSelection = -1;
-				//proposalList.empty();
+                setTimeout(function () {
+                    proposalList.empty();
+                },200);
+                proposals.css({
+                    "border": '0px solid #f2f2f2'
+                });
 				params.onBlur();
 			});
-			
+
 			searchContainer.append(input);
 			searchContainer.append(proposals);		
 			

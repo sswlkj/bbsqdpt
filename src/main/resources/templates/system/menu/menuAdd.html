@@ -41,31 +41,35 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row menu-url-list-row">
                         <div class="col-sm-11">
                             <div class="input-group">
                                 <span class="input-group-addon">
 					               	菜单URL：
 					            </span>
                                 <div class="form-group">
-                                    <input type="text" name="url" class="form-control">
+                                    <div id="menu-url-list" class="form-control">
+                                        <input id="menu-url" hidden type="text" name="url" class="form-control">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row menu-perms-list-row">
                         <div class="col-sm-11">
                             <div class="input-group">
                                 <span class="input-group-addon">
 					               	权限描述：
 					            </span>
                                 <div class="form-group">
-                                    <input type="text" name="perms" class="form-control">
+                                    <div id="menu-perms-list" class="form-control">
+                                        <input hidden id="menu-perms" type="text" name="perms" class="form-control">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row menu-icon-list-row">
                         <div class="col-sm-11">
                             <div class="input-group">
                                 <span class="input-group-addon">
@@ -105,4 +109,5 @@
         </div>
     </div>
 </div>
+<script data-th-src="@{js/autocomplete/autocomplete.js}"></script>
 <script data-th-src="@{js/app/system/menu/menuAdd.js}"></script>

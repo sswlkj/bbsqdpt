@@ -99,7 +99,7 @@ public class RedisServiceImpl implements RedisService {
             if ("used_memory".equals(detail[0])) {
                 map = new HashMap<>();
                 map.put("used_memory", detail[1].substring(0, detail[1].length() - 1));
-                map.put("create_time", new Date().getTime());
+                map.put("create_time", System.currentTimeMillis());
                 break;
             }
         }
