@@ -12,6 +12,7 @@ import cc.mrbird.system.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,6 +55,9 @@ public class LoginController extends BaseController {
         password = MD5Utils.encrypt(username.toLowerCase(), password);
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
         try {
+            Subject subject = getSubject();
+            if (subject != null)
+                subject.logout();
             super.login(token);
             this.userService.updateLoginTime(username);
             return ResponseBo.ok();
