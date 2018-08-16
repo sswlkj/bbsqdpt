@@ -7,8 +7,8 @@ $(function () {
             return {
                 pageSize: params.limit,
                 pageNum: params.offset / params.limit + 1,
-                beanName: $jobTableForm.find("input[name='beanName']").val().trim(),
-                methodName: $jobTableForm.find("input[name='methodName']").val().trim(),
+                beanName: $jobTableForm.find("#sys-cron-clazz-list-bean").find(".autocomplete-input").val(),
+                methodName: $jobTableForm.find("#sys-cron-clazz-list-method").find(".autocomplete-input").val(),
                 status: $jobTableForm.find("select[name='status']").val()
             };
         },
@@ -45,6 +45,7 @@ $(function () {
     };
 
     $MB.initTable('jobTable', settings);
+    initSysCronClazzList();
 });
 
 function search() {
@@ -186,4 +187,35 @@ function exportJobCsv() {
             $MB.n_warning(r.msg);
         }
     });
+}
+
+function initSysCronClazzList() {
+    $.getJSON(ctx + "job/getSysCronClazz", function (r) {
+        r = r.code == 0 ? r.msg : []
+        $('#sys-cron-clazz-list-bean').autocomplete({
+            hints: r,
+            keyname: 'beanName',
+            width: 70,
+            // height: 32,
+            valuename: 'beanName',
+            showButton: false,
+            onSubmit: function (text) {
+                $('#sys-cron-clazz-list-bean').siblings("input[name='beanName']").val(text);
+
+            }
+        });
+        $('#sys-cron-clazz-list-method').autocomplete({
+            hints: r,
+            keyname: 'beanName',
+            width: 70,
+            // height: 31,
+            valuename: 'methodName',
+            showButton: false,
+            onSubmit: function (text) {
+                $('#sys-cron-clazz-list-method').siblings("input[name='methodName']").val(text);
+            }
+        });
+    });
+
+
 }

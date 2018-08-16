@@ -2,7 +2,6 @@ server:
   port: 8080
   tomcat:
     uri-encoding: utf-8
-    
 spring:
   datasource:
     druid:
@@ -34,15 +33,15 @@ spring:
       filters: stat
       # Spring监控AOP切入点，如x.y.z.service.*,配置多个英文逗号分隔
       aop-patterns: cc.mrbird.servie.*
-      
+
       # WebStatFilter配置
       web-stat-filter:
         enabled: true
         # 添加过滤规则
         url-pattern: /*
         # 忽略过滤的格式
-        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
-      
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*,/actuator/*'
+
       # StatViewServlet配置 
       stat-view-servlet:
         enabled: true
@@ -57,11 +56,11 @@ spring:
         # allow: 127.0.0.1
         # IP黑名单（共同存在时，deny优先于allow）
         # deny: 192.168.1.218
-      
+
       # 配置StatFilter
-      filter: 
-        stat: 
-          log-slow-sql: true 
+      filter:
+        stat:
+          log-slow-sql: true
 
   redis:
     # Redis数据库索引（默认为0）
@@ -90,6 +89,16 @@ spring:
 
   aop:
     proxy-target-class: true
+  cache:
+    type:
+      redis
+
+  boot:
+    admin:
+      client:
+        url: http://localhost:8082
+  application:
+    name: febs
 
 mybatis:
   config-location: classpath:config/mybatis-config.xml
@@ -99,27 +108,40 @@ mybatis:
   mapper-locations: classpath:mapper/*/*.xml
   property:
     order: BEFORE
-    
+
 #mappers 多个接口时逗号隔开
 mapper:
   mappers: cc.mrbird.common.config.MyMapper
   not-empty: false
   identity: MYSQL
   order: after
-    
+
 #pagehelper
-pagehelper: 
+pagehelper:
   helperDialect: mysql
   reasonable: true
   supportMethodsArguments: true
-  params: count=countSql 
-  
+  params: count=countSql
+
 logging:
   level:
     cc:
       mrbird:
         system:
-          dao: warn
+          dao: debug
+
+info:
+  app:
+    name: "@project.name@"
+    description: "@project.description@"
+    version: "@project.version@"
+    spring-boot-version: "@project.parent.version@"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 # febs 配置
 febs:
@@ -131,7 +153,7 @@ febs:
     # rememberMe cookie有效时长，默认86400秒，即一天
     cookieTimeout: 86400
     # 免认证的路径配置，如静态资源，druid监控页面，注册页面，验证码请求等
-    anonUrl: /css/**,/js/**,/fonts/**,/img/**,/druid/**,/user/regist,/gifCode,/
+    anonUrl: /css/**,/js/**,/fonts/**,/img/**,/druid/**,/user/regist,/gifCode,/,/actuator/**
     # 登录 url
     loginUrl: /login
     # 登录成功后跳转的 url
@@ -152,3 +174,5 @@ febs:
     height: 33
     # 验证码字符个数，默认4个字符
     length: 4
+
+

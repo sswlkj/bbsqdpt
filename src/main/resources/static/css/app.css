@@ -12691,7 +12691,8 @@ label.error{
 }
 
 .dataTables_filter {
-  overflow: hidden;
+  /*overflow: hidden;*/
+  width: 85%;
 }
 .dataTables_filter > label:before, .dataTables_filter > label:after {
   content: '';
@@ -12780,7 +12781,7 @@ label.error{
 
 .dataTables_buttons {
   float: right;
-  margin: 20px 0 0 30px;
+  /*margin: 20px 0 0 30px;*/
 }
 .dataTables_buttons .actions__item {
   color: #707070 !important;

@@ -1,11 +1,9 @@
 package cc.mrbird.system.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -18,6 +16,10 @@ import cc.mrbird.system.dao.MenuMapper;
 import cc.mrbird.system.domain.Menu;
 import cc.mrbird.system.service.MenuService;
 import cc.mrbird.system.service.RoleMenuServie;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
 
@@ -30,6 +32,9 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
 
     @Autowired
     private RoleMenuServie roleMenuService;
+
+    @Autowired
+    private WebApplicationContext applicationContext;
 
     @Override
     public List<Menu> findUserPermissions(String userName) {
@@ -134,6 +139,31 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
         this.batchDelete(list, "menuId", Menu.class);
         this.roleMenuService.deleteRoleMenusByMenuId(menuIds);
         this.menuMapper.changeToTop(list);
+    }
+
+    @Override
+    public List<Map<String, String>> getAllUrl(String p1) {
+        RequestMappingHandlerMapping mapping = applicationContext.getBean(RequestMappingHandlerMapping.class);
+        //获取url与类和方法的对应信息
+        Map<RequestMappingInfo, HandlerMethod> map = mapping.getHandlerMethods();
+        List<Map<String, String>> urlList = new ArrayList<>();
+        for (RequestMappingInfo info : map.keySet()) {
+            HandlerMethod handlerMethod = map.get(info);
+            RequiresPermissions permissions = handlerMethod.getMethodAnnotation(RequiresPermissions.class);
+            String perms = "";
+            if (null != permissions) {
+                perms = StringUtils.join(permissions.value(), ",");
+            }
+            Set<String> patterns = info.getPatternsCondition().getPatterns();
+            for (String url : patterns) {
+                Map<String, String> urlMap = new HashMap<>();
+                urlMap.put("url", url.replaceFirst("\\/", ""));
+                urlMap.put("perms", perms);
+                urlList.add(urlMap);
+            }
+        }
+        return urlList;
+
     }
 
     @Override

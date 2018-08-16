@@ -33,7 +33,7 @@ public class JobLogServiceImpl extends BaseService<JobLog> implements JobLogServ
 			if (StringUtils.isNotBlank(jobLog.getStatus())) {
 				criteria.andCondition("status=", Long.valueOf(jobLog.getStatus()));
 			}
-			example.setOrderByClause("log_id");
+			example.setOrderByClause("log_id desc");
 			return this.selectByExample(example);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
