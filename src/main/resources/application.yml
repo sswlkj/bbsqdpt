@@ -93,12 +93,31 @@ spring:
     type:
       redis
 
+# spring boot admin配置
   boot:
     admin:
       client:
-        url: http://localhost:8082
+        url: http://localhost:8081
+        username: mrbird
+        password: 123456
   application:
     name: febs
+
+info:
+  app:
+    name: "febs"
+    description: "spring boot&shiro 权限管理系统"
+    version: "2.0"
+    spring-boot-version: "2.0.4.RELEASE"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+      health:
+        show-details: ALWAYS
 
 mybatis:
   config-location: classpath:config/mybatis-config.xml
@@ -130,18 +149,6 @@ logging:
         system:
           dao: debug
 
-info:
-  app:
-    name: "@project.name@"
-    description: "@project.description@"
-    version: "@project.version@"
-    spring-boot-version: "@project.parent.version@"
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
 
 # febs 配置
 febs:
