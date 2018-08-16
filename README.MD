@@ -5,7 +5,7 @@
 ![https://img.shields.io/badge/springboot-2.0.4-yellow.svg?longCache=true&style=popout-square](https://img.shields.io/badge/springboot-2.0.4-yellow.svg?longCache=true&style=popout-square)
 ![https://img.shields.io/badge/apache%20shiro-1.4.0-green.svg?longCache=true&style=flat-square](https://img.shields.io/badge/apache%20shiro-1.4.0-green.svg?longCache=true&style=flat-square)
 
-FEBS是一个简单高效的后台权限管理系统。项目基础框架采用全新的Java Web开发框架 —— Spring Boot2.0.3，消除了繁杂的XML配置，使得二次开发更为简单；数据访问层采用Mybatis，同时引入了通用Mapper和PageHelper插件，可快速高效的对单表进行增删改查操作，消除了大量传统XML配置SQL的代码；安全框架采用时下流行的Apache Shiro，可实现对按钮级别的权限控制；前端页面使用Bootstrap构建，主题风格为时下Google最新设计语言Material Design，并提供多套配色以供选择。FEBS意指：Fast，Easy use，Beautiful和Safe。
+FEBS是一个简单高效的后台权限管理系统。项目基础框架采用全新的Java Web开发框架 —— Spring Boot2.0.4，消除了繁杂的XML配置，使得二次开发更为简单；数据访问层采用Mybatis，同时引入了通用Mapper和PageHelper插件，可快速高效的对单表进行增删改查操作，消除了大量传统XML配置SQL的代码；安全框架采用时下流行的Apache Shiro，可实现对按钮级别的权限控制；前端页面使用Bootstrap构建，主题风格为时下Google最新设计语言Material Design，并提供多套配色以供选择。FEBS意指：Fast，Easy use，Beautiful和Safe。
 <!--more-->
 ### 功能模块
 系统功能模块组成如下所示：
@@ -17,7 +17,7 @@ FEBS是一个简单高效的后台权限管理系统。项目基础框架采用�
 |   |  __| |  __| |  _ < \___ \             |
 |   | |    | |____| |_) |____) |            |
 |   |_|    |______|____/|_____/             |
-|   Spring-Boot-Version: 2.0.3.RELEASE      |
+|   Spring-Boot-Version: 2.0.4.RELEASE      |
 |-------------------------------------------|
 |
 ├─系统管理
@@ -47,7 +47,7 @@ FEBS是一个简单高效的后台权限管理系统。项目基础框架采用�
 ```
 ### 技术选型
 #### 后端
-- 基础框架：Spring Boot 2.0.3.RELEASE
+- 基础框架：Spring Boot 2.0.4.RELEASE
 
 - 持久层框架：Mybatis 3.4.5
 
