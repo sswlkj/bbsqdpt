@@ -142,7 +142,12 @@ GitHub 地址： https://github.com/wuyouzhuguli/FEBS
 开发时直接使用Spring Boot的入口类`cc.mrbird.Application`启动即可，访问地址[localhost:8080](localhost:8080)，账号mrbird，密码123456。
 
 部署时，使用Maven将项目打包成febs.jar，然后使用命令`java -jar febs.jar`启动即可。在Linux下部署Spring Boot jar，并编写启停脚本可参考链接[https://mrbird.cc/Linux%20Spring-Boot-jar.html](https://mrbird.cc/Linux%20Spring-Boot-jar.html)。
+### docker 支持
+下载安装好docker 后，用命令 `docker run -d -p 5000:5000 registry` 拉取 registry镜像并运行， 并执行`mvn clean package docker:build`命令即可将应用创建到私有个人docker registry中
+` <dockerHost>http://<HOST yours >:2375</dockerHost>`  or `  set DOCKER_HOST=tcp://<HOST yours >:2375 `
 
+![]()
+`
 ### 常见问题
 [https://mrbird.cc/基于Spring Boot和Shiro的后台管理系统FEBS.html#常见问题](https://mrbird.cc/Spring-Boot%20Shiro%20FEBS.html)
 
