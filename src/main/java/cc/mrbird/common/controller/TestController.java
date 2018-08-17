@@ -1,43 +1,27 @@
 package cc.mrbird.common.controller;
 
+import cc.mrbird.common.annotation.Limit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
-@RequestMapping("test")
+import java.util.concurrent.atomic.AtomicInteger;
+
+@RestController
 public class TestController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @RequestMapping("common/t1")
-    public void t1() {
-    }
+    private static final AtomicInteger ATOMIC_INTEGER = new AtomicInteger();
 
-    @RequestMapping("common/t2")
-    public void t2() {
-    }
-
-    @RequestMapping("t3")
-    public void t3() {
-    }
-
-    @RequestMapping("/t4/{type}")
-    @ResponseBody
-    public String t4(@PathVariable String type) {
-
-        logger.info("type is %s",type);
-        return type;
-    }
-    @GetMapping("/t5/{type}/d1")
-    @ResponseBody
-    public String t5(@PathVariable String type) {
-
-        logger.info("type is %s",type);
-        return type;
+    /**
+     * 测试限流注解，下面配置说明该接口 60秒内最多只能访问 10次，保存到redis的键名为 limit_test，
+     * 即 prefix + "_" + key，也可以根据 IP 来限流，需指定limitType = LimitType.IP
+     */
+    @Limit(key = "test", period = 60, count = 10, name = "resource", prefix = "limit")
+    @GetMapping("/test")
+    public int testLimiter() {
+        return ATOMIC_INTEGER.incrementAndGet();
     }
 }

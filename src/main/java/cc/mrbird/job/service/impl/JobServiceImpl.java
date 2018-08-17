@@ -1,15 +1,12 @@
 package cc.mrbird.job.service.impl;
 
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
-import java.util.*;
-import java.util.stream.Collectors;
-
-import javax.annotation.PostConstruct;
-
 import cc.mrbird.common.annotation.CronTag;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.WordUtils;
+import cc.mrbird.common.service.impl.BaseService;
+import cc.mrbird.job.dao.JobMapper;
+import cc.mrbird.job.domain.Job;
+import cc.mrbird.job.service.JobService;
+import cc.mrbird.job.util.ScheduleUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.quartz.CronTrigger;
 import org.quartz.Scheduler;
 import org.reflections.Reflections;
@@ -17,14 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import cc.mrbird.common.service.impl.BaseService;
-import cc.mrbird.job.dao.JobMapper;
-import cc.mrbird.job.domain.Job;
-import cc.mrbird.job.service.JobService;
-import cc.mrbird.job.util.ScheduleUtils;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
+
+import javax.annotation.PostConstruct;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service("JobService")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
@@ -154,7 +151,7 @@ public class JobServiceImpl extends BaseService<Job> implements JobService {
                 Parameter[] methodParameters = method.getParameters();
                 String params = String.format("%s(%s)", methodName, Arrays.stream(methodParameters).map(item -> item.getType().getSimpleName() + " " + item.getName()).collect(Collectors.joining(", ")));
 
-                job1.setBeanName(WordUtils.uncapitalize(clsSimpleName));
+                job1.setBeanName(StringUtils.uncapitalize(clsSimpleName));
                 job1.setMethodName(methodName);
                 job1.setParams(params);
                 jobList.add(job1);

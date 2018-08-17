@@ -4,7 +4,7 @@ import cc.mrbird.common.util.SpringContextUtils;
 import cc.mrbird.job.domain.Job;
 import cc.mrbird.job.domain.JobLog;
 import cc.mrbird.job.service.JobLogService;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.quartz.JobExecutionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

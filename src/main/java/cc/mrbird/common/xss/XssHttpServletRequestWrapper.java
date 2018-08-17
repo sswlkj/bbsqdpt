@@ -3,7 +3,7 @@ package cc.mrbird.common.xss;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import cc.mrbird.common.util.JsoupUtil;
 

@@ -9,7 +9,7 @@ import cc.mrbird.common.util.vcode.Captcha;
 import cc.mrbird.common.util.vcode.GifCaptcha;
 import cc.mrbird.system.domain.User;
 import cc.mrbird.system.service.UserService;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;

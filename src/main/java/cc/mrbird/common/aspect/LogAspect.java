@@ -1,13 +1,15 @@
 package cc.mrbird.common.aspect;
 
-import java.io.Serializable;
-import java.lang.reflect.Method;
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-
+import cc.mrbird.common.annotation.Log;
 import cc.mrbird.common.config.FebsProperies;
+import cc.mrbird.common.util.AddressUtils;
+import cc.mrbird.common.util.HttpContextUtils;
+import cc.mrbird.common.util.IPUtils;
+import cc.mrbird.system.domain.SysLog;
+import cc.mrbird.system.domain.User;
+import cc.mrbird.system.service.LogService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.shiro.SecurityUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -18,15 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import cc.mrbird.common.annotation.Log;
-import cc.mrbird.common.util.AddressUtils;
-import cc.mrbird.common.util.HttpContextUtils;
-import cc.mrbird.common.util.IPUtils;
-import cc.mrbird.system.domain.SysLog;
-import cc.mrbird.system.domain.User;
-import cc.mrbird.system.service.LogService;
+import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
+import java.lang.reflect.Method;
+import java.util.Date;
 
 /**
  * AOP 记录用户操作日志

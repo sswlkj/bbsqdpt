@@ -7,7 +7,7 @@ import cc.mrbird.common.domain.Tree;
 import cc.mrbird.common.util.FileUtils;
 import cc.mrbird.system.domain.Menu;
 import cc.mrbird.system.service.MenuService;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
