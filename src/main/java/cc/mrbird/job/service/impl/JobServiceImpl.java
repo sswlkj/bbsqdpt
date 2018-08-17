@@ -138,6 +138,7 @@ public class JobServiceImpl extends BaseService<Job> implements JobService {
         this.updateBatch(jobIds, Job.ScheduleStatus.NORMAL.getValue());
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public List<Job> getSysCronClazz(Job job) {
         Reflections reflections = new Reflections("cc.mrbird.job.task");
