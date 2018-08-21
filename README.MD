@@ -6,6 +6,8 @@
 ![https://img.shields.io/badge/apache%20shiro-1.4.0-green.svg?longCache=true&style=flat-square](https://img.shields.io/badge/apache%20shiro-1.4.0-green.svg?longCache=true&style=flat-square)
 
 FEBS是一个简单高效的后台权限管理系统。项目基础框架采用全新的Java Web开发框架 —— Spring Boot2.0.4，消除了繁杂的XML配置，使得二次开发更为简单；数据访问层采用Mybatis，同时引入了通用Mapper和PageHelper插件，可快速高效的对单表进行增删改查操作，消除了大量传统XML配置SQL的代码；安全框架采用时下流行的Apache Shiro，可实现对按钮级别的权限控制；前端页面使用Bootstrap构建，主题风格为时下Google最新设计语言Material Design，并提供多套配色以供选择。FEBS意指：Fast，Easy use，Beautiful和Safe。
+
+注：精力有限，Oracle分支于2018年8月21日停止更新并删除，如有需要可到群里获取。
 <!--more-->
 ### 功能模块
 系统功能模块组成如下所示：
@@ -95,7 +97,7 @@ FEBS是一个简单高效的后台权限管理系统。项目基础框架采用�
 
 - 依赖管理：Maven
 
-- 数据库：Oracle 11g & MySQL5.7
+- 数据库：MySQL5.7
 
 - 版本管理：SVN，git
 
@@ -142,12 +144,11 @@ GitHub 地址： https://github.com/wuyouzhuguli/FEBS
 开发时直接使用Spring Boot的入口类`cc.mrbird.Application`启动即可，访问地址[localhost:8080](localhost:8080)，账号mrbird，密码123456。
 
 部署时，使用Maven将项目打包成febs.jar，然后使用命令`java -jar febs.jar`启动即可。在Linux下部署Spring Boot jar，并编写启停脚本可参考链接[https://mrbird.cc/Linux%20Spring-Boot-jar.html](https://mrbird.cc/Linux%20Spring-Boot-jar.html)。
+
 ### docker 支持
-下载安装好docker 后，用命令 `docker run -d -p 5000:5000 registry` 拉取 registry镜像并运行， 并执行`mvn clean package docker:build`命令即可将应用创建到私有个人docker registry中
+下载安装好 docker 后，用命令`docker run -d -p 5000:5000 registry` 拉取 registry镜像并运行，并执行`mvn clean package docker:build`命令即可将应用创建到私有个人docker registry中
 ` <dockerHost>http://<HOST yours >:2375</dockerHost>`  or `  set DOCKER_HOST=tcp://<HOST yours >:2375 `
 
-![]()
-`
 ### 常见问题
 [https://mrbird.cc/基于Spring Boot和Shiro的后台管理系统FEBS.html#常见问题](https://mrbird.cc/Spring-Boot%20Shiro%20FEBS.html)
 
