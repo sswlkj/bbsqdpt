@@ -4,7 +4,6 @@ import cc.mrbird.common.util.AddressUtils;
 import cc.mrbird.system.domain.User;
 import cc.mrbird.system.domain.UserOnline;
 import cc.mrbird.system.service.SessionService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.subject.SimplePrincipalCollection;
@@ -27,9 +26,6 @@ public class SessionServiceImpl implements SessionService {
 
     @Autowired
     private SessionDAO sessionDAO;
-
-    @Autowired
-    ObjectMapper mapper;
 
     @Override
     public List<UserOnline> list() {
@@ -58,7 +54,7 @@ public class SessionServiceImpl implements SessionService {
             } else {
                 userOnline.setStatus("1");
             }
-            String address = AddressUtils.getRealAddressByIP(userOnline.getHost(), mapper);
+            String address = AddressUtils.getCityInfo(userOnline.getHost());
             userOnline.setLocation(address);
             userOnline.setTimeout(timeout);
             list.add(userOnline);

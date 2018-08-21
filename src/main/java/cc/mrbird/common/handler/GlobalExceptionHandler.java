@@ -1,5 +1,6 @@
 package cc.mrbird.common.handler;
 
+import cc.mrbird.common.exception.LimitAccessException;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.session.ExpiredSessionException;
 import org.springframework.core.Ordered;
@@ -24,4 +25,10 @@ public class GlobalExceptionHandler {
 	public String handleExpiredSessionException() {
 		return "login";
 	}
+	@ExceptionHandler(value = LimitAccessException.class)
+	@ResponseBody
+	public ResponseBo handleLimitAccessException() {
+		return ResponseBo.error(LimitAccessException.value);
+	}
+
 }

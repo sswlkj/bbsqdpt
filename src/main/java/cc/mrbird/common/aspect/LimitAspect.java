@@ -2,6 +2,7 @@ package cc.mrbird.common.aspect;
 
 import cc.mrbird.common.annotation.Limit;
 import cc.mrbird.common.domain.LimitType;
+import cc.mrbird.common.exception.LimitAccessException;
 import cc.mrbird.common.util.IPUtils;
 import com.google.common.collect.ImmutableList;
 import org.apache.commons.lang3.StringUtils;
@@ -31,7 +32,7 @@ import java.util.Objects;
  */
 @Aspect
 @Component
-public class LimitAspect{
+public class LimitAspect {
 
     private static final Logger logger = LoggerFactory.getLogger(LimitAspect.class);
 
@@ -47,7 +48,7 @@ public class LimitAspect{
     }
 
     @Around("pointcut()")
-    public Object around(ProceedingJoinPoint point) {
+    public Object around(ProceedingJoinPoint point) throws Throwable {
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
 
         MethodSignature signature = (MethodSignature) point.getSignature();
@@ -69,27 +70,22 @@ public class LimitAspect{
                 key = StringUtils.upperCase(method.getName());
         }
         ImmutableList<String> keys = ImmutableList.of(StringUtils.join(limitAnnotation.prefix() + "_", key));
-        try {
-            String luaScript = buildLuaScript();
-            RedisScript<Number> redisScript = new DefaultRedisScript<>(luaScript, Number.class);
-            Number count = limitRedisTemplate.execute(redisScript, keys, limitCount, limitPeriod);
-            logger.info("第{}次访问key为 {}，描述为 [{}] 的接口", count, keys, name);
-            if (count != null && count.intValue() <= limitCount) {
-                return point.proceed();
-            } else {
-                throw new RuntimeException("接口访问超出频率限制");
-            }
-        } catch (Throwable e) {
-            if (e instanceof RuntimeException) {
-                throw new RuntimeException(e.getLocalizedMessage());
-            }
-            throw new RuntimeException("系统异常");
+        String luaScript = buildLuaScript();
+        RedisScript<Number> redisScript = new DefaultRedisScript<>(luaScript, Number.class);
+        Number count = limitRedisTemplate.execute(redisScript, keys, limitCount, limitPeriod);
+        logger.info("第{}次访问key为 {}，描述为 [{}] 的接口", count, keys, name);
+        if (count != null && count.intValue() <= limitCount) {
+            return point.proceed();
+        } else {
+            throw new LimitAccessException("接口访问超出频率限制");
         }
+
     }
 
     /**
      * 限流脚本
      * 调用的时候不超过阈值，则直接返回并执行计算器自加。
+     *
      * @return lua脚本
      */
     private String buildLuaScript() {

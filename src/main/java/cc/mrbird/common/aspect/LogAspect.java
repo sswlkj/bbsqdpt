@@ -19,6 +19,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
@@ -76,7 +77,6 @@ public class LogAspect {
             // 注解上的描述
             log.setOperation(logAnnotation.value());
         }
-
         // 请求的类名
         String className = joinPoint.getTarget().getClass().getName();
         // 请求的方法名
@@ -87,14 +87,18 @@ public class LogAspect {
         // 请求的方法参数名称
         LocalVariableTableParameterNameDiscoverer u = new LocalVariableTableParameterNameDiscoverer();
         String[] paramNames = u.getParameterNames(method);
-        if (args != null) {
+        if (args != null && paramNames != null) {
             StringBuilder params = new StringBuilder();
             int i = 0;
             while (i < args.length) {
-                if(args[i] instanceof Serializable)
-                    params.append("  ").append(paramNames[i]).append(": ").append(this.mapper.writeValueAsString(args[i]));
-                else
+                if (args[i] instanceof Serializable) {
+                    params.append("  ").append(paramNames[i]).append(": ").append(mapper.writeValueAsString(args[i]));
+                } else if (args[i] instanceof MultipartFile) {
+                    MultipartFile file = (MultipartFile) args[i];
+                    params.append("  ").append(paramNames[i]).append(": ").append(file.getName());
+                } else {
                     params.append("  ").append(paramNames[i]).append(": ").append(args[i]);
+                }
                 i++;
             }
             log.setParams(params.toString());
@@ -106,7 +110,7 @@ public class LogAspect {
         log.setUsername(user.getUsername());
         log.setTime(time);
         log.setCreateTime(new Date());
-        log.setLocation(AddressUtils.getRealAddressByIP(log.getIp(), mapper));
+        log.setLocation(AddressUtils.getCityInfo(log.getIp()));
         // 保存系统日志
         this.logService.save(log);
     }
