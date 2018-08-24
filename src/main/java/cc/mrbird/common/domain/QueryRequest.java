@@ -1,5 +1,7 @@
 package cc.mrbird.common.domain;
 
+import com.google.common.base.MoreObjects;
+
 import java.io.Serializable;
 
 public class QueryRequest implements Serializable {
@@ -19,6 +21,14 @@ public class QueryRequest implements Serializable {
 
 	public int getPageNum() {
 		return pageNum;
+	}
+
+	@Override
+	public String toString() {
+		return MoreObjects.toStringHelper(this)
+				.add("pageSize", pageSize)
+				.add("pageNum", pageNum)
+				.toString();
 	}
 
 	public void setPageNum(int pageNum) {

@@ -4,6 +4,8 @@ import java.util.*;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -26,6 +28,8 @@ import tk.mybatis.mapper.entity.Example.Criteria;
 @Service("menuService")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
+
+    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private MenuMapper menuMapper;
@@ -60,7 +64,7 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
             example.setOrderByClause("menu_id");
             return this.selectByExample(example);
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            log.error("error", e);
             return new ArrayList<>();
         }
     }
@@ -116,7 +120,7 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
         example.createCriteria().andCondition("lower(menu_name)=", menuName.toLowerCase())
                 .andEqualTo("type", Long.valueOf(type));
         List<Menu> list = this.selectByExample(example);
-        return list.size() == 0 ? null : list.get(0);
+        return list.isEmpty() ? null : list.get(0);
     }
 
     @Override
@@ -147,7 +151,8 @@ public class MenuServiceImpl extends BaseService<Menu> implements MenuService {
         //获取url与类和方法的对应信息
         Map<RequestMappingInfo, HandlerMethod> map = mapping.getHandlerMethods();
         List<Map<String, String>> urlList = new ArrayList<>();
-        for (RequestMappingInfo info : map.keySet()) {
+        for (Map.Entry<RequestMappingInfo, HandlerMethod> entry : map.entrySet()) {
+            RequestMappingInfo info = entry.getKey();
             HandlerMethod handlerMethod = map.get(info);
             RequiresPermissions permissions = handlerMethod.getMethodAnnotation(RequiresPermissions.class);
             String perms = "";

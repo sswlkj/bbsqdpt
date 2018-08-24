@@ -27,8 +27,8 @@ public class GlobalExceptionHandler {
 	}
 	@ExceptionHandler(value = LimitAccessException.class)
 	@ResponseBody
-	public ResponseBo handleLimitAccessException() {
-		return ResponseBo.error(LimitAccessException.value);
+	public ResponseBo handleLimitAccessException(LimitAccessException e) {
+		return ResponseBo.error(e.getMessage());
 	}
 
 }

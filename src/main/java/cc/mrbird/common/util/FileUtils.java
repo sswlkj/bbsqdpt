@@ -1,6 +1,8 @@
 package cc.mrbird.common.util;
 
 import cc.mrbird.common.domain.ResponseBo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,6 +14,12 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 public class FileUtils {
+
+    private static Logger log = LoggerFactory.getLogger(FileUtils.class);
+
+    private FileUtils() {
+
+    }
 
     /**
      * 文件名加UUID
@@ -30,7 +38,7 @@ public class FileUtils {
      * @return 过滤后的文件名
      * @throws PatternSyntaxException 正则异常
      */
-    public static String StringFilter(String fileName) throws PatternSyntaxException {
+    public static String stringFilter(String fileName) {
         String regEx = "[`~!@#$%^&*+=|{}':; ',//[//]<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(fileName);
@@ -60,12 +68,12 @@ public class FileUtils {
                 String path = "file/" + fileName;
                 FileOutputStream fos;
                 fos = new FileOutputStream(path);
-                operateSign = ExcelUtils.$Builder(clazz)
+                operateSign = ExcelUtils.builder(clazz)
                         // 设置每个sheet的最大记录数,默认为10000,可不设置
                         // .setMaxSheetRecords(10000)
                         .toExcel(list, "查询结果", fos);
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                log.error("文件未找到", e);
             }
             if (operateSign) {
                 return ResponseBo.ok(fileName);
@@ -96,7 +104,7 @@ public class FileUtils {
             if (!fileDir.exists())
                 fileDir.mkdir();
             String path = "file/" + fileName;
-            operateSign = ExcelUtils.$Builder(clazz)
+            operateSign = ExcelUtils.builder(clazz)
                     .toCsv(list, path);
             if (operateSign) {
                 return ResponseBo.ok(fileName);

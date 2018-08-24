@@ -93,7 +93,7 @@ spring:
     type:
       redis
 
-# spring boot admin配置
+  # spring boot admin配置
   boot:
     admin:
       client:
@@ -116,8 +116,8 @@ management:
       exposure:
         include: '*'
   endpoint:
-      health:
-        show-details: ALWAYS
+    health:
+      show-details: ALWAYS
 
 mybatis:
   config-location: classpath:config/mybatis-config.xml

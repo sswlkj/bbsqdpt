@@ -9,6 +9,11 @@ import org.jsoup.safety.Whitelist;
  *
  */
 public class JsoupUtil {
+
+	protected JsoupUtil(){
+
+	}
+
 	/**
 	 * 使用自带的basicWithImages 白名单
 	 * 允许的便签有a,b,blockquote,br,cite,code,dd,dl,dt,em,i,li,ol,p,pre,q,small,span,
@@ -29,11 +34,6 @@ public class JsoupUtil {
 
 	public static String clean(String content) {
 		return Jsoup.clean(content, "", whitelist, outputSettings);
-	}
-
-	public static void main(String[] args) {
-		String text = "<a href=\"http://www.baidu.com/a\" onclick=\"alert(1);\">sss</a><script>alert(0);</script>sss";
-		System.out.println(clean(text));
 	}
 
 }

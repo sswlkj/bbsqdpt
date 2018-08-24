@@ -45,6 +45,7 @@ public class LimitAspect {
 
     @Pointcut("@annotation(cc.mrbird.common.annotation.Limit)")
     public void pointcut() {
+        // do nothing
     }
 
     @Around("pointcut()")

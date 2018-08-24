@@ -2,6 +2,8 @@ package cc.mrbird.common.service.impl;
 
 import cc.mrbird.common.domain.RedisInfo;
 import cc.mrbird.common.service.RedisService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Client;
@@ -21,6 +23,8 @@ import java.util.function.Function;
 @SuppressWarnings("unchecked")
 public class RedisServiceImpl implements RedisService {
 
+    private Logger log = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     JedisPool jedisPool;
 
@@ -35,7 +39,7 @@ public class RedisServiceImpl implements RedisService {
         try (Jedis jedis = jedisPool.getResource()) {
             return f.apply(jedis);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             return null;
         }
     }

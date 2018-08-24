@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,8 @@ import cc.mrbird.job.service.JobLogService;
 
 @Controller
 public class JobLogController extends BaseController {
+
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private JobLogService jobLogService;
@@ -51,7 +55,7 @@ public class JobLogController extends BaseController {
 			this.jobLogService.deleteBatch(ids);
 			return ResponseBo.ok("删除调度日志成功！");
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("删除调度日志失败", e);
 			return ResponseBo.error("删除调度日志失败，请联系网站管理员！");
 		}
 	}
@@ -63,7 +67,7 @@ public class JobLogController extends BaseController {
 			List<JobLog> list = this.jobLogService.findAllJobLogs(jobLog);
 			return FileUtils.createExcelByPOIKit("调度日志表", list, JobLog.class);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("导出调度日志信息Excel失败", e);
 			return ResponseBo.error("导出Excel失败，请联系网站管理员！");
 		}
 	}
@@ -75,7 +79,7 @@ public class JobLogController extends BaseController {
 			List<JobLog> list = this.jobLogService.findAllJobLogs(jobLog);
 			return FileUtils.createCsv("调度日志表", list, JobLog.class);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("导出调度日志信息Csv失败", e);
 			return ResponseBo.error("导出Csv失败，请联系网站管理员！");
 		}
 	}

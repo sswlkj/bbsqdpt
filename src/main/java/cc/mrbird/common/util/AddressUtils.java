@@ -14,6 +14,9 @@ import java.lang.reflect.Method;
 
 public class AddressUtils {
 
+    private AddressUtils() {
+    }
+
     private static Logger log = LoggerFactory.getLogger(AddressUtils.class);
 
     public static String getCityInfo(String ip) {
@@ -37,6 +40,9 @@ public class AddressUtils {
                 case DbSearcher.MEMORY_ALGORITYM:
                     method = searcher.getClass().getMethod("memorySearch", String.class);
                     break;
+                default:
+                    method = searcher.getClass().getMethod("memorySearch", String.class);
+                    break;
             }
             DataBlock dataBlock = null;
             if (!Util.isIpAddress(ip)) {
@@ -45,13 +51,9 @@ public class AddressUtils {
             dataBlock = (DataBlock) method.invoke(searcher, ip);
             return dataBlock.getRegion();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("获取地址信息异常：{}", e);
         }
         return "";
-    }
-
-    public static void main(String[] args) {
-        System.err.println(getCityInfo("127.0.0.1"));
     }
 
 }

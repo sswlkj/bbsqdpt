@@ -4,6 +4,7 @@ import cc.mrbird.common.util.AddressUtils;
 import cc.mrbird.system.domain.User;
 import cc.mrbird.system.domain.UserOnline;
 import cc.mrbird.system.service.SessionService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.subject.SimplePrincipalCollection;
@@ -27,14 +28,17 @@ public class SessionServiceImpl implements SessionService {
     @Autowired
     private SessionDAO sessionDAO;
 
+    @Autowired
+    ObjectMapper mapper;
+
     @Override
     public List<UserOnline> list() {
         List<UserOnline> list = new ArrayList<>();
         Collection<Session> sessions = sessionDAO.getActiveSessions();
         for (Session session : sessions) {
             UserOnline userOnline = new UserOnline();
-            User user = new User();
-            SimplePrincipalCollection principalCollection = new SimplePrincipalCollection();
+            User user;
+            SimplePrincipalCollection principalCollection;
             if (session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY) == null) {
                 continue;
             } else {

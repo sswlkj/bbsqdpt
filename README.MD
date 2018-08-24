@@ -149,6 +149,51 @@ GitHub 地址： https://github.com/wuyouzhuguli/FEBS
 下载安装好 docker 后，用命令`docker run -d -p 5000:5000 registry` 拉取 registry镜像并运行，并执行`mvn clean package docker:build`命令即可将应用创建到私有个人docker registry中
 ` <dockerHost>http://<HOST yours >:2375</dockerHost>`  or `  set DOCKER_HOST=tcp://<HOST yours >:2375 `
 
+### 关于配置文件切换问题以及数据库加密配置
+#### 自定义`application.yml` 
+由于本地开发所用数据库并不与项目默认配置数据库链接参数相同，所以可采用在`application.yml`文件中加入如下属性
+```bash
+spring
+    profiles:
+       active: local
+``` 
+然后在`application.yml`同级目录建立`application-local.yml`文件，里面可以自定义自己的数据库配置， 这样在spring boot启动时，优先加载 `local`配置文件里的属性配置。
+`local`名称自定义。
+#### jasypt 加密数据库用户名密码
+在 `pom.xml`中引入
+```xml
+        <!-- jasypt-->
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+```
+在`application.yml`或`application-local.yml`中配置用于加密的密码
+
+```yaml
+jasypt:
+  encryptor:
+    password: jyao
+```
+建立个util工具类：
+```java_holder_method_tree
+ public void jasyptTest() {
+        BasicTextEncryptor encryptor = new BasicTextEncryptor();
+        encryptor.setPassword("jyao");//application.yml配置的jasypt.encryptor.password
+        String encrypted = encryptor.encrypt("root");//要加密的数据（数据库连接的用户名或密码）
+        System.out.println(encrypted);
+    }
+```
+把生成的密钥加上 ENC(密钥)，例如
+```cmd
+ENC(YiYjVwTulDGN//YaB3KbuA==) #明文root
+以上替换原来的数据库用户名或密码
+
+```
+如图所示：
+![jasypt_config](screenshots/jasypt_config.png)
+![jasypt_config11](screenshots/Inkedjasypt_config_LI.jpg)
 ### 常见问题
 [https://mrbird.cc/基于Spring Boot和Shiro的后台管理系统FEBS.html#常见问题](https://mrbird.cc/Spring-Boot%20Shiro%20FEBS.html)
 

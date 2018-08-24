@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,8 @@ import tk.mybatis.mapper.entity.Example.Criteria;
 @Service("JobLogService")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class JobLogServiceImpl extends BaseService<JobLog> implements JobLogService {
+
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Override
 	public List<JobLog> findAllJobLogs(JobLog jobLog) {
@@ -35,8 +39,8 @@ public class JobLogServiceImpl extends BaseService<JobLog> implements JobLogServ
 			}
 			example.setOrderByClause("log_id desc");
 			return this.selectByExample(example);
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			log.error("获取调度日志信息失败", e);
 			return new ArrayList<>();
 		}
 	}

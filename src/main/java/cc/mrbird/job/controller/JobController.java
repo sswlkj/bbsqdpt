@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.quartz.CronExpression;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,8 @@ import cc.mrbird.job.service.JobService;
 
 @Controller
 public class JobController extends BaseController {
+
+    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private JobService jobService;
@@ -62,7 +66,7 @@ public class JobController extends BaseController {
             this.jobService.addJob(job);
             return ResponseBo.ok("新增任务成功！");
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("新增任务失败", e);
             return ResponseBo.error("新增任务失败，请联系网站管理员！");
         }
     }
@@ -76,7 +80,7 @@ public class JobController extends BaseController {
             this.jobService.deleteBatch(ids);
             return ResponseBo.ok("删除任务成功！");
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("删除任务失败", e);
             return ResponseBo.error("删除任务失败，请联系网站管理员！");
         }
     }
@@ -88,7 +92,7 @@ public class JobController extends BaseController {
             Job job = this.jobService.findJob(jobId);
             return ResponseBo.ok(job);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("获取任务信息失败", e);
             return ResponseBo.error("获取任务信息失败，请联系网站管理员！");
         }
     }
@@ -102,7 +106,7 @@ public class JobController extends BaseController {
             this.jobService.updateJob(job);
             return ResponseBo.ok("修改任务成功！");
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("修改任务失败", e);
             return ResponseBo.error("修改任务失败，请联系网站管理员！");
         }
     }
@@ -116,7 +120,7 @@ public class JobController extends BaseController {
             this.jobService.run(jobIds);
             return ResponseBo.ok("执行任务成功！");
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("执行任务失败", e);
             return ResponseBo.error("执行任务失败，请联系网站管理员！");
         }
     }
@@ -130,7 +134,7 @@ public class JobController extends BaseController {
             this.jobService.pause(jobIds);
             return ResponseBo.ok("暂停任务成功！");
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("暂停任务失败", e);
             return ResponseBo.error("暂停任务失败，请联系网站管理员！");
         }
     }
@@ -144,7 +148,7 @@ public class JobController extends BaseController {
             this.jobService.resume(jobIds);
             return ResponseBo.ok("恢复任务成功！");
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("恢复任务失败", e);
             return ResponseBo.error("恢复任务失败，请联系网站管理员！");
         }
     }
@@ -156,7 +160,7 @@ public class JobController extends BaseController {
             List<Job> list = this.jobService.findAllJobs(job);
             return FileUtils.createExcelByPOIKit("任务表", list, Job.class);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("导出任务信息Excel失败", e);
             return ResponseBo.error("导出Excel失败，请联系网站管理员！");
         }
     }
@@ -168,7 +172,7 @@ public class JobController extends BaseController {
             List<Job> list = this.jobService.findAllJobs(job);
             return FileUtils.createCsv("任务表", list, Job.class);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("导出任务信息Csv失败", e);
             return ResponseBo.error("导出Csv失败，请联系网站管理员！");
         }
     }

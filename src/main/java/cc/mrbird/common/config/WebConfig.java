@@ -2,7 +2,6 @@ package cc.mrbird.common.config;
 
 import cc.mrbird.common.xss.XssFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,9 +13,6 @@ import java.util.Map;
 @Configuration
 @SuppressWarnings("unchecked")
 public class WebConfig {
-
-    @Autowired
-    private FebsProperies febsProperies;
 
     /**
      * XssFilter Bean
@@ -36,7 +32,7 @@ public class WebConfig {
     }
 
     @Bean
-    public ObjectMapper getObjectMapper() {
+    public ObjectMapper getObjectMapper(FebsProperies febsProperies) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setDateFormat(new SimpleDateFormat(febsProperies.getTimeFormat()));
         return mapper;

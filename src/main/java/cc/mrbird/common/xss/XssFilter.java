@@ -22,7 +22,7 @@ public class XssFilter implements Filter {
 
 	private static Logger logger = LoggerFactory.getLogger(XssFilter.class);
 	// 是否过滤富文本内容
-	private static boolean IS_INCLUDE_RICH_TEXT = false;
+	private boolean flag = false;
 
 	private List<String> excludes = new ArrayList<>();
 
@@ -31,7 +31,7 @@ public class XssFilter implements Filter {
 		logger.info("------------ xss filter init ------------");
 		String isIncludeRichText = filterConfig.getInitParameter("isIncludeRichText");
 		if (StringUtils.isNotBlank(isIncludeRichText)) {
-			IS_INCLUDE_RICH_TEXT = BooleanUtils.toBoolean(isIncludeRichText);
+			flag = BooleanUtils.toBoolean(isIncludeRichText);
 		}
 		String temp = filterConfig.getInitParameter("excludes");
 		if (temp != null) {
@@ -49,13 +49,13 @@ public class XssFilter implements Filter {
 			return;
 		}
 		XssHttpServletRequestWrapper xssRequest = new XssHttpServletRequestWrapper((HttpServletRequest) request,
-				IS_INCLUDE_RICH_TEXT);
+				flag);
 		chain.doFilter(xssRequest, response);
 	}
 
 	@Override
 	public void destroy() {
-
+		// do nothing
 	}
 
 	private boolean handleExcludeURL(HttpServletRequest request) {

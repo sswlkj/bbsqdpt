@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import cc.mrbird.common.annotation.ExportConfig;
+import com.google.common.base.MoreObjects;
 
 @Table(name = "t_dict")
 public class Dict implements Serializable{
@@ -85,6 +86,17 @@ public class Dict implements Serializable{
 	 */
 	public String getTableName() {
 		return tableName;
+	}
+
+	@Override
+	public String toString() {
+		return MoreObjects.toStringHelper(this)
+				.add("dictId", dictId)
+				.add("keyy", keyy)
+				.add("valuee", valuee)
+				.add("tableName", tableName)
+				.add("fieldName", fieldName)
+				.toString();
 	}
 
 	/**

@@ -8,6 +8,10 @@ import java.util.Map;
 import cc.mrbird.common.domain.Tree;
 
 public class TreeUtils {
+
+	protected TreeUtils(){
+
+	}
 	
 	public static <T> Tree<T> build(List<Tree<T>> nodes) {
 		if (nodes == null) {
@@ -47,7 +51,7 @@ public class TreeUtils {
 
 	public static <T> List<Tree<T>> buildList(List<Tree<T>> nodes, String idParam) {
 		if (nodes == null) {
-			return null;
+			return new ArrayList<>();
 		}
 		List<Tree<T>> topNodes = new ArrayList<>();
 		nodes.forEach(children -> {

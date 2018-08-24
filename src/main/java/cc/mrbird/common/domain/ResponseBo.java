@@ -19,24 +19,24 @@ public class ResponseBo extends HashMap<String, Object> {
 	}
 
 	public static ResponseBo error(Object msg) {
-		ResponseBo ResponseBo = new ResponseBo();
-		ResponseBo.put("code", FAIL);
-		ResponseBo.put("msg", msg);
-		return ResponseBo;
+		ResponseBo responseBo = new ResponseBo();
+		responseBo.put("code", FAIL);
+		responseBo.put("msg", msg);
+		return responseBo;
 	}
 
 	public static ResponseBo warn(Object msg) {
-		ResponseBo ResponseBo = new ResponseBo();
-		ResponseBo.put("code", WARN);
-		ResponseBo.put("msg", msg);
-		return ResponseBo;
+		ResponseBo responseBo = new ResponseBo();
+		responseBo.put("code", WARN);
+		responseBo.put("msg", msg);
+		return responseBo;
 	}
 
 	public static ResponseBo ok(Object msg) {
-		ResponseBo ResponseBo = new ResponseBo();
-		ResponseBo.put("code", SUCCESS);
-		ResponseBo.put("msg", msg);
-		return ResponseBo;
+		ResponseBo responseBo = new ResponseBo();
+		responseBo.put("code", SUCCESS);
+		responseBo.put("msg", msg);
+		return responseBo;
 	}
 
 	public static ResponseBo ok() {

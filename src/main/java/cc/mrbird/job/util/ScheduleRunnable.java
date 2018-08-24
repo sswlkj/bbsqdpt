@@ -3,6 +3,8 @@ package cc.mrbird.job.util;
 import java.lang.reflect.Method;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.ReflectionUtils;
 
 import cc.mrbird.common.util.SpringContextUtils;
@@ -14,6 +16,9 @@ import cc.mrbird.common.util.SpringContextUtils;
  *
  */
 public class ScheduleRunnable implements Runnable {
+
+	private Logger log = LoggerFactory.getLogger(this.getClass());
+
 	private Object target;
 	private Method method;
 	private String params;
@@ -40,7 +45,7 @@ public class ScheduleRunnable implements Runnable {
 				method.invoke(target);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("执行定时任务失败",e);
 		}
 	}
 

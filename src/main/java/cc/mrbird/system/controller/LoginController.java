@@ -13,6 +13,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,10 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class LoginController extends BaseController {
+
+    private Logger log = LoggerFactory.getLogger(this.getClass());
+
+    private static final String CODE_KEY = "_code";
 
     @Autowired
     private FebsProperies febsProperies;
@@ -46,9 +52,9 @@ public class LoginController extends BaseController {
             return ResponseBo.warn("验证码不能为空！");
         }
         Session session = super.getSession();
-        String sessionCode = (String) session.getAttribute("_code");
-        session.removeAttribute("_code");
-        if (!code.toLowerCase().equals(sessionCode)) {
+        String sessionCode = (String) session.getAttribute(CODE_KEY);
+        session.removeAttribute(CODE_KEY);
+        if (!code.equalsIgnoreCase(sessionCode)) {
             return ResponseBo.warn("验证码错误！");
         }
         // 密码 MD5 加密
@@ -82,10 +88,10 @@ public class LoginController extends BaseController {
                     febsProperies.getValidateCode().getLength());
             captcha.out(response.getOutputStream());
             HttpSession session = request.getSession(true);
-            session.removeAttribute("_code");
-            session.setAttribute("_code", captcha.text().toLowerCase());
+            session.removeAttribute(CODE_KEY);
+            session.setAttribute(CODE_KEY, captcha.text().toLowerCase());
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("图形验证码生成失败", e);
         }
     }
 

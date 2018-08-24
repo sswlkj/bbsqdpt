@@ -11,83 +11,92 @@ import org.apache.poi.xssf.streaming.SXSSFCell;
 import org.apache.poi.xssf.streaming.SXSSFRow;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Apache POI SXSS相关API的简易封装
  */
 public class POIUtils {
-	private static final int mDefaultRowAccessWindowSize = 100;
 
-	public static SXSSFWorkbook newSXSSFWorkbook(int rowAccessWindowSize) {
-		return new SXSSFWorkbook(rowAccessWindowSize);
-	}
+    private static Logger log = LoggerFactory.getLogger(POIUtils.class);
 
-	public static SXSSFWorkbook newSXSSFWorkbook() {
-		return newSXSSFWorkbook(mDefaultRowAccessWindowSize);
-	}
+    protected POIUtils() {
 
-	public static SXSSFSheet newSXSSFSheet(SXSSFWorkbook wb, String sheetName) {
-		return (SXSSFSheet) wb.createSheet(sheetName);
-	}
+    }
 
-	public static SXSSFRow newSXSSFRow(SXSSFSheet sheet, int index) {
-		return (SXSSFRow) sheet.createRow(index);
-	}
+    private static final int MDEFAULTROWACCESSWINDOWSIZE = 100;
 
-	public static SXSSFCell newSXSSFCell(SXSSFRow row, int index) {
-		return (SXSSFCell) row.createCell(index);
-	}
+    private static SXSSFWorkbook newSXSSFWorkbook(int rowAccessWindowSize) {
+        return new SXSSFWorkbook(rowAccessWindowSize);
+    }
 
-	/**
-	 * 设定单元格宽度 (手动/自动)
-	 * 
-	 * @param sheet
-	 *            工作薄对象
-	 * @param index
-	 *            单元格索引
-	 * @param width
-	 *            指定宽度,-1为自适应
-	 * @param value
-	 *            自适应需要单元格内容进行计算
-	 */
-	public static void setColumnWidth(SXSSFSheet sheet, int index, short width, String value) {
-		if (width == -1 && value != null && !"".equals(value)) {
-			sheet.setColumnWidth(index, (short) (value.length() * 512));
-		} else {
-			width = width == -1 ? 200 : width;
-			sheet.setColumnWidth(index, (short) (width * 35.7));
-		}
-	}
+    static SXSSFWorkbook newSXSSFWorkbook() {
+        return newSXSSFWorkbook(MDEFAULTROWACCESSWINDOWSIZE);
+    }
 
-	public static void writeByLocalOrBrowser(HttpServletResponse response, String fileName, SXSSFWorkbook wb,
-			OutputStream out) throws Exception {
-		ZipSecureFile.setMinInflateRatio(0L);
-		if (response != null) {
-			// response对象不为空,响应到浏览器下载
-			response.setContentType(Constant.XLSX_CONTENT_TYPE);
-			response.setHeader("Content-disposition", "attachment; filename="
-					+ URLEncoder.encode(String.format("%s%s", fileName, Constant.XLSX_SUFFIX), "UTF-8"));
-			if (out == null) {
-				out = response.getOutputStream();
-			}
-		}
-		wb.write(out);
-		out.flush();
-		out.close();
-	}
+    static SXSSFSheet newSXSSFSheet(SXSSFWorkbook wb, String sheetName) {
+        return wb.createSheet(sheetName);
+    }
 
-	public static void checkExcelFile(File file) {
-		if (file == null || !file.exists()) {
-			throw new IllegalArgumentException("excel文件不存在.");
-		}
+    static SXSSFRow newSXSSFRow(SXSSFSheet sheet, int index) {
+        return sheet.createRow(index);
+    }
 
-		checkExcelFile(file.getAbsolutePath());
-	}
+    static SXSSFCell newSXSSFCell(SXSSFRow row, int index) {
+        return row.createCell(index);
+    }
 
-	public static void checkExcelFile(String file) {
-		if (!file.endsWith(Constant.XLSX_SUFFIX)) {
-			throw new IllegalArgumentException("抱歉,目前ExcelKit仅支持.xlsx格式的文件.");
-		}
-	}
+    /**
+     * 设定单元格宽度 (手动/自动)
+     *
+     * @param sheet 工作薄对象
+     * @param index 单元格索引
+     * @param width 指定宽度,-1为自适应
+     * @param value 自适应需要单元格内容进行计算
+     */
+    static void setColumnWidth(SXSSFSheet sheet, int index, short width, String value) {
+        if (width == -1 && value != null && !"".equals(value)) {
+            sheet.setColumnWidth(index, (short) (value.length() * 512));
+        } else {
+            width = width == -1 ? 200 : width;
+            sheet.setColumnWidth(index, (short) (width * 35.7));
+        }
+    }
+
+    static void writeByLocalOrBrowser(HttpServletResponse response, String fileName, SXSSFWorkbook wb, OutputStream out) {
+        try {
+            ZipSecureFile.setMinInflateRatio(0L);
+            if (response != null) {
+                // response对象不为空,响应到浏览器下载
+                response.setContentType(FebsConstant.XLSX_CONTENT_TYPE);
+                response.setHeader("Content-disposition", "attachment; filename="
+                        + URLEncoder.encode(String.format("%s%s", fileName, FebsConstant.XLSX_SUFFIX), "UTF-8"));
+                if (out == null) {
+                    out = response.getOutputStream();
+                }
+            }
+            wb.write(out);
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+
+    }
+
+    public static void checkExcelFile(File file) {
+        if (file == null || !file.exists()) {
+            throw new IllegalArgumentException("excel文件不存在.");
+        }
+
+        checkExcelFile(file.getAbsolutePath());
+    }
+
+    private static void checkExcelFile(String file) {
+        if (!file.endsWith(FebsConstant.XLSX_SUFFIX)) {
+            throw new IllegalArgumentException("抱歉,目前ExcelKit仅支持.xlsx格式的文件.");
+        }
+    }
 
 }

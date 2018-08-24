@@ -10,6 +10,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.quartz.CronTrigger;
 import org.quartz.Scheduler;
 import org.reflections.Reflections;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -26,6 +28,8 @@ import java.util.stream.Collectors;
 @Service("JobService")
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class JobServiceImpl extends BaseService<Job> implements JobService {
+
+    private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private Scheduler scheduler;
@@ -71,8 +75,8 @@ public class JobServiceImpl extends BaseService<Job> implements JobService {
             }
             example.setOrderByClause("job_id");
             return this.selectByExample(example);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            log.error("获取任务失败", e);
             return new ArrayList<>();
         }
     }

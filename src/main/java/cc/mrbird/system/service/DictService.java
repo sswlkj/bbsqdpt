@@ -1,19 +1,29 @@
 package cc.mrbird.system.service;
 
-import java.util.List;
-
+import cc.mrbird.common.domain.QueryRequest;
 import cc.mrbird.common.service.IService;
 import cc.mrbird.system.domain.Dict;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 
+import java.util.List;
+
+@CacheConfig(cacheNames = "DictService")
 public interface DictService extends IService<Dict> {
 
-	List<Dict> findAllDicts(Dict dict);
+    @Cacheable(key = "#p0.toString()+ #p1.toString()")
+    List<Dict> findAllDicts(Dict dict, QueryRequest request);
 
-	Dict findById(Long dictId);
+    @Cacheable(key = "#p0")
+    Dict findById(Long dictId);
 
-	void addDict(Dict dict);
+    @CacheEvict(allEntries = true)
+    void addDict(Dict dict);
 
-	void deleteDicts(String dictIds);
+    @CacheEvict(key = "#p0", allEntries = true)
+    void deleteDicts(String dictIds);
 
-	void updateDict(Dict dicdt);
+    @CacheEvict(key = "#p0", allEntries = true)
+    void updateDict(Dict dicdt);
 }

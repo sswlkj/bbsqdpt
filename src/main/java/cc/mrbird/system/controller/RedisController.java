@@ -19,6 +19,8 @@ import java.util.Set;
 @RequestMapping("redis")
 public class RedisController {
 
+    private static final String INTEGER_PREFIX = "(integer) ";
+
     @Autowired
     private RedisService redisService;
 
@@ -79,7 +81,7 @@ public class RedisController {
     @ResponseBody
     public ResponseBo set(String arg) {
         try {
-            String args[] = arg.split(",");
+            String[] args = arg.split(",");
             if (args.length == 1)
                 return ResponseBo.error("(error) ERR wrong number of arguments for 'set' command");
             else if (args.length != 2)
@@ -96,9 +98,9 @@ public class RedisController {
     @ResponseBody
     public ResponseBo del(String arg) {
         try {
-            String args[] = arg.split(",");
+            String[] args = arg.split(",");
             Long result = this.redisService.del(args);
-            return ResponseBo.ok("(integer) " + result);
+            return ResponseBo.ok(INTEGER_PREFIX + result);
         } catch (Exception e) {
             return ResponseBo.error(e.getMessage());
         }
@@ -110,12 +112,12 @@ public class RedisController {
     public ResponseBo exists(String arg) {
         try {
             int count = 0;
-            String arr[] = arg.split(",");
+            String[] arr = arg.split(",");
             for (String key : arr) {
                 if (this.redisService.exists(key))
                     count++;
             }
-            return ResponseBo.ok("(integer) " + count);
+            return ResponseBo.ok(INTEGER_PREFIX + count);
         } catch (Exception e) {
             return ResponseBo.error(e.getMessage());
         }
@@ -126,7 +128,7 @@ public class RedisController {
     @ResponseBody
     public ResponseBo pttl(String arg) {
         try {
-            return ResponseBo.ok("(integer) " + this.redisService.pttl(arg));
+            return ResponseBo.ok(INTEGER_PREFIX + this.redisService.pttl(arg));
         } catch (Exception e) {
             return ResponseBo.error(e.getMessage());
         }
@@ -137,11 +139,11 @@ public class RedisController {
     @ResponseBody
     public ResponseBo pexpire(String arg) {
         try {
-            String arr[] = arg.split(",");
+            String[] arr = arg.split(",");
             if (arr.length != 2 || !isValidLong(arr[1])) {
                 return ResponseBo.error("(error) ERR wrong number of arguments for 'pexpire' command");
             }
-            return ResponseBo.ok("(integer) " + this.redisService.pexpire(arr[0], Long.valueOf(arr[1])));
+            return ResponseBo.ok(INTEGER_PREFIX + this.redisService.pexpire(arr[0], Long.valueOf(arr[1])));
         } catch (Exception e) {
             return ResponseBo.error(e.getMessage());
         }

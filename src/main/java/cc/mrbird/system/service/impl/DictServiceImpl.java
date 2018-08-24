@@ -1,10 +1,13 @@
 package cc.mrbird.system.service.impl;
 
+import cc.mrbird.common.domain.QueryRequest;
 import cc.mrbird.common.service.impl.BaseService;
 import cc.mrbird.system.domain.Dict;
 import cc.mrbird.system.service.DictService;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +22,10 @@ import java.util.List;
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class DictServiceImpl extends BaseService<Dict> implements DictService {
 
+	private Logger log = LoggerFactory.getLogger(this.getClass());
+
 	@Override
-	public List<Dict> findAllDicts(Dict dict) {
+	public List<Dict> findAllDicts(Dict dict, QueryRequest request) {
 		try {
 			Example example = new Example(Dict.class);
 			Criteria criteria = example.createCriteria();
@@ -39,7 +44,7 @@ public class DictServiceImpl extends BaseService<Dict> implements DictService {
 			example.setOrderByClause("dict_id");
 			return this.selectByExample(example);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("获取字典信息失败", e);
 			return new ArrayList<>();
 		}
 	}
