@@ -3,8 +3,11 @@ package cc.mrbird.common.aspect;
 import cc.mrbird.common.config.FebsProperies;
 import cc.mrbird.common.util.HttpContextUtils;
 import cc.mrbird.common.util.IPUtils;
+import cc.mrbird.system.domain.SysLog;
+import cc.mrbird.system.domain.User;
 import cc.mrbird.system.service.LogService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.apache.shiro.SecurityUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -58,7 +61,12 @@ public class LogAspect {
         long time = System.currentTimeMillis() - beginTime;
         if (febsProperies.isOpenAopLog()) {
             // 保存日志
-            logService.saveLog(point, time, ip);
+            User user = (User) SecurityUtils.getSubject().getPrincipal();
+            SysLog log = new SysLog();
+            log.setUsername(user.getUsername());
+            log.setIp(ip);
+            log.setTime(time);
+            logService.saveLog(point, log);
         }
         return result;
     }

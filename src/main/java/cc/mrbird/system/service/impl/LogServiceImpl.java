@@ -68,11 +68,10 @@ public class LogServiceImpl extends BaseService<SysLog> implements LogService {
     }
 
     @Override
-    public void saveLog(ProceedingJoinPoint joinPoint, long time, String ip) throws JsonProcessingException {
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
+    public void saveLog(ProceedingJoinPoint joinPoint, SysLog log) throws JsonProcessingException {
+
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
-        SysLog log = new SysLog();
         Log logAnnotation = method.getAnnotation(Log.class);
         if (logAnnotation != null) {
             // 注解上的描述
@@ -93,11 +92,6 @@ public class LogServiceImpl extends BaseService<SysLog> implements LogService {
             params = handleParams(params, args, Arrays.asList(paramNames));
             log.setParams(params.toString());
         }
-
-        // 设置IP地址
-        log.setIp(ip);
-        log.setUsername(user.getUsername());
-        log.setTime(time);
         log.setCreateTime(new Date());
         log.setLocation(AddressUtils.getCityInfo(log.getIp()));
         // 保存系统日志

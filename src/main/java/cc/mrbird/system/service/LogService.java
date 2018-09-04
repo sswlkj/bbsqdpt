@@ -15,5 +15,5 @@ public interface LogService extends IService<SysLog> {
 	void deleteLogs(String logIds);
 
 	@Async
-	void saveLog(ProceedingJoinPoint point, long time, String ip) throws JsonProcessingException;
+	void saveLog(ProceedingJoinPoint point, SysLog log) throws JsonProcessingException;
 }
