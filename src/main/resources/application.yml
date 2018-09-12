@@ -93,7 +93,7 @@ spring:
     type:
       redis
 
-  # spring boot admin配置
+# spring boot admin配置开始
   boot:
     admin:
       client:
@@ -102,8 +102,6 @@ spring:
         password: 123456
   application:
     name: febs
-  profiles:
-    active: local
 
 info:
   app:
@@ -120,6 +118,10 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+# spring boot admin配置结束
+jasypt:
+  encryptor:
+    password: febs
 
 mybatis:
   config-location: classpath:config/mybatis-config.xml
