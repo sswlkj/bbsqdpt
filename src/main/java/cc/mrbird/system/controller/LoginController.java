@@ -81,7 +81,6 @@ public class LoginController extends BaseController {
     @GetMapping(value = "gifCode")
     public void getGifCode(HttpServletResponse response, HttpServletRequest request) {
         try {
-            System.out.println("验证码" + request.getRequestedSessionId());
             response.setHeader("Pragma", "No-cache");
             response.setHeader("Cache-Control", "no-cache");
             response.setDateHeader("Expires", 0);
