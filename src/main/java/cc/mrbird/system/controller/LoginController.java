@@ -1,7 +1,7 @@
 package cc.mrbird.system.controller;
 
 import cc.mrbird.common.annotation.Log;
-import cc.mrbird.common.config.FebsProperies;
+import cc.mrbird.common.config.FebsProperties;
 import cc.mrbird.common.controller.BaseController;
 import cc.mrbird.common.domain.ResponseBo;
 import cc.mrbird.common.service.RedisService;
@@ -34,7 +34,7 @@ public class LoginController extends BaseController {
     private static final String CODE_KEY = "_code";
 
     @Autowired
-    private FebsProperies febsProperies;
+    private FebsProperties febsProperties;
 
     @Autowired
     private UserService userService;
@@ -87,9 +87,9 @@ public class LoginController extends BaseController {
             response.setContentType("image/gif");
 
             Captcha captcha = new GifCaptcha(
-                    febsProperies.getValidateCode().getWidth(),
-                    febsProperies.getValidateCode().getHeight(),
-                    febsProperies.getValidateCode().getLength());
+                    febsProperties.getValidateCode().getWidth(),
+                    febsProperties.getValidateCode().getHeight(),
+                    febsProperties.getValidateCode().getLength());
             captcha.out(response.getOutputStream());
             String sessionId = request.getRequestedSessionId();
             if (StringUtils.isNotBlank(sessionId)) {
