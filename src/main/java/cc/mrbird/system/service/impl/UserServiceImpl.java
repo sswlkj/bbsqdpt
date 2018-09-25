@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import cc.mrbird.common.domain.QueryRequest;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,7 +49,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
     }
 
     @Override
-    public List<User> findUserWithDept(User user) {
+    public List<User> findUserWithDept(User user, QueryRequest request) {
         try {
             return this.userMapper.findUserWithDept(user);
         } catch (Exception e) {

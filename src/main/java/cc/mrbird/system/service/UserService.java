@@ -1,5 +1,6 @@
 package cc.mrbird.system.service;
 
+import cc.mrbird.common.domain.QueryRequest;
 import cc.mrbird.common.service.IService;
 import cc.mrbird.system.domain.User;
 import cc.mrbird.system.domain.UserWithRole;
@@ -16,8 +17,9 @@ public interface UserService extends IService<User> {
 
     User findByName(String userName);
 
-    @Cacheable(key = "#p0")
-    List<User> findUserWithDept(User user);
+    @Cacheable(key = "#p0.toString()+ #p1.toString()")
+    List<User> findUserWithDept(User user, QueryRequest request);
+
     @CacheEvict(key = "#p0", allEntries = true)
     void registUser(User user);
 

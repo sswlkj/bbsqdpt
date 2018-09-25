@@ -71,7 +71,7 @@ public class UserController extends BaseController {
     @ResponseBody
     public Map<String, Object> userList(QueryRequest request, User user) {
         PageHelper.startPage(request.getPageNum(), request.getPageSize());
-        List<User> list = this.userService.findUserWithDept(user);
+        List<User> list = this.userService.findUserWithDept(user, request);
         PageInfo<User> pageInfo = new PageInfo<>(list);
         return getDataTable(pageInfo);
     }
@@ -80,7 +80,7 @@ public class UserController extends BaseController {
     @ResponseBody
     public ResponseBo userExcel(User user) {
         try {
-            List<User> list = this.userService.findUserWithDept(user);
+            List<User> list = this.userService.findUserWithDept(user, null);
             return FileUtils.createExcelByPOIKit("用户表", list, User.class);
         } catch (Exception e) {
             log.error("导出用户信息Excel失败", e);
@@ -92,7 +92,7 @@ public class UserController extends BaseController {
     @ResponseBody
     public ResponseBo userCsv(User user) {
         try {
-            List<User> list = this.userService.findUserWithDept(user);
+            List<User> list = this.userService.findUserWithDept(user, null);
             return FileUtils.createCsv("用户表", list, User.class);
         } catch (Exception e) {
             log.error("导出用户信息Csv失败", e);
