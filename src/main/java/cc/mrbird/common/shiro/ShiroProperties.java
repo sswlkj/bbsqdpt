@@ -11,11 +11,11 @@ public class ShiroProperties {
 
     private String anonUrl;
 
-    private String loginUrl;
+    private String loginUrl = "/login";
 
-    private String successUrl;
+    private String successUrl = "/index";
 
-    private String logoutUrl;
+    private String logoutUrl = "/logout";
 
     private String unauthorizedUrl;
 

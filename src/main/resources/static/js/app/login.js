@@ -73,7 +73,7 @@ function login() {
             if (r.code === 0) {
                 location.href = ctx + 'index';
             } else {
-                if (r.msg === '验证码错误！') reloadCode();
+                reloadCode();
                 $MB.n_warning(r.msg);
                 $loginButton.html("登录");
             }
@@ -112,7 +112,7 @@ function regist() {
         url: ctx + "user/regist",
         data: {
             "username": username,
-            "password": password,
+            "password": password
         },
         dataType: "json",
         success: function (r) {
