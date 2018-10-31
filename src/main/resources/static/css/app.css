@@ -12780,8 +12780,9 @@ label.error{
 }
 
 .dataTables_buttons {
-  float: right;
-  /*margin: 20px 0 0 30px;*/
+  position: fixed;
+  right: 33px;
+  z-index: 999;
 }
 .dataTables_buttons .actions__item {
   color: #707070 !important;
