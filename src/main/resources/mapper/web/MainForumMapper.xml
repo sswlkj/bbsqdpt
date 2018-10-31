@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.mrbird.web.dao.MainForumMapper" >
+  <resultMap id="BaseResultMap" type="cc.mrbird.web.domain.MainForum" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="info" property="info" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, info
+  </sql>
+  <select id="findMainForumByPage" resultMap="BaseResultMap"  parameterType="cc.mrbird.web.domain.MainForum">
+    select
+    <include refid="Base_Column_List" />
+    from main_forum m
+    where 1=1
+    <if test='title != null and title != "" '>
+      AND m.title like '%${title}%'
+    </if>
+    order by  m.id
+  </select>
+
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from main_forum
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteMainForum" parameterType="java.lang.Integer" >
+    delete from main_forum
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="addMainForum" parameterType="cc.mrbird.web.domain.MainForum" >
+    insert into main_forum (title, info
+      )
+    values (#{title,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <update id="updateMainForum" parameterType="cc.mrbird.web.domain.MainForum" >
+    update main_forum
+    set title = #{title,jdbcType=VARCHAR},
+      info = #{info,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
