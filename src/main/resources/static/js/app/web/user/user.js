@@ -23,7 +23,13 @@ $(function () {
             title: '用户名'
         }, {
             field: 'level',
-            title: '等级'
+            title: '等级',
+            formatter: function (value, row, index) {
+                if (value === 2) return '<span class="badge badge-warning">禁止发帖</span>';
+                if (value === 1) return '<span class="badge badge-warning">禁止登录</span>';
+                if (value === 3) return '<span class="badge badge-warning">禁止评论</span>';
+                if (value === 0) return '<span class="badge badge-success">正常</span>';
+            }
         }, {
             field: 'email',
             title: '邮箱'
@@ -32,21 +38,16 @@ $(function () {
             title: '手机'
         }, {
             field: 'sex',
-            title: '性别',
-            formatter: function (value, row, index) {
-                if (value === '0') return '男';
-                else if (value === '1') return '女';
-                else return '保密';
-            }
+            title: '性别'
         }, {
             field: 'registerDate',
             title: '创建时间'
         }, {
             field: 'hasActive',
-            title: '状态',
+            title: '激活状态',
             formatter: function (value, row, index) {
-                if (value === '1') return '<span class="badge badge-success">有效</span>';
-                if (value === '0') return '<span class="badge badge-warning">锁定</span>';
+                if (value === 1) return '<span class="badge badge-success">已激活</span>';
+                if (value === 0) return '<span class="badge badge-warning">未激活</span>';
             }
         }
 

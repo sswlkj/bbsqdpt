@@ -45,27 +45,38 @@ public class WebUserController  extends BaseController {
         return "web/user/user";
     }
 
-//    @RequestMapping("webuser/checkUserName")
-//    @ResponseBody
-//    public boolean checkUserName(String username, String oldusername) {
-//        if (StringUtils.isNotBlank(oldusername) && username.equalsIgnoreCase(oldusername)) {
-//            return true;
-//        }
-//        User result = this.webUserService.findByName(username);
-//        return result == null;
-//    }
+    @RequestMapping("webuser/checkUserByName")
+    @ResponseBody
+    public boolean checkUserName(String username, Integer id) {
+        if (id !=null){
+            return true;
+        }
+        WebUser result = this.webUserService.findUserByName(username);
+        return result == null;
+    }
+
+
+    @RequestMapping("webuser/checkUserByEmail")
+    @ResponseBody
+    public boolean checkUserEmail(String email, Integer id) {
+        if (id !=null){
+            return true;
+        }
+        WebUser result = this.webUserService.findUserByEmail(email);
+        return result == null;
+    }
 //
-//    @RequestMapping("user/getUser")
-//    @ResponseBody
-//    public ResponseBo getUser(Long userId) {
-//        try {
-//            User user = this.webUserService.findById(userId);
-//            return ResponseBo.ok(user);
-//        } catch (Exception e) {
-//            log.error("获取用户失败", e);
-//            return ResponseBo.error("获取用户失败，请联系网站管理员！");
-//        }
-//    }
+    @RequestMapping("webuser/getUser")
+    @ResponseBody
+    public ResponseBo getUser(Integer id) {
+        try {
+            WebUser user = this.webUserService.findById(id);
+            return ResponseBo.ok(user);
+        } catch (Exception e) {
+            log.error("获取用户失败", e);
+            return ResponseBo.error("获取用户失败，请联系网站管理员！");
+        }
+    }
 
     @Log("获取用户信息")
     @RequestMapping("webuser/list")
@@ -76,7 +87,7 @@ public class WebUserController  extends BaseController {
         List<WebUser> list = this.webUserService.findWebUserByPage(user, request);
         PageInfo<WebUser> pageInfo = new PageInfo<>(list);
         return getDataTable(pageInfo);
-    }
+}
 
 //    @RequestMapping("user/excel")
 //    @ResponseBody
@@ -131,37 +142,33 @@ public class WebUserController  extends BaseController {
 //        }
 //    }
 //
-//    @Log("新增用户")
-//    @RequiresPermissions("user:add")
-//    @RequestMapping("user/add")
-//    @ResponseBody
-//    public ResponseBo addUser(User user, Long[] roles) {
-//        try {
-//            if (ON.equalsIgnoreCase(user.getStatus()))
-//                user.setStatus(User.STATUS_VALID);
-//            else
-//                user.setStatus(User.STATUS_LOCK);
-//            this.webUserService.addUser(user, roles);
-//            return ResponseBo.ok("新增用户成功！");
-//        } catch (Exception e) {
-//            log.error("新增用户失败", e);
-//            return ResponseBo.error("新增用户失败，请联系网站管理员！");
-//        }
-//    }
+    @Log("新增用户")
+    @RequiresPermissions("webuser:add")
+    @RequestMapping("webuser/add")
+    @ResponseBody
+    public ResponseBo addUser(WebUser user) {
+        try {
+            this.webUserService.addUser(user);
+            return ResponseBo.ok("新增用户成功！");
+        } catch (Exception e) {
+            log.error("新增用户失败", e);
+            return ResponseBo.error("新增用户失败，请联系网站管理员！");
+        }
+    }
 //
-//    @Log("修改用户")
-//    @RequiresPermissions("user:update")
-//    @RequestMapping("user/update")
-//    @ResponseBody
-//    public ResponseBo updateUser(WebUser user) {
-//        try {
-//            this.webUserService.updateUser(user);
-//            return ResponseBo.ok("修改用户成功！");
-//        } catch (Exception e) {
-//            log.error("修改用户失败", e);
-//            return ResponseBo.error("修改用户失败，请联系网站管理员！");
-//        }
-//    }
+    @Log("修改用户")
+    @RequiresPermissions("webuser:update")
+    @RequestMapping("webuser/update")
+    @ResponseBody
+    public ResponseBo updateUser(WebUser user) {
+        try {
+            this.webUserService.updateUser(user);
+            return ResponseBo.ok("修改用户成功！");
+        } catch (Exception e) {
+            log.error("修改用户失败", e);
+            return ResponseBo.error("修改用户失败，请联系网站管理员！");
+        }
+    }
 //
 //
 //    @RequestMapping("user/checkPassword")
