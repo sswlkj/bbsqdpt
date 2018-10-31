@@ -38,7 +38,7 @@
     <if test="sex != null and sex != ''">
       AND u.sex = #{sex}
     </if>
-    <if test="hasActive != null and hasActive != ''">
+    <if test="hasActive != null ">
       AND u.hasActive = #{hasActive}
     </if>
     order by u.id

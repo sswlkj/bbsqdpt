@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" xmlns:shiro="http://www.w3.org/1999/xhtml">
     <div data-th-include="web/user/userAdd"></div>
     <div class="card-block">
         <div class="table-responsive">
@@ -48,8 +48,8 @@
                                     <div class="form-group">
                                         <select class="form-control" name="sex">
                                             <option value="" selected>所有</option>
-                                            <option value="0">男</option>
-                                            <option value="1">女</option>
+                                            <option value="男">男</option>
+                                            <option value="女">女</option>
                                         </select>
                                     </div>
                                 </div>
@@ -60,8 +60,8 @@
                                     <div class="form-group">
                                         <select class="form-control" name="hasActive">
                                             <option value="" selected>所有</option>
-                                            <option value="0">锁定</option>
-                                            <option value="1">有效</option>
+                                            <option value=0>锁定</option>
+                                            <option value=1>有效</option>
                                         </select>
                                     </div>
                                 </div>

@@ -109,7 +109,7 @@ public class ShiroConfig {
         // 配置 rememberMeCookie
         securityManager.setRememberMeManager(rememberMeManager());
         // 配置 缓存管理类 cacheManager
-        securityManager.setCacheManager(cacheManager());
+        //securityManager.setCacheManager(cacheManager());
         securityManager.setSessionManager(sessionManager());
         return securityManager;
     }

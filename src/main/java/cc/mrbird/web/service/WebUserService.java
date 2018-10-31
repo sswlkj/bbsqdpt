@@ -20,4 +20,35 @@ public interface WebUserService extends IService<WebUser> {
      * @return
      */
     public List<WebUser>  findWebUserByPage( WebUser user,QueryRequest request);
+
+    /**
+     * 新增用户
+     * @param user
+     */
+    public void addUser(WebUser user);
+
+    /**
+     * 修改用户
+     * @param user
+     */
+    public void updateUser(WebUser user);
+
+    /**
+     * 根据主键查询信息
+     * @param userId
+     * @return
+     */
+    public WebUser findById(Integer userId);
+
+    /**
+     * 根据用户名查询信息
+     * @param userName
+     * @return
+     */
+    public WebUser findUserByName(String userName);
+    /**
+     * 根据邮箱查询信息
+     * @return
+     */
+    public WebUser findUserByEmail(String email);
 }
