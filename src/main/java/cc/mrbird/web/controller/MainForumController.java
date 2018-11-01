@@ -22,6 +22,7 @@ import java.util.Map;
 @Controller
 public class MainForumController extends BaseController {
     private Logger log = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private MainForumService mainForumService;
 

@@ -14,7 +14,7 @@ public interface MainForumService extends IService<MainForum> {
      * @param request
      * @return
      */
-    public List<MainForum> findMainForumByPage(MainForum mainForum, QueryRequest request);
+    List<MainForum> findMainForumByPage(MainForum mainForum, QueryRequest request);
 
     /**
      * 根据id查询分类信息
@@ -22,26 +22,26 @@ public interface MainForumService extends IService<MainForum> {
      * @param id
      * @return
      */
-    public MainForum findById(Integer id);
+    MainForum findById(Integer id);
     /**
      * 新增分类信息
      * @param mainForum
      * @return
      */
-    public void addMainForum(MainForum mainForum);
+    void addMainForum(MainForum mainForum);
 
     /**
      * 删除分类信息
      * @param ids
      * @return
      */
-    public void deleteMainForums(String ids);
+    void deleteMainForums(String ids);
 
     /**
      * 修改分类信息
      * @param mainForum
      * @return
      */
-    public void updateMainForum(MainForum mainForum);
+    void updateMainForum(MainForum mainForum);
 
 }

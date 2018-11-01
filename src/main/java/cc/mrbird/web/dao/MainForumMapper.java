@@ -1,17 +1,19 @@
 package cc.mrbird.web.dao;
 
+import cc.mrbird.common.config.MyMapper;
+import cc.mrbird.web.domain.Advice;
 import cc.mrbird.web.domain.MainForum;
 
 import java.util.List;
 
-public interface MainForumMapper {
+public interface MainForumMapper extends MyMapper<MainForum> {
    /**
      * 分页查询前端分类列表
      *
      * @param mainForum
      * @return
      */
-    public List<MainForum> findMainForumByPage(MainForum mainForum);
+   List<MainForum> findMainForumByPage(MainForum mainForum);
 
     /**
      * 根据id查询分类信息
@@ -19,25 +21,25 @@ public interface MainForumMapper {
      * @param id
      * @return
      */
-    public MainForum findById(Integer id);
+    MainForum findById(Integer id);
     /**
      * 新增分类信息
      * @param mainForum
      * @return
      */
-    public void addMainForum(MainForum mainForum);
+    void addMainForum(MainForum mainForum);
 
     /**
      * 删除分类信息
      * @param id
      * @return
      */
-    public void deleteMainForum(Integer id);
+    void deleteMainForum(Integer id);
 
     /**
      * 修改分类信息
      * @param mainForum
      * @return
      */
-    public void updateMainForum(MainForum mainForum);
+    void updateMainForum(MainForum mainForum);
 }

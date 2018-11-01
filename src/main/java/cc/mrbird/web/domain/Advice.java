@@ -1,10 +1,5 @@
 package cc.mrbird.web.domain;
 
-import cc.mrbird.common.annotation.ExportConfig;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.Column;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.util.Date;
