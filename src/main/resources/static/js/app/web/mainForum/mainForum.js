@@ -12,16 +12,25 @@ $(function () {
         },
         columns: [{
             checkbox: true
-        }, {
+        },  {
             field: 'id',
             visible: false
         }, {
             field: 'title',
-            title: '标题'
+            title: '分类名'
         }, {
             field: 'info',
             title: '描述'
-        }
+        },{
+            field: 'addDate',
+            title: '添加时间'
+        },{
+            field: 'editDate',
+            title: '修改时间'
+        },{
+        field: 'order',
+            title: '序号'
+         }
         ]
     };
 

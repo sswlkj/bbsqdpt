@@ -17,6 +17,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 @Controller
@@ -33,7 +35,7 @@ public class MainForumController extends BaseController {
     public String index(Model model) {
         User user = super.getCurrentUser();
         model.addAttribute("mainForum", user);
-        return "web/forum/mainForum";
+        return "web/mainForum/mainForum";
     }
 
     @Log("获取分类信息")
@@ -64,6 +66,7 @@ public class MainForumController extends BaseController {
     @RequestMapping("mainForum/add")
     @ResponseBody
     public ResponseBo addMainForum(MainForum mainForum) {
+        mainForum.setAddDate(new Date());
         try {
             this.mainForumService.addMainForum(mainForum);
             return ResponseBo.ok("新增分类成功！");
@@ -92,6 +95,7 @@ public class MainForumController extends BaseController {
     @RequestMapping("mainForum/update")
     @ResponseBody
     public ResponseBo updateMainForum(MainForum mainForum) {
+        mainForum.setEditDate(new Date());
         try {
             this.mainForumService.updateMainForum(mainForum);
             return ResponseBo.ok("修改分类成功！");

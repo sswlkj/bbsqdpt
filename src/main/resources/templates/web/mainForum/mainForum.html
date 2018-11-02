@@ -17,9 +17,9 @@
                     <div class="dropdown actions__item" shiro:hasAnyPermissions="mainForum:add,mainForum:update,mainForum:delete">
                         <i data-toggle="dropdown" class="zmdi zmdi-settings" ></i>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a href="javascript:void(0)" class="dropdown-item" data-toggle="modal" data-target="#mainForum-add" shiro:hasPermission="mainForum:add">新增公告</a>
-                            <a href="javascript:void(0)" class="dropdown-item" onclick="updatemainForum()" shiro:hasPermission="mainForum:update" >修改公告</a>
-                            <a href="javascript:void(0)" class="dropdown-item" onclick="deletemainForum()" shiro:hasPermission="mainForum:delete" >删除公告</a>
+                            <a href="javascript:void(0)" class="dropdown-item" data-toggle="modal" data-target="#mainForum-add" shiro:hasPermission="mainForum:add">新增分类</a>
+                            <a href="javascript:void(0)" class="dropdown-item" onclick="updatemainForum()" shiro:hasPermission="mainForum:update" >修改分类</a>
+                            <a href="javascript:void(0)" class="dropdown-item" onclick="deletemainForum()" shiro:hasPermission="mainForum:delete" >删除分类</a>
                         </div>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                         <div class="row">
                             <div class="col-sm-3">
                                 <div class="input-group">
-                                    <span class="input-group-addon"> 标题： </span>
+                                    <span class="input-group-addon"> 分类名： </span>
                                     <div class="form-group">
                                         <!--模糊查询标题栏-->
                                         <input class="form-control" name="title">

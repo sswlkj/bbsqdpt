@@ -5,9 +5,12 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="info" property="info" jdbcType="VARCHAR" />
+    <result column="addDate" property="addDate" jdbcType="TIMESTAMP" />
+    <result column="editDate" property="editDate" jdbcType="TIMESTAMP" />
+    <result column="orders" property="order" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, title, info
+    id, title, info,addDate,editDate,orders
   </sql>
   <select id="findMainForumByPage" resultMap="BaseResultMap"  parameterType="cc.mrbird.web.domain.MainForum">
     select
@@ -17,7 +20,7 @@
     <if test='title != null and title != "" '>
       AND m.title like '%${title}%'
     </if>
-    order by  m.id
+    order by  m.addDate desc
   </select>
 
   <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -32,16 +35,18 @@
   </delete>
 
   <insert id="addMainForum" parameterType="cc.mrbird.web.domain.MainForum" >
-    insert into main_forum (title, info
+    insert into main_forum (title, info,addDate,orders
       )
-    values (#{title,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR}
+    values (#{title,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR},#{addDate,jdbcType=TIMESTAMP},#{order,jdbcType=INTEGER}
       )
   </insert>
 
   <update id="updateMainForum" parameterType="cc.mrbird.web.domain.MainForum" >
     update main_forum
     set title = #{title,jdbcType=VARCHAR},
-      info = #{info,jdbcType=VARCHAR}
+      info = #{info,jdbcType=VARCHAR},
+      editDate = #{editDate,jdbcType=TIMESTAMP},
+      orders = #{order,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

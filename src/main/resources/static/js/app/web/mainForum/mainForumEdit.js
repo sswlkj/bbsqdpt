@@ -10,14 +10,15 @@ function updatemainForum() {
         return;
     }
     var id = selected[0].id;
-    $.post(ctx + "mainForum/getmainForum", {"id": id}, function (r) {
+    $.post(ctx + "mainForum/getMainForum", {"id": id}, function (r) {
         if (r.code === 0) {
             var $form = $('#mainForum-add');
             $form.modal();
             var mainForum = r.msg;
             $("#mainForum-add-modal-title").html('修改分类');
             $form.find("input[name='id']").val(mainForum.id);
-            $form.find("input[name='content']").val(mainForum.content);
+            $form.find("input[name='order']").val(mainForum.order);
+            $form.find("input[name='info']").val(mainForum.info);
             $form.find("input[name='title']").val(mainForum.title);
             $("#mainForum-add-button").attr("name", "update");
         } else {

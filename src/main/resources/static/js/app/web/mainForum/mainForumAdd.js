@@ -46,6 +46,10 @@ function validateRule() {
     var icon = "<i class='zmdi zmdi-close-circle zmdi-hc-fw'></i> ";
     validator = $mainForumAddForm.validate({
         rules: {
+            order:{
+                required: true,
+                number: true
+            },
             title: {
                 required: true,
                 maxlength: 10
@@ -56,13 +60,17 @@ function validateRule() {
             }
         },
         messages: {
+            order:{
+                required: icon + "请输入分类序号",
+                number: icon + "标题序号只能为数字"
+            },
             title: {
                 required: icon + "请输入分类标题",
-                minlength: icon + "标题名称长度不能超过10个字符",
+                minlength: icon + "标题名称长度不能超过10个字符"
             },
             info: {
                 required: icon + "请输入分类内容",
-                minlength: icon + "内容大小不能超过50个字符",
+                minlength: icon + "内容大小不能超过50个字符"
             }
         }
     });
