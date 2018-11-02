@@ -31,15 +31,15 @@ function updateWebUser() {
             // }
            // $form.find("select[name='rolesSelect']").multipleSelect('setSelects', roleArr);
            // $form.find("input[name='roles']").val($form.find("select[name='rolesSelect']").val());
-            var hasActive = $form.find("input[name='hasActive']");
+            var hasActive = $form.find("input[name='checkhasActive']");
             if (user.hasActive === 1) {
                 hasActive.prop("checked", true);
                 hasActive.parent().next().html('已激活');
-                hasActive.val('1');
+                $form.find("input[name='hasActive']").val('1');
             } else {
                 hasActive.prop("checked", false);
                 hasActive.parent().next().html('未激活');
-                hasActive.val('0');
+                $form.find("input[name='hasActive']").val('0');
             }
             $("input:radio[value='" + user.sex + "']").prop("checked", true);
             $("input:radio[value='" + user.level + "']").prop("checked", true);

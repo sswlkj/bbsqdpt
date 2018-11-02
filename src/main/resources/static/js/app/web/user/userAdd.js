@@ -4,22 +4,21 @@ var $userAddForm = $("#user-add-form");
 $(function () {
 
     validateRule();
-    $("input[name='hasActive']").change(function () {
+    $("input[name='checkhasActive']").change(function () {
         var checked = $(this).is(":checked");
         var $hasActive_label = $("#hasActive");
         if (checked){
 
-            $(this).val('1');;
+            $("input[name='hasActive']").val('1');;
             $hasActive_label.html('已激活');
         }
         else {
             $hasActive_label.html('未激活');
-            $(this).val('0');
+            $("input[name='hasActive']").val('0');;
         }
     });
 
     $("#webuser-add  .btn-save").click(function () {
-
         var name = $(this).attr("name");
         var validator = $userAddForm.validate();
         var flag = validator.form();
@@ -55,11 +54,15 @@ function closeModal() {
     $("#user-add-button").attr("name", "save");
     validator.resetForm();
     $userAddForm.find("input[name='username']").removeAttr("readonly");
+    $userAddForm.find("input[name='email']").removeAttr("readonly");
     $userAddForm.find(".user_password").show();
     $userAddForm.find("input[name='hasActive']").prop("checked", true);
     $("#user-add-modal-title").html('新增用户');
     $("#hasActive").html('已激活');
     $MB.closeAndRestModal("webuser-add");
+    $("#checkhasActive").hide();
+    $("#level").hide();
+    $("#id").val("");
 
 }
 
