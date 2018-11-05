@@ -22,15 +22,6 @@ $(function () {
             field: 'username',
             title: '用户名'
         }, {
-            field: 'level',
-            title: '等级',
-            formatter: function (value, row, index) {
-                if (value === 2) return '<span class="badge badge-warning">禁止发帖</span>';
-                if (value === 1) return '<span class="badge badge-warning">禁止登录</span>';
-                if (value === 3) return '<span class="badge badge-warning">禁止评论</span>';
-                if (value === 0) return '<span class="badge badge-success">正常</span>';
-            }
-        }, {
             field: 'email',
             title: '邮箱'
         }, {
@@ -42,6 +33,15 @@ $(function () {
         }, {
             field: 'registerDate',
             title: '创建时间'
+        }, {
+            field: 'level',
+            title: '等级',
+            formatter: function (value, row, index) {
+                if (value === 2) return '<span class="badge badge-warning">禁止发帖</span>';
+                if (value === 1) return '<span class="badge badge-warning">禁止登录</span>';
+                if (value === 3) return '<span class="badge badge-warning">禁止评论</span>';
+                if (value === 0) return '<span class="badge badge-success">正常</span>';
+            }
         }, {
             field: 'hasActive',
             title: '激活状态',

@@ -4,15 +4,11 @@ import cc.mrbird.common.annotation.Log;
 import cc.mrbird.common.controller.BaseController;
 import cc.mrbird.common.domain.QueryRequest;
 import cc.mrbird.common.domain.ResponseBo;
-import cc.mrbird.common.util.FileUtils;
-import cc.mrbird.common.util.MD5Utils;
 import cc.mrbird.system.domain.User;
-import cc.mrbird.system.service.UserService;
 import cc.mrbird.web.domain.WebUser;
 import cc.mrbird.web.service.WebUserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,8 +30,6 @@ public class WebUserController  extends BaseController {
     private Logger log = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private WebUserService webUserService;
-
-    private static final String ON = "on";
 
     @RequestMapping("webuser")
     @RequiresPermissions("webuser:list")

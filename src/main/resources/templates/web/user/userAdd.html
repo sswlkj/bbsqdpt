@@ -14,7 +14,7 @@
 					            </span>
                                 <div class="form-group">
                                     <input type="text" name="username" class="form-control">
-                                    <input type="text" hidden name="id" class="form-control">
+                                    <input type="text" hidden name="id" id="id" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -56,14 +56,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row" style="display:none;">
+                    <div class="row" style="display:none;" id="checkhasActive">
                         <div class="col-sm-11">
                             <div class="input-group" style="margin-top:10px;">
                                 <span class="input-group-addon">
 					               	 激活状态：
 					             </span>
                                 <div class="toggle-switch">
-                                    <input type="checkbox" name="hasActive" checked class="toggle-switch__checkbox" value="1">
+                                    <input type="checkbox" name="checkhasActive" checked class="toggle-switch__checkbox" >
+                                    <input type="text" hidden name="hasActive" class="form-control">
                                     <i class="toggle-switch__helper"></i>
                                 </div>
                                 <span class="input-group-addon" id="hasActive" style="margin-left: 10px;">
@@ -75,7 +76,7 @@
 
 
 
-                    <div class="row" style="display:none;">
+                    <div class="row" style="display:none;" id="level">
                         <div class="col-sm-11">
                             <div class="input-group" style="margin-top:10px;">
                                 <span class="input-group-addon">
