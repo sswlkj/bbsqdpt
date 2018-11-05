@@ -30,10 +30,10 @@
     from user u
     where 1=1
     <if test="username != null and username != ''">
-      AND u.username = #{username}
+      AND u.username like '%${username}%'
     </if>
     <if test="email != null and email != ''">
-      AND u.email = #{email}
+      AND u.email like '%${email}%'
     </if>
     <if test="sex != null and sex != ''">
       AND u.sex = #{sex}

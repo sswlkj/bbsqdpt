@@ -27,7 +27,7 @@
   		left join t_dept d on(u.dept_id = d.dept_id)
   		where 1=1
   		<if test="username != null and username != ''">
-        	AND u.username = #{username}
+        	AND u.username like '%${username}%'
 	    </if>
 	    <if test="deptId != null and deptId != ''">
 	        AND d.dept_id = #{deptId}
