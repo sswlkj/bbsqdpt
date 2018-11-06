@@ -18,7 +18,7 @@ $(function () {
             visible: false
         }, {
             field: 'name',
-            title: '管理员'
+            title: '发布者'
         }, {
             field: 'title',
             title: '标题'

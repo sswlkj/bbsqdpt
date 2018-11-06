@@ -27,10 +27,10 @@
         <if test="userName != null and userName != ''">
             AND username LIKE "%"#{userName}"%"
         </if>
-        <if test="createDate != null and createDate != ''">
-            AND adviceDate LIKE "%"#{createDate}"%"
+        <if test="title != null and title != ''">
+            AND title LIKE "%"#{title}"%"
         </if>
         )
-
+        order by advice.adviceDate desc
     </select>
 </mapper>
