@@ -8,7 +8,7 @@ $(function () {
                 pageSize: params.limit,
                 pageNum: params.offset / params.limit + 1,
                 userName: $adviceTableForm.find("input[name='userName']").val().trim(),
-                createDate: $adviceTableForm.find("input[name='adviceDate']").val().trim(),
+                title: $adviceTableForm.find("input[name='title']").val(),
             };
         },
         columns: [{
@@ -18,7 +18,7 @@ $(function () {
             visible: false
         }, {
             field: 'userName',
-            title: '用户名'
+            title: '反馈者'
         }, {
             field: 'content',
             title: '意见内容'
