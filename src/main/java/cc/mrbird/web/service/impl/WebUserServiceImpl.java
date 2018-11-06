@@ -82,4 +82,9 @@ public class WebUserServiceImpl extends BaseService<WebUser>  implements WebUser
         List<WebUser> list = this.selectByExample(example);
         return list.isEmpty() ? null : list.get(0);
     }
+
+    @Override
+    public List<String> selectAllIds() {
+        return webUserMapper.selectAllIds();
+    }
 }

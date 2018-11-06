@@ -8,5 +8,8 @@ import java.util.List;
 
 public interface WebUserMapper extends MyMapper<WebUser> {
 
-public List<WebUser> findWebUserByPage(WebUser user);
+    public List<WebUser> findWebUserByPage(WebUser user);
+
+    public List<String> selectAllIds();
+
 }

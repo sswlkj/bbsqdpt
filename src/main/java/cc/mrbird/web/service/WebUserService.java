@@ -51,4 +51,10 @@ public interface WebUserService extends IService<WebUser> {
      * @return
      */
     public WebUser findUserByEmail(String email);
+
+    /**
+     * 查询主键集合
+     * @return
+     */
+    public List<String> selectAllIds();
 }
