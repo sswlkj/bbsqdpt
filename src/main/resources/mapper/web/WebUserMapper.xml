@@ -44,7 +44,11 @@
     order by u.id
   </select>
 
+  <select id="selectAllIds" resultType="java.lang.String">
 
+    select id from user
+
+  </select>
 
 
 </mapper>
