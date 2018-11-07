@@ -43,7 +43,7 @@ public class AdvertController extends BaseController {
     @RequestMapping("advert/list")
     @RequiresPermissions("advert:list")
     @ResponseBody
-    public Map<String, Object> userList(QueryRequest request, Advert advert) {
+    public Map<String, Object> advertList(QueryRequest request, Advert advert) {
         PageHelper.startPage(request.getPageNum(), request.getPageSize());
         List<Advert> list = this.advertService.findAdvertByPage(advert, request);
         for(Advert advert1:list){

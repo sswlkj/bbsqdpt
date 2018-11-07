@@ -29,6 +29,14 @@
     from main_forum
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="findByTitle" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from main_forum
+    where title = #{title,jdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteMainForum" parameterType="java.lang.Integer" >
     delete from main_forum
     where id = #{id,jdbcType=INTEGER}

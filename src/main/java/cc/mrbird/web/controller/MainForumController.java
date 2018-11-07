@@ -42,7 +42,7 @@ public class MainForumController extends BaseController {
     @RequestMapping("mainForum/list")
     @RequiresPermissions("mainForum:list")
     @ResponseBody
-    public Map<String, Object> userList(QueryRequest request, MainForum MainForum) {
+    public Map<String, Object> mainForumList(QueryRequest request, MainForum MainForum) {
         PageHelper.startPage(request.getPageNum(), request.getPageSize());
         List<MainForum> list = this.mainForumService.findMainForumByPage(MainForum, request);
         PageInfo<MainForum> pageInfo = new PageInfo<>(list);

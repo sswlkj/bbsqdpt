@@ -43,7 +43,7 @@ public class NoticeController extends BaseController {
     @RequestMapping("notice/list")
     @RequiresPermissions("notice:list")
     @ResponseBody
-    public Map<String, Object> userList(QueryRequest request, Notice notice) {
+    public Map<String, Object> noticeList(QueryRequest request, Notice notice) {
         PageHelper.startPage(request.getPageNum(), request.getPageSize());
         List<Notice> list = this.noticeService.findWebUserByPage(notice, request);
         PageInfo<Notice> pageInfo = new PageInfo<>(list);

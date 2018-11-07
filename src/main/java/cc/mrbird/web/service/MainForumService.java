@@ -23,6 +23,14 @@ public interface MainForumService extends IService<MainForum> {
      * @return
      */
     MainForum findById(Integer id);
+
+    /**
+     * 根据标题查询分类信息
+     *
+     * @param title
+     * @return
+     */
+    MainForum findByTitle(String title);
     /**
      * 新增分类信息
      * @param mainForum

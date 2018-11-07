@@ -53,6 +53,21 @@ public class MainForumServiceImpl extends BaseService<MainForum>  implements Mai
         }
     }
     /**
+     * 根据标题名查询分类信息
+     * @param title
+     * @return
+     */
+    @Override
+    public MainForum findByTitle(String title) {
+        try {
+            return this.mainForumMapper.findByTitle(title);
+        } catch (Exception e) {
+            log.error("error", e);
+            return null;
+        }
+    }
+
+    /**
      * 新增分类信息
      * @param mainForum
      * @return
