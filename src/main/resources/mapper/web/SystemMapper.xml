@@ -24,7 +24,7 @@
     <if test="createrName != null and createrName != ''">
       AND s.creater_Name like concat(concat("%",#{createrName}),"%")
     </if>
-    <if test="isSend != null and isSend != ''">
+    <if test="isSend != null">
       AND s.is_send = #{isSend}
     </if>
     <if test="content != null and content != ''">
