@@ -106,4 +106,11 @@ public interface PostService extends IService<Post> {
      * @return
      */
     public void updateBestTurnPost(Integer id);
+
+    /**
+     * 统计论贴数量
+     * @param post
+     * @return
+     */
+    public int getPostCount(Post post);
 }

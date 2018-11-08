@@ -80,11 +80,17 @@ public class WebUserServiceImpl extends BaseService<WebUser>  implements WebUser
         example.createCriteria().andCondition("email =", email);
 
         List<WebUser> list = this.selectByExample(example);
+        webUserMapper.selectCount(null);
         return list.isEmpty() ? null : list.get(0);
     }
 
     @Override
     public List<String> selectAllIds() {
         return webUserMapper.selectAllIds();
+    }
+
+    @Override
+    public int getUserCount(WebUser user) {
+        return webUserMapper.selectCount(user);
     }
 }

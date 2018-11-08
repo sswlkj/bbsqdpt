@@ -222,4 +222,9 @@ public class PostServiceImpl extends BaseService<Post>  implements PostService {
             log.error("error", e);
         }
     }
+
+    @Override
+    public int getPostCount(Post post) {
+        return postMapper.selectCount(post);
+    }
 }

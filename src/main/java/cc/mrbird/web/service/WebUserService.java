@@ -57,4 +57,11 @@ public interface WebUserService extends IService<WebUser> {
      * @return
      */
     public List<String> selectAllIds();
+
+    /**
+     * 统计用户数量
+     * @param user
+     * @return
+     */
+    public int getUserCount(WebUser user);
 }
